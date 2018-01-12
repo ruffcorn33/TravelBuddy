@@ -18,14 +18,14 @@
   <body>
     <div class="container">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light mb-1">
         <a class="navbar-brand" href="#">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
@@ -34,7 +34,7 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
-            <li class="nav-item dropdown disabled">  <!-- disable until user logs in -->
+            <li class="nav-item dropdown active">  <!-- disable until user logs in -->
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Trips <span class="sr-only">(current)</span>
               </a>
@@ -87,11 +87,38 @@
         </div>
       </nav>  <!-- end navbar -->
 
-      <!-- map and activity button/dropdowns go here -->
+      <div id="titleRow" class="row mx-1 mb-1">
+        <div id="titleDisplay" class="col border border-dark rounded px-4">
+          If user has saved this trip with a name, display it here - otherwise hide this row.
+        </div>
+      </div>
+
+      <!-- weather -->
+      <div id="weatherRow" class="row mx-1">
+        <div id="weatherDisplay" class="col border border-dark rounded p-4">
+          Weather display goes here. If forecast is unavailable, just display location and dates.
+        </div>
+      </div>  <!-- end weather -->
+
+      <div id="contentRow" class="row m-1">
+        <div id="mapContainer" class="col-8 border border-dark rounded p-4">
+          map goes here
+        </div>
+        <div id="activityContainer" class="col-4 border border-dark rounded p-4">
+          activities go here
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="footer">
+        <div class="container">
+          <div class="col-md-6">
+            <p>© 2018 - Team Whatever</p>
+          </div>
+        </div>
+      </div>  <!-- end of footer -->
 
     </div>  <!-- end .container -->
-
-
 
 
     <!-- Optional JavaScript -->

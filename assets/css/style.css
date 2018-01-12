@@ -1,0 +1,51 @@
+#weatherDisplay,
+#contactDisplay,
+#aboutDisplay {
+  background-color: #c9efe7;
+  height: 80px;
+  width: 200px;
+}
+
+#contactDisplay,
+#aboutDisplay {
+  height: 450px;
+}
+
+#contentRow {
+  height: 365px;
+}
+
+.footer {
+   min-height:40px;
+   background-color:#000000;
+}
+
+.footer p {
+   text-align:left;
+    color:#FFF;
+    padding:10px 0;
+    margin-bottom:0px;
+}
+
+.bottom_ul {
+  list-style-type:none;
+  float:right;
+  margin-bottom:0px;
+}
+
+.bottom_ul li {
+  float:left;
+  line-height:40px;
+}
+
+.bottom_ul li:after {
+  content:"/";
+  color:#FFF;
+  margin-right:8px;
+  margin-left:8px;
+}
+
+.bottom_ul li a {
+  color:#FFF;
+  font-size:12px;
+}
