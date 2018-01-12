@@ -1,18 +1,30 @@
-#weatherDisplay,
-#contactDisplay,
-#aboutDisplay {
-  background-color: #c9efe7;
+#weatherDisplay {
+  background-color: #c9d7ef;
   height: 80px;
   width: 200px;
 }
 
-#contactDisplay,
+#contactDisplay {
+  background-color: #c9efca;
+  height: 450px;
+}
+
+
 #aboutDisplay {
+  background-color: #efcfc9;
   height: 450px;
 }
 
 #contentRow {
   height: 365px;
+}
+
+#mapContainer {
+  background-color: #c9efc9;
+}
+
+#activityContainer {
+  background-color: #efcfc9;
 }
 
 .footer {
