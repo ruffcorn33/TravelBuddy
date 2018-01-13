@@ -1,0 +1,47 @@
+*
+{
+  font-family: 'Overlock SC', sans-serif;
+}
+
+h1,
+h2{
+  color: #502525;
+  text-shadow: 1px 1px #8fffc9;
+}
+
+h1
+{
+  font-size: 96px;
+}
+
+h2
+{
+  font-size: 48px;
+}
+
+button
+{
+  color: #eee;
+  /*font-size: 18px !important;*/
+}
+
+.header_background
+{
+  background-color: rgb(0,69,35);
+  background-image: url("../images/steam-locomotive-2740863_1920_cropped.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center, -20px;
+  /*background-attachment: fixed;*/
+}
+
+button,
+.card_header
+{
+  background-color: rgb(0,69,35);  
+}
+
+button:hover
+{
+  cursor: pointer;
+}

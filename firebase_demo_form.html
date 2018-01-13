@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>firebase_demo_form</title>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <!-- Local Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="assets/css/firebase_demo.css">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+  <!-- Moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Overlock+SC" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <!-- Current Activities -->
+        <div class="card">
+          <div class="card-heading card_header p-2">
+            <h2 class="card-title pl-4 m-0"><strong>Current Activities</strong></h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Group</th>
+                  <th>Name</th>
+                  <th>Location</th>
+                </tr>
+              </thead>
+              <tbody id="additionalRows">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col">
+        <!-- Add Activity -->
+        <div class="card">
+          <div class="card-heading card_header p-2">
+            <h2 class="card-title pl-4 m-0"><strong>Add Activity</strong></h3>
+          </div>
+          <div class="card-body">
+            <!-- Entry Form -->
+            <form>
+              <div class="form-group">
+                <label for="inp_group">Activity Group</label>
+                <input class="form-control" id="inp_group" type="text">
+              </div>
+              <div class="form-group">
+                <label for="inp_name">Activity Name</label>
+                <input class="form-control" id="inp_name" type="text">
+              </div>
+              <div class="form-group">
+                <label for="inp_location">Activity Location</label>
+                <input class="form-control" id="inp_location" type="text">
+              </div>
+              <button class="btn" id="submit_activity" type="submit">Submit</button>
+              <!-- <button class="btn float-right" id="google_sign_in">Sign in with Google</button> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="assets/javascript/firebase_init.js"></script>
+  <script src="assets/javascript/firebase_main.js"></script>
+
+</body>
