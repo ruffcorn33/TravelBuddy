@@ -1,4 +1,5 @@
 // Initialize Firebase
+
 // var config =
 // { // Project DB - uses auth
 //   apiKey: "AIzaSyAmo21fRAZj2Qob-T3rWAe2dSI2dLJ9i0c",
@@ -19,7 +20,9 @@ var config =
   messagingSenderId: "614199486533"
 };
 firebase.initializeApp(config);
-// grab handle to entire database
-// var database = firebase.database();
-// grab handle to the database 'timetable' child
+// grab handle to the database 'travel_buddy' child - this ref is the root of the travel_buddy data
 var travel_ref = firebase.database().ref("travel_buddy");
+// grab handle to the 'users' child
+var users_ref = firebase.database().ref("travel_buddy/users");
+// grab handle to the 'activity_categories' child
+var activity_categories_ref = firebase.database().ref("travel_buddy/activity_categories");
