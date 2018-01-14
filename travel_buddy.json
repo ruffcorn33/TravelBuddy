@@ -36,14 +36,6 @@
         . . .
       },
     }, // end users
-    "activity_categories" : { // static - hand entered
-      "0" : {
-        "name" : "Breakfast",
-      },
-      "1" : {
-        "name" : "Lunch",
-      },
-      etc...
-    } // end activity_categories
+    "activity_categories" : [ "Breakfast", "Lunch", "Dinner", "Bars", "Nightlife", "Attractions", "Museums" ]
   } // end travel_buddy
 }
