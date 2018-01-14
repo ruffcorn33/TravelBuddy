@@ -1,0 +1,49 @@
+{
+  "travel_buddy" : {
+    "users" : {
+      "_unique_key_" : { // i.e. the uid
+        "name" : "John Doe",
+        "password" : "password", // maybe not include here
+        "email" : "jd@example.com",
+        "photoURL" : "photo.url.com",
+        "trips" : {
+          "Boston spring break" : {
+            "location" : "Boston, MA",
+            "begin_date" : "1/1/2018",
+            "end_date" : "1/3/2018",
+            "forecast" : { // programmatically added - likely will be dropped
+              "1/1/2018" : "sunny",
+              "1/2/2018" : "rainy",
+              "1/3/2018" : "partly cloudy",
+            }, // end forecast
+            "activities" : {
+              "MIT Tour" : {
+                "category" : "Attraction",
+                "location" : "MIT",
+              },
+              "Sal's" : {
+                "category" : "Breakfast",
+                "location" : "Sal's Corner Restaurant",                
+              },
+            }, // end activities        
+          }, // end Boston spring break
+          "Honolulu wedding" : {
+            . . .
+          },
+        }, // end trips
+      }, // end John Doe
+      "Mary Doe" : {
+        . . .
+      },
+    }, // end users
+    "activity_categories" : { // static - hand entered
+      "0" : {
+        "name" : "Breakfast",
+      },
+      "1" : {
+        "name" : "Lunch",
+      },
+      etc...
+    } // end activity_categories
+  } // end travel_buddy
+}
