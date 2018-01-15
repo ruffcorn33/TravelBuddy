@@ -10,14 +10,22 @@
 // Global Scope
 //
 
-// setup the datepickers
-$('#inp_start_date').datepicker(
-{
-  uiLibrary: 'bootstrap4'
+// setup the datepickers to be a date range
+var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+$('#inp_start_date').datepicker({
+  uiLibrary: 'bootstrap4',
+  // iconsLibrary: 'fontawesome',
+  minDate: today,
+  maxDate: function () {
+    return $('#inp_end_date').val();
+  }
 });
-$('#inp_end_date').datepicker(
-{
-  uiLibrary: 'bootstrap4'
+$('#inp_end_date').datepicker({
+  uiLibrary: 'bootstrap4',
+  // iconsLibrary: 'fontawesome',
+  minDate: function () {
+    return $('#inp_start_date').val();
+  }
 });
 
 // array of activity categories stored in Firebase
