@@ -10,6 +10,16 @@
 // Global Scope
 //
 
+// setup the datepickers
+$('#inp_start_date').datepicker(
+{
+  uiLibrary: 'bootstrap4'
+});
+$('#inp_end_date').datepicker(
+{
+  uiLibrary: 'bootstrap4'
+});
+
 // array of activity categories stored in Firebase
 var activityCategoriesArray = [];
 // current user
@@ -28,11 +38,11 @@ activity_categories_ref.orderByKey().once('value').then(function(snapshot)
   for ( var i = 0; i < activityCategoriesArray.length; ++i)
   {
     var option = $('<option>' + activityCategoriesArray[i] + '</option>');
-    $('#inp_category').append(option);
+    $('#inp_activity_category').append(option);
   }
 });
 
-// TODO - use proper log in stuff - 'child_added' is used instead of 'value' to get only one user
+// TODO - use proper log in stuff - 'child_added' is used instead of 'value' to get only one user (for now)
 users_ref.once('child_added').then(function(user_snap)
 {
   user = user_snap.val();
@@ -62,14 +72,15 @@ users_ref.once('child_added').then(function(user_snap)
     console.log("The read failed: " + errorObject.code);
   });
 
-  // register on click event for submit button - relative to this user
-  $("#submit_activity").on("click", function(event)
+  // register on click event for submit_trip button - relative to this user
+  $("#submit_trip").on("click", function(event)
   {
     event.preventDefault();
     // Capture User Inputs and store them into variables
-    var category = $("#inp_category").val();
-    var name     = $("#inp_name").val().trim();
-    var location = $("#inp_location").val().trim();
+    var name       = $("#inp_trip_name").val().trim();
+    var location   = $("#inp_trip_location").val().trim();
+    var start_date = $("#inp_start_date").val().trim();
+    var end_date   = $("#inp_end_date").val().trim();
     // log data
     console.log("category: ", category, "name: ", name, "location: ", location);
     // store data
@@ -80,8 +91,30 @@ users_ref.once('child_added').then(function(user_snap)
       "location" : location,
     });
     // clear form
-    $("#inp_name").val("");
-    $("#inp_location").val("");
+    $("#inp_trip_name").val("");
+    $("#inp_trip_location").val("");
+  });
+
+  // register on click event for submit_activity button - relative to this user
+  $("#submit_activity").on("click", function(event)
+  {
+    event.preventDefault();
+    // Capture User Inputs and store them into variables
+    var category = $("#inp_activity_category").val();
+    var name     = $("#inp_activity_name").val().trim();
+    var location = $("#inp_activity_location").val().trim();
+    // log data
+    console.log("category: ", category, "name: ", name, "location: ", location);
+    // store data
+    activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + name);
+    activity_ref.set(
+    {
+      "category" : category,
+      "location" : location,
+    });
+    // clear form
+    $("#inp_activity_name").val("");
+    $("#inp_activity_location").val("");
   });
 });
 
