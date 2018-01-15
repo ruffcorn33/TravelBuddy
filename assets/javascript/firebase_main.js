@@ -35,7 +35,10 @@ var activityCategoriesArray = [];
 var user = null;     // the whole JSON record
 var user_uid = null; // the Firebase uid for this user
 var user_ref = null; // the Firebase ref for this user
-var user_trips_ref = null; // the Firebase ref for this user's trips
+var user_trips_ref = null;  // the Firebase ref for this user's trips
+var active_trip_ref = null; // the Firebase ref for active trip
+var active_trip_name = "";  // the name of the active trip
+var activities_ref = null;  // Firebase ref to this trip's activities object
 
 // set activityCategoriesArray once at first load
 // also build the html for the select (TODO - move this loop to appropriate function)
@@ -92,13 +95,13 @@ users_ref.once('child_added').then(function(user_snap)
     var location   = $("#inp_trip_location").val().trim();
     var start_date = $("#inp_start_date").val();
     var end_date   = $("#inp_end_date").val();
-    var activity_ref = null;
     // log data
     console.log("name: ", trip_name, "location: ", location, "start_date", start_date, "end_date", end_date);
+    // get the Firebase ref for the current trip
+    active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name);
     // store data
-    user_trips_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name);
     // use set() because it is a NEW trip (use update() when editing trip so we don't lose activities)
-    user_trips_ref.set(
+    active_trip_ref.set(
     {
       "location" : location,
       "start_date" : start_date,
@@ -108,51 +111,16 @@ users_ref.once('child_added').then(function(user_snap)
     $("#inp_trip_name").val("");
     $("#inp_trip_location").val("");
 
+    // set the active trip name
+    active_trip_name = trip_name;
+    // display the active trip name
+    $('#activeTrip').text(active_trip_name);
+    // get Firebase ref to this trip's activities object
+    activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities/');
+    // register the events for the submit activity UI
+    register_activity_ui(trip_name);
     // enable the submit_activity button
     $('#submit_activity').prop("disabled", false);
-
-    // register on click event for submit_activity button - relative to this user/trip
-    $("#submit_activity").on("click", function(event)
-    {
-      event.preventDefault();
-      // Capture User Inputs and store them into variables
-      var category      = $("#inp_activity_category").val();
-      var activity_name = $("#inp_activity_name").val().trim();
-      var location      = $("#inp_activity_location").val().trim();
-      // log data
-      console.log("category: ", category, "name: ", activity_name, "location: ", location);
-      // store data
-      activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + activity_name);
-      // use set() because it is a leaf node
-      activity_ref.set(
-      {
-        "category" : category,
-        "location" : location,
-      });
-      // clear form
-      $("#inp_activity_name").val("");
-      $("#inp_activity_location").val("");
-    });
-
-    // register activity listener for this trip
-    activity_ref.orderByChild("category").on("child_added", function(child)
-    {
-      var activity = child.val();
-      // log child
-      console.log("Activity:", activity);
-      // build the table row
-      var tr = $('<tr>'
-                + '<td>' + activity.category + '</td>'
-                + '<td>' + child.key + '</td>'
-                + '<td>' + activity.location + '</td>'
-                );
-      // Writes the saved value from firebase to our display
-      $("#activityRows").append(tr);
-    }, function(errorObject)
-    { // Handles firebase failure if it occurs
-      console.log("The read failed: " + errorObject.code);
-    });
-
   });
 });
 
@@ -160,13 +128,34 @@ users_ref.once('child_added').then(function(user_snap)
 // Event Functions
 //
 
-// register on click event for trip rows
+// register on click event for trip name selection
 $('#tripRows').on('click', 'td.user_trip', function()
 {
+  // get the trip name clicked on
+  active_trip_name = $(this).text();
   // user is selecting active trip to display activities for
-  console.log("trip clicked:", $(this).text());
+  console.log("trip clicked:", active_trip_name);
+  // display the active trip name
+  $('#activeTrip').text(active_trip_name);
+  // get the Firebase ref for the current trip
+  active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + active_trip_name);
+  // get Firebase ref to this trip's activities object
+  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + active_trip_name + '/activities/');
+  // display any activities already existing
+  activities_ref.orderByChild("category").once('value').then(function(activities_snap)
+  {
+    console.log("activities_snap", activities_snap)
+    activities_snap.forEach(function(activity_snap)
+    {
+      console.log("key:", activity_snap.key, "value:", activity_snap.val());
+      display_activity(activity_snap.val(), activity_snap.key);
+    });
+  });
+  // register the events for the submit activity UI
+  register_activity_ui(active_trip_name);
+  // enable the submit_activity button
+  $('#submit_activity').prop("disabled", false);
 });
-
 
 //
 // Utility Functions
@@ -182,4 +171,54 @@ function login_user(user)
             );
   // Writes the saved value from firebase to our display
   $("#userRow").append(tr);
+}
+
+function register_activity_ui(trip_name)
+{  
+  // register on click event for submit_activity button - relative to this user/trip
+  $("#submit_activity").on("click", function(event)
+  {
+    event.preventDefault();
+    // Capture User Inputs and store them into variables
+    var category      = $("#inp_activity_category").val();
+    var activity_name = $("#inp_activity_name").val().trim();
+    var location      = $("#inp_activity_location").val().trim();
+    // log data
+    console.log("category: ", category, "name: ", activity_name, "location: ", location);
+    // get Firebase ref for this activity
+    var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities/' + activity_name);
+    // store data
+    // use set() because it is a leaf node
+    activity_ref.set(
+    {
+      "category" : category,
+      "location" : location,
+    });
+    // clear form
+    $("#inp_activity_name").val("");
+    $("#inp_activity_location").val("");
+
+    // register activity listener for this trip
+    activities_ref.orderByChild("category").on("child_added", function(child)
+    {
+      display_activity(child.val(), child.key);
+    }, function(errorObject)
+    { // Handles firebase failure if it occurs
+      console.log("The read failed: " + errorObject.code);
+    });
+  });
+}
+
+function display_activity(activity, activity_name)
+{
+  // log activity
+  console.log("Activity:", activity);
+  // build the table row
+  var tr = $('<tr>'
+            + '<td>' + activity.category + '</td>'
+            + '<td>' + activity_name + '</td>'
+            + '<td>' + activity.location + '</td>'
+            );
+  // Writes the saved value from firebase to our display
+  $("#activityRows").append(tr);
 }

@@ -46,7 +46,7 @@
               </tbody>
             </table>
             <hr>
-            <h3 class="pt-2 pb-2 pl-3">User Trips</h3>
+            <div class="d-flex"><h3 class="pt-2 pb-2 pl-3">User Trips </h3><p class="pl-5 align-self-end">Select a Trip by clicking on its Name.</p></div>
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -59,7 +59,7 @@
               <tbody id="tripRows">
               </tbody>
             </table>
-            <h3 class="pt-2 pb-2 pl-3">Activities for trip <span id="tripActivity"></span></h3>
+            <h3 class="pt-2 pb-2 pl-3">Activities for trip <span id="activeTrip" class="bg-primary"></span></h3>
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -103,7 +103,7 @@
                 <label for="inp_end_date">Trip End Date</label>
                 <input class="form-control" id="inp_end_date" width="200">
               </div>
-              <button class="btn" id="submit_trip" type="button">Submit Trip</button>
+              <button class="btn" id="submit_trip" type="button">Submit And Select Trip</button>
             </div>
           </div>
         </div>
