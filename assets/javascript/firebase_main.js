@@ -67,7 +67,7 @@ users_ref.once('child_added').then(function(user_snap)
   login_user(user);
 
   // register trips listener for this user
-  user_trips_ref.orderByKey().on("child_added", function(child)
+  user_trips_ref.orderByChild("start_date").on("child_added", function(child)
   {
     var trip = child.val();
     // log child
@@ -111,12 +111,14 @@ users_ref.once('child_added').then(function(user_snap)
     $("#inp_trip_name").val("");
     $("#inp_trip_location").val("");
 
+    // clear activities
+    $('#activityRows').empty();
     // set the active trip name
     active_trip_name = trip_name;
     // display the active trip name
     $('#activeTrip').text(active_trip_name);
     // get Firebase ref to this trip's activities object
-    activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities/');
+    activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities');
     // register the events for the submit activity UI
     register_activity_ui(trip_name);
     // enable the submit_activity button
@@ -140,17 +142,7 @@ $('#tripRows').on('click', 'td.user_trip', function()
   // get the Firebase ref for the current trip
   active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + active_trip_name);
   // get Firebase ref to this trip's activities object
-  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + active_trip_name + '/activities/');
-  // display any activities already existing
-  activities_ref.orderByChild("category").once('value').then(function(activities_snap)
-  {
-    console.log("activities_snap", activities_snap)
-    activities_snap.forEach(function(activity_snap)
-    {
-      console.log("key:", activity_snap.key, "value:", activity_snap.val());
-      display_activity(activity_snap.val(), activity_snap.key);
-    });
-  });
+  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + active_trip_name + '/activities');
   // register the events for the submit activity UI
   register_activity_ui(active_trip_name);
   // enable the submit_activity button
@@ -197,15 +189,15 @@ function register_activity_ui(trip_name)
     // clear form
     $("#inp_activity_name").val("");
     $("#inp_activity_location").val("");
+  });
 
-    // register activity listener for this trip
-    activities_ref.orderByChild("category").on("child_added", function(child)
-    {
-      display_activity(child.val(), child.key);
-    }, function(errorObject)
-    { // Handles firebase failure if it occurs
-      console.log("The read failed: " + errorObject.code);
-    });
+  // register activity listener for this trip
+  activities_ref.orderByChild("category").on("child_added", function(child)
+  {
+    display_activity(child.val(), child.key);
+  }, function(errorObject)
+  { // Handles firebase failure if it occurs
+    console.log("The read failed: " + errorObject.code);
   });
 }
 
