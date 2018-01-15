@@ -1,3 +1,5 @@
+
+
 #weatherDisplay {
   background-color: #c9efc9;
   height: 80px;
@@ -23,10 +25,30 @@
   background-color: #c9d7ef;
 }
 
+<!--Activities-->
 #activityContainer {
   background-color: #efcfc9;
 }
 
+.categories {
+  height: 70px;
+  width: 110px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+.card:hover {
+    box-shadow: 0 0 3px 2px rgba(0, 140, 186, 0.5);
+}
+
+.card {
+  border: 1px solid gray;
+}
+
+
+
+<!--Footer-->
 .footer {
    min-height:40px;
    background-color:#000000;
