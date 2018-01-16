@@ -20,9 +20,3 @@ var config =
   messagingSenderId: "614199486533"
 };
 firebase.initializeApp(config);
-// grab handle to the database 'travel_buddy' child - this ref is the root of the travel_buddy data
-var travel_ref = firebase.database().ref("travel_buddy");
-// grab handle to the 'users' child
-var users_ref = firebase.database().ref("travel_buddy/users");
-// grab handle to the 'activity_categories' child
-var activity_categories_ref = firebase.database().ref("travel_buddy/activity_categories");

@@ -31,14 +31,28 @@ $('#inp_end_date').datepicker({
 
 // array of activity categories stored in Firebase
 var activityCategoriesArray = [];
-// current user
-var user = null;     // the whole JSON record
-var user_uid = null; // the Firebase uid for this user
-var user_ref = null; // the Firebase ref for this user
-var user_trips_ref = null;  // the Firebase ref for this user's trips
-var active_trip_ref = null; // the Firebase ref for active trip
-var active_trip_name = "";  // the name of the active trip
-var activities_ref = null;  // Firebase ref to this trip's activities object
+
+// current user's JSON record
+var user = null;
+// the Firebase uid for this user
+var user_uid = null;
+// the name of the active trip
+var active_trip_name = "";
+
+// grab handle to the database 'travel_buddy' child - this ref is the root of the travel_buddy data
+var travel_ref = firebase.database().ref("travel_buddy");
+// grab handle to the 'users' child
+var users_ref = firebase.database().ref("travel_buddy/users");
+// grab handle to the 'activity_categories' child
+var activity_categories_ref = firebase.database().ref("travel_buddy/activity_categories");
+// the Firebase ref for the current user
+var user_ref = null;
+// the Firebase ref for the current user's trips
+var user_trips_ref = null;
+// Firebase ref to the current trip's activities object
+var activities_ref = null;
+// the Firebase ref for active trip
+var active_trip_ref = null;
 
 // set activityCategoriesArray once at first load
 // also build the html for the select (TODO - move this loop to appropriate function)
@@ -59,11 +73,10 @@ users_ref.once('child_added').then(function(user_snap)
 {
   user = user_snap.val();
   user_uid = user_snap.key;
-  user_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid);
-  user_trips_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips');
+  user_ref = firebase.database().ref('travel_buddy/users/' + user_uid);
+  user_trips_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips');
   var trip_name = "";
-  console.log(user, user_snap.key);
-  console.log("user_trips_ref", user_trips_ref);
+  console.log("User Key:", user_snap.key, "User:", user);
   login_user(user);
 
   // register trips listener for this user
@@ -71,7 +84,7 @@ users_ref.once('child_added').then(function(user_snap)
   {
     var trip = child.val();
     // log child
-    console.log("Trip:", trip);
+    console.log("Trip Key:", child.key, "Trip:", trip);
     // build the table row
     var tr = $('<tr>'
               + '<td class="user_trip">' + child.key + '</td>'
@@ -83,7 +96,7 @@ users_ref.once('child_added').then(function(user_snap)
     $("#tripRows").append(tr);
   }, function(errorObject)
   { // Handles firebase failure if it occurs
-    console.log("The read failed: " + errorObject.code);
+    console.log("read trips failed: " + errorObject.code);
   });
 
   // register on click event for submit_trip button - relative to this user
@@ -130,7 +143,7 @@ users_ref.once('child_added').then(function(user_snap)
 // Event Functions
 //
 
-// register on click event for trip name selection
+// on click event for trip name selection
 $('#tripRows').on('click', 'td.user_trip', function()
 {
   // get the trip name clicked on
@@ -147,6 +160,24 @@ $('#tripRows').on('click', 'td.user_trip', function()
   register_activity_ui(active_trip_name);
   // enable the submit_activity button
   $('#submit_activity').prop("disabled", false);
+});
+
+// on click event for the dump_user button
+$('#dump_user').on('click', function()
+{
+  query_user().then(function(usr)
+  {
+    demo_JSON_dump(usr);
+  })
+});
+
+// on click event for the dump_trip button
+$('#dump_trip').on('click', function()
+{
+  query_trip().then(function(trip)
+  {
+    demo_JSON_dump(trip);
+  })
 });
 
 //
@@ -197,7 +228,7 @@ function register_activity_ui(trip_name)
     display_activity(child.val(), child.key);
   }, function(errorObject)
   { // Handles firebase failure if it occurs
-    console.log("The read failed: " + errorObject.code);
+    console.log("read activities failed: " + errorObject.code);
   });
 }
 
@@ -213,4 +244,55 @@ function display_activity(activity, activity_name)
             );
   // Writes the saved value from firebase to our display
   $("#activityRows").append(tr);
+}
+
+// return the JSON object for the currently logged in user
+function query_user()
+{
+  var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
+  // TODO - when Auth is working for real, use the following line
+  // var user = firebase.auth().currentUser;
+  // TODO - but for now, with fake login, use the current global user_uid
+  users_ref.child(user_uid).once('value').then(function(user_snap)
+  {
+    // reset global user object
+    user = user_snap.val();
+    console.log("in query_trip:once, snap.val():", user)
+    deferred.resolve(user);
+  }, function(errorObject)
+  { // Handles firebase failure if it occurs
+    console.log("query_user failed: " + errorObject.code);
+    deferred.reject(errorObject.code);
+  });
+  return deferred.promise();
+}
+
+// return the JSON object for the trip
+// if nothing passed in for trip_name, use global current trip
+function query_trip(trip_name)
+{
+  var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
+  var trip_obj;
+  if ((typeof trip_name == 'undefined') || (trip_name.length <= 0))
+  {
+    trip_name = active_trip_name;
+  }
+  
+  user_trips_ref.child(trip_name).once('value').then(function(trip_snap)
+  {
+    trip_obj = trip_snap.val();
+    console.log("in query_trip:once, snap.val():", trip_obj)
+    deferred.resolve(trip_obj);
+  }, function(errorObject)
+  { // Handles firebase failure if it occurs
+    console.log("query_trip failed: " + errorObject.code);
+    deferred.reject(errorObject.code);
+  });
+  return deferred.promise();
+}
+
+// debug function to dump a JSON object
+function demo_JSON_dump(obj)
+{
+  $('#firebase_dump').text(JSON.stringify(obj, null, 2));
 }

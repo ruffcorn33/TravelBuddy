@@ -32,7 +32,7 @@
         <!-- Current User -->
         <div class="card">
           <div class="card-heading card_header p-2">
-            <h2 class="card-title pl-4 m-0"><strong>Current User</strong></h3>
+            <h2 class="card-title pl-4 m-0"><strong>Current User</strong></h2>
           </div>
           <div class="card-body">
             <table class="table table-hover">
@@ -81,7 +81,7 @@
         <!-- Add Trip -->
         <div class="card">
           <div class="card-heading card_header p-2">
-            <h2 class="card-title pl-4 m-0"><strong>Add Trip</strong></h3>
+            <h2 class="card-title pl-4 m-0"><strong>Add Trip</strong></h2>
           </div>
           <div class="card-body">
             <!-- Entry Form -->
@@ -115,7 +115,7 @@
         <!-- Add Activity -->
         <div class="card">
           <div class="card-heading card_header p-2">
-            <h2 class="card-title pl-4 m-0"><strong>Add Activity</strong></h3>
+            <h2 class="card-title pl-4 m-0"><strong>Add Activity</strong></h2>
           </div>
           <div class="card-body">
             <!-- Entry Form -->
@@ -140,6 +140,26 @@
         </div>
       </div>
     </div> <!-- end add activity row -->
+
+    <div class="row"> <!-- Firebase dump row -->
+      <div class="col">
+        <!-- Firebase Dump -->
+        <div class="card">
+          <div class="card-heading card_header p-2">
+            <h2 class="card-title pl-4 m-0"><strong>Firebase Dump</strong></h2>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-danger float-left mr-2" id="dump_user" type="button">Dump User</button>
+            <button class="btn btn-danger float-left mr-2" id="dump_trip" type="button">Dump Trip</button>
+            <button class="btn btn-danger float-left mr-2" id="dump_activity" type="button">Dump Activity</button>
+          </div>
+          <div class="card-body">
+            <hr>
+            <pre id="firebase_dump"></pre>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end Firebase dump row -->
 
   </div> <!-- end container -->
 
