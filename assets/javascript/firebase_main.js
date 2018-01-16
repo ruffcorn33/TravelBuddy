@@ -36,8 +36,10 @@ var activityCategoriesArray = [];
 var user = null;
 // the Firebase uid for this user
 var user_uid = null;
-// the name of the active trip
-var active_trip_name = "";
+// the name of the current trip
+var current_trip_name = "";
+// the name of the current trip
+var current_activity_name = "";
 
 // grab handle to the database 'travel_buddy' child - this ref is the root of the travel_buddy data
 var travel_ref = firebase.database().ref("travel_buddy");
@@ -127,9 +129,9 @@ users_ref.once('child_added').then(function(user_snap)
     // clear activities
     $('#activityRows').empty();
     // set the active trip name
-    active_trip_name = trip_name;
+    current_trip_name = trip_name;
     // display the active trip name
-    $('#activeTrip').text(active_trip_name);
+    $('#activeTrip').text(current_trip_name);
     // get Firebase ref to this trip's activities object
     activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities');
     // register the events for the submit activity UI
@@ -147,17 +149,17 @@ users_ref.once('child_added').then(function(user_snap)
 $('#tripRows').on('click', 'td.user_trip', function()
 {
   // get the trip name clicked on
-  active_trip_name = $(this).text();
+  current_trip_name = $(this).text();
   // user is selecting active trip to display activities for
-  console.log("trip clicked:", active_trip_name);
+  console.log("trip clicked:", current_trip_name);
   // display the active trip name
-  $('#activeTrip').text(active_trip_name);
+  $('#activeTrip').text(current_trip_name);
   // get the Firebase ref for the current trip
-  active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + active_trip_name);
+  active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name);
   // get Firebase ref to this trip's activities object
-  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + active_trip_name + '/activities');
+  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name + '/activities');
   // register the events for the submit activity UI
-  register_activity_ui(active_trip_name);
+  register_activity_ui(current_trip_name);
   // enable the submit_activity button
   $('#submit_activity').prop("disabled", false);
 });
@@ -177,6 +179,15 @@ $('#dump_trip').on('click', function()
   query_trip().then(function(trip)
   {
     demo_JSON_dump(trip);
+  })
+});
+
+// on click event for the dump_activity button
+$('#dump_activity').on('click', function()
+{
+  query_activity().then(function(activity)
+  {
+    demo_JSON_dump(activity);
   })
 });
 
@@ -203,13 +214,13 @@ function register_activity_ui(trip_name)
   {
     event.preventDefault();
     // Capture User Inputs and store them into variables
-    var category      = $("#inp_activity_category").val();
-    var activity_name = $("#inp_activity_name").val().trim();
-    var location      = $("#inp_activity_location").val().trim();
+    var category          = $("#inp_activity_category").val();
+    current_activity_name = $("#inp_activity_name").val().trim();
+    var location          = $("#inp_activity_location").val().trim();
     // log data
     console.log("category: ", category, "name: ", activity_name, "location: ", location);
     // get Firebase ref for this activity
-    var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities/' + activity_name);
+    var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities/' + current_activity_name);
     // store data
     // use set() because it is a leaf node
     activity_ref.set(
@@ -244,9 +255,10 @@ function display_activity(activity, activity_name)
             );
   // Writes the saved value from firebase to our display
   $("#activityRows").append(tr);
+  current_activity_name = activity_name;
 }
 
-// return the JSON object for the currently logged in user
+// return a promise which returns the JSON object for the currently logged in user
 function query_user()
 {
   var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
@@ -267,25 +279,49 @@ function query_user()
   return deferred.promise();
 }
 
-// return the JSON object for the trip
+// return a promise which returns the JSON object for the trip
 // if nothing passed in for trip_name, use global current trip
 function query_trip(trip_name)
 {
   var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
-  var trip_obj;
+  var trip;
   if ((typeof trip_name == 'undefined') || (trip_name.length <= 0))
   {
-    trip_name = active_trip_name;
+    trip_name = current_trip_name;
   }
   
   user_trips_ref.child(trip_name).once('value').then(function(trip_snap)
   {
-    trip_obj = trip_snap.val();
-    console.log("in query_trip:once, snap.val():", trip_obj)
-    deferred.resolve(trip_obj);
+    trip = trip_snap.val();
+    console.log("in query_trip:once, snap.val():", trip)
+    deferred.resolve(trip);
   }, function(errorObject)
   { // Handles firebase failure if it occurs
     console.log("query_trip failed: " + errorObject.code);
+    deferred.reject(errorObject.code);
+  });
+  return deferred.promise();
+}
+
+// return a promise which returns the JSON object for the trip
+// if nothing passed in for activity_name, use global current trip
+function query_activity(activity_name)
+{
+  var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
+  var activity;
+  if ((typeof activity_name == 'undefined') || (activity_name.length <= 0))
+  {
+    activity_name = current_activity_name;
+  }
+  
+  activities_ref.child(activity_name).once('value').then(function(activity_snap)
+  {
+    activity = activity_snap.val();
+    console.log("in query_activity:once, snap.val():", activity)
+    deferred.resolve(activity);
+  }, function(errorObject)
+  { // Handles firebase failure if it occurs
+    console.log("query_activity failed: " + errorObject.code);
     deferred.reject(errorObject.code);
   });
   return deferred.promise();
