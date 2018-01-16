@@ -1,5 +1,21 @@
+/* NAVBAR */
+.navbar, a, .navbar-brand {
+  color: black;
+  font-size: 18px;
+  text-shadow: 1px 1px gray;
+}
 
+.navbar {
+  border-bottom: 5px solid #202020;
 
+}
+
+.nav-link:hover {
+  background-color: rgb(205, 218, 247);
+  height: 50px;
+}
+
+/* WEATHER */
 #weatherDisplay {
   background-color: #c9efc9;
   height: 80px;
@@ -21,11 +37,14 @@
   height: 365px;
 }
 
+/* MAP */
 #mapContainer {
   background-color: #c9d7ef;
 }
 
-<!--Activities-->
+
+
+/* Activities Main */
 #activityContainer {
   background-color: #efcfc9;
 }
@@ -39,7 +58,7 @@
 }
 
 .card:hover {
-    box-shadow: 0 0 3px 2px rgba(0, 140, 186, 0.5);
+    box-shadow: inset 0 0 3px 4px  rgb(205, 218, 247);
 }
 
 .card {
@@ -48,18 +67,52 @@
 
 
 
-<!--Footer-->
-.footer {
-   min-height:40px;
-   background-color:#000000;
+/* Carousel Index */
+.carousel-inner, .carousel-item, .img {
+  height: 650px;
 }
 
-.footer p {
-   text-align:left;
-    color:#FFF;
-    padding:10px 0;
-    margin-bottom:0px;
+.carousel {
+  border-bottom: 5px solid #202020;
 }
+.form-row {
+  color: black;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.carousel-caption {
+    position: absolute;
+    z-index: 1;
+    display:table;
+    width:100%;
+    height:100%;
+}
+
+.trickcenter {
+    position: fixed;
+    top: 84%; 
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+h1 {
+  font-size: 80px;
+  text-shadow: 3px 3px black;
+}
+
+h2 {
+  text-shadow: 3px 3px black;
+}
+
+
+
+/* Footer Every Page */
+footer, .footer {
+   height:40px;
+}
+
+
 
 .bottom_ul {
   list-style-type:none;
