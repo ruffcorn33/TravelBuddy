@@ -265,6 +265,12 @@ function query_user()
   // TODO - when Auth is working for real, use the following line
   // var user = firebase.auth().currentUser;
   // TODO - but for now, with fake login, use the current global user_uid
+  if ((typeof user_uid == 'undefined') || (user_uid.length <= 0))
+  {
+    console.log("query_user:  user_uid undefined or too short");
+    deferred.reject({user_uid:"user_uid undefined or too short"});
+    return deferred.promise();
+  }
   users_ref.child(user_uid).once('value').then(function(user_snap)
   {
     // reset global user object
@@ -287,7 +293,14 @@ function query_trip(trip_name)
   var trip;
   if ((typeof trip_name == 'undefined') || (trip_name.length <= 0))
   {
-    trip_name = current_trip_name;
+    if ((typeof current_trip_name == 'undefined') || (current_trip_name.length <= 0))
+    {
+      console.log("query_trip:  trip_name undefined or too short");
+      deferred.reject({trip_name:"trip_name undefined or too short"});
+      return deferred.promise();
+    } else {
+      trip_name = current_trip_name;
+    }
   }
   
   user_trips_ref.child(trip_name).once('value').then(function(trip_snap)
@@ -311,7 +324,14 @@ function query_activity(activity_name)
   var activity;
   if ((typeof activity_name == 'undefined') || (activity_name.length <= 0))
   {
-    activity_name = current_activity_name;
+    if ((typeof current_activity_name == 'undefined') || (current_activity_name.length <= 0))
+    {
+      console.log("query_activity:  activity_name undefined or too short");
+      deferred.reject({activity_name:"activity_name undefined or too short"});
+      return deferred.promise();
+    } else {
+      activity_name = current_activity_name;
+    }
   }
   
   activities_ref.child(activity_name).once('value').then(function(activity_snap)
