@@ -1,5 +1,4 @@
-
-<!--NAVBAR-->
+/* NAVBAR */
 .navbar, a, .navbar-brand {
   color: black;
   font-size: 18px;
@@ -16,7 +15,7 @@
   height: 50px;
 }
 
-<!--WEATHER-->
+/* WEATHER */
 #weatherDisplay {
   background-color: #c9efc9;
   height: 80px;
@@ -38,14 +37,14 @@
   height: 365px;
 }
 
-<!--MAP-->
+/* MAP */
 #mapContainer {
   background-color: #c9d7ef;
 }
 
 
 
-<!--Activities Main-->
+/* Activities Main */
 #activityContainer {
   background-color: #efcfc9;
 }
@@ -68,7 +67,7 @@
 
 
 
-<!--Carousel Index-->
+/* Carousel Index */
 .carousel-inner, .carousel-item, .img {
   height: 650px;
 }
@@ -108,7 +107,7 @@ h2 {
 
 
 
-<!--Footer Every Page-->
+/* Footer Every Page */
 footer, .footer {
    height:40px;
 }
