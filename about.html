@@ -16,37 +16,42 @@
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
-    <div class="container">
+  
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">TravelBuddy</a>
+      <!--NAVBAR-->
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand ml-5">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+          <ul class="navbar-nav mr-auto ml-2">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">About <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="about.html">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
-            <li class="nav-item dropdown disabled">
+            <!-- replace this list item with the commented code below after saved trip functionality is added-->
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">My Trips</a>
+            </li>
+            <!-- <li class="nav-item dropdown disabled">
               <a class="nav-link dropdown-toggle" href="main.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Trips
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <!-- dynamically append links to saved trips here -->
+                dynamically append links to saved trips here
               </div>
-            </li>
+            </li> -->
           </ul>
           <!-- righthand nav buttons -->
           <ul class="nav justify-content-end">
             <!-- log-in dropdown, Bootstrap -->
-            <li class="nav-item mr-2">
+            <li class="nav-item mr-3">
               <div class="btn-group">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   login
@@ -65,7 +70,7 @@
               </div>  <!-- end login dropdown -->
             </li>
             <!-- sign-in dropdown, Bootstrap -->
-            <li class="nav-item">
+            <li class="nav-item mr-5">
               <div class="btn-group">
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   sign up
@@ -88,22 +93,24 @@
       </nav>  <!-- end navbar -->
 
       <!-- about -->
+    <div class="container">
       <div id="aboutRow" class="row mx-1">
         <div id="aboutDisplay" class="col border border-dark rounded p-4">
           about information goes here.
         </div>
       </div>  <!-- end contact -->
-
+    </div>
       <!-- footer -->
-      <div class="footer">
-        <div class="container">
-          <div class="col-md-6">
-            <p>© 2018 - Team Whatever</p>
-          </div>
-        </div>
-      </div>  <!-- end of footer -->
 
-    </div>  <!-- end .container -->
+
+<!--FOOTER-->
+<footer class="footer">
+  <div class="container">
+    <p class="text-center">&copy;2018 Team A</p>
+  </div>
+</footer>
+      
+
 
 
     <!-- Optional JavaScript -->
