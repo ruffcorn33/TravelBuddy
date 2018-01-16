@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
     integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
     crossorigin="anonymous">
+    <!-- Axios a promise based HTTP client for the browser and node.js-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>TravelBuddy - Welcome!</title>
     <!-- jquery reference -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -17,7 +19,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
-    
+    <div class="container">
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">TravelBuddy</a>
@@ -92,13 +94,9 @@
         </div>
       </nav>  <!-- end navbar -->
 
-
       <!-- Welcome and trip input -->
-
-      <div class="jumbotron">
+      <div class="jumbotron jumbotron-fluid">
         <div class="container">
-        <!--Slide Show Carousel Add here-->
-
           <h1 class="display-4">Welcome to TravelBuddy!</h1>
           <p class="lead">This is some text about TravelBuddy</p>
           <form>
@@ -116,11 +114,10 @@
                 <input type="text" class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
               </div>
             </div>
-            <button type="submit" class="btn btn-primary float-right">Go!</button>
+            <button id="addTrip" type="submit" class="btn btn-primary float-right">Go!</button>
           </form>
         </div>
       </div>
-
 
       <!-- footer -->
       <div class="footer">
@@ -133,11 +130,9 @@
 
     </div>  <!-- end .container -->
 
-
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
     <!-- JavaScript -->

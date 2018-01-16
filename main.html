@@ -104,9 +104,7 @@
       </div>  <!-- end weather -->
 
       <div id="contentRow" class="row m-1">
-        <div id="mapContainer" class="col-8 border border-dark rounded p-4">
-          map goes here
-        </div>
+        <div id="map" class="col-8 border border-dark rounded p-4"></div>
 
 
 
@@ -149,7 +147,7 @@
                 </div>
               </div>
             </div>
-          
+
             <!--DINNER-->
             <div class="card">
               <div class="card-header" role="tab" id="headingThree">
@@ -236,12 +234,12 @@
             </div>
           </div>
         </div>
-        
 
 
 
 
-<!--.....................................................................................................................>
+
+<!--.....................................................................................................................-->
       <!-- footer -->
       <div class="footer">
         <div class="container">
@@ -253,13 +251,16 @@
 
     </div>  <!-- end .container -->
 
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
     <!-- JavaScript -->
-    <script src="assets/javascript/script.js"></script>
+    <script src="assets/javascript/map.js"></script>
+    <!-- Google Maps -->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4&callback=initMap">
+    </script>
   </body>
 </html>

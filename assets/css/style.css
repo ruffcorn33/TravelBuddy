@@ -18,11 +18,16 @@
 }
 
 #contentRow {
-  height: 365px;
+  height: 600px;
 }
 
-#mapContainer {
-  background-color: #c9d7ef;
+/* #mapContainer {
+  background-color: grey;
+} */
+
+#map {
+  height: 100%;
+  width: 100%;
 }
 
 <!--Activities-->
