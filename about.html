@@ -14,6 +14,8 @@
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <!-- custom css -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
   
@@ -50,15 +52,17 @@
           </ul>
           <!-- righthand nav buttons -->
           <ul class="nav justify-content-end">
+
+
             <!-- log-in dropdown, Bootstrap -->
             <li class="nav-item mr-3">
               <div class="btn-group">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  login
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Login
                 </button>
                 <form class="dropdown-menu p-4">
                   <div class="form-group">
-                    <label for="DropdownFormEmail">Email address</label>
+                    <label for="DropdownFormEmail">Email Address</label>
                     <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
                   </div>
                   <div class="form-group">
@@ -69,19 +73,25 @@
                 </form>
               </div>  <!-- end login dropdown -->
             </li>
+
+
             <!-- sign-in dropdown, Bootstrap -->
             <li class="nav-item mr-5">
               <div class="btn-group">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  sign up
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Sign Up
                 </button>
                 <form class="dropdown-menu p-4">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="name" class="form-control" id="name" placeholder="John Smith">
+                  </div>
                   <div class="form-group">
-                    <label for="DropdownFormEmail">Email address</label>
+                    <label for="DropdownFormEmail">Email Address</label>
                     <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
                   </div>
                   <div class="form-group">
-                    <label for="DropdownFormPassword">Password</label>
+                    <label for="DropdownFormPassword">Create Password</label>
                     <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
                   </div>
                   <button type="submit" class="btn btn-primary">Sign up</button>
@@ -93,19 +103,21 @@
       </nav>  <!-- end navbar -->
 
       <!-- about -->
-    <div class="container">
+    <div class="container mt-5">
       <div id="aboutRow" class="row mx-1">
         <div id="aboutDisplay" class="col border border-dark rounded p-4">
-          about information goes here.
+          <h5>About Us:</h5>
+          <p></p>
         </div>
       </div>  <!-- end contact -->
     </div>
-      <!-- footer -->
-
+     
 
 <!--FOOTER-->
-<footer class="footer">
-  <div class="container">
+<footer class="footer mt-5">
+  <div class="container text-center">
+    <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
+    <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
     <p class="text-center">&copy;2018 Team A</p>
   </div>
 </footer>

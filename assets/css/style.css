@@ -1,12 +1,14 @@
 /* NAVBAR */
-.navbar, a, .navbar-brand {
-  color: black;
+.navbar, .navbar-brand, .nav-link {
+  color: white;
   font-size: 18px;
   text-shadow: 1px 1px gray;
+
 }
 
 .navbar {
   border-bottom: 5px solid #202020;
+  background-color: #202020;
 
 }
 
@@ -15,16 +17,40 @@
   height: 50px;
 }
 
-/* WEATHER */
-#weatherDisplay {
-  background-color: #c9efc9;
-  height: 80px;
+.dropdown-menu {
   width: 200px;
 }
 
-#contactDisplay {
-  background-color: #c9efca;
-  height: 450px;
+.btn-group {
+  margin-right: 40px;
+}
+
+
+
+/* Contact*/
+.text {
+  font-size: 20px;
+}
+.icons {
+  height: 150px;
+  width: 150px;
+}
+
+.contact {
+  background-image: url('../images/contact.JPG');
+  width: 100%;
+  height: 650px;
+  opacity: 0.8;
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover; 
+}
+
+.us {
+  height: 250px;
+  width: 300px;
+  text-align: center;
+  box-shadow: none;
 }
 
 
@@ -37,16 +63,33 @@
   height: 365px;
 }
 
+
+
+/* WEATHER */
+#weatherDisplay {
+  background-color: #c9efc9;
+  height: 80px;
+  width: 200px;
+}
+
+
 /* MAP */
 #mapContainer {
-  background-color: #c9d7ef;
+  background-color:;
 }
 
 
 
 /* Activities Main */
+.minneapolis {
+  background-image: url('../images/minneapolis.JPG');
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover; 
+  height: 650px;
+}
 #activityContainer {
-  background-color: #efcfc9;
+  background-color:;
 }
 
 .categories {
@@ -55,6 +98,11 @@
   text-align: center;
   border-radius: 10px;
   border: 1px solid gray;
+}
+
+a {
+  color: black;
+  text-shadow: 1px 1px rgb(205, 218, 247);
 }
 
 .card:hover {
@@ -66,15 +114,11 @@
 }
 
 
-
 /* Carousel Index */
 .carousel-inner, .carousel-item, .img {
   height: 650px;
 }
 
-.carousel {
-  border-bottom: 5px solid #202020;
-}
 .form-row {
   color: black;
   font-size: 22px;
@@ -109,9 +153,18 @@ h2 {
 
 /* Footer Every Page */
 footer, .footer {
-   height:40px;
+   height:100px;
+   width: 100%;
+   color:white;
+   background-color: #202020;
+   text-shadow: 1px 1px gray;
+   
 }
 
+.fa {
+  margin:10px;
+  color: #65A8FF;
+}
 
 
 .bottom_ul {
