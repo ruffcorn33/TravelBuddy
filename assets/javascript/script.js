@@ -1,8 +1,6 @@
 var tripDestination;
 var tripBegDate;
 var tripEndDate;
-var tripName;
-
 
 $("#addTrip").on("click", function(event) {
   event.preventDefault();
@@ -15,7 +13,8 @@ $("#addTrip").on("click", function(event) {
 });
 
 function doParams(){
-  // using Axios to handle request and response
+  // get location data
+  // using Axios to handle the Google Geocode request and response
   // https://github.com/axios/axios
   axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
     params:{
@@ -25,7 +24,7 @@ function doParams(){
   })
   .then(function(response){
     console.log(response);
-    // store locaton data in local storage for use by maps page
+    // store locaton data in local storage for use by main.js and maps.js
     localStorage.setItem("tripLoc", response.data.results[0].formatted_address);
     localStorage.setItem("tripLat", response.data.results[0].geometry.location.lat);
     localStorage.setItem("tripLng", response.data.results[0].geometry.location.lng);

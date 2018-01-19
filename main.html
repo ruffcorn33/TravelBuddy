@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
     integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
     crossorigin="anonymous">
-    <title>TravelBuddy - Welcome!</title>
+    <title>TravelBuddy</title>
     <!-- jquery reference -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Firebase reference -->
@@ -15,7 +15,6 @@
     <!-- custom css -->
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
-
 
   <body>
       <nav class="navbar navbar-expand-lg navbar-light bg-light mb-1">
@@ -104,9 +103,8 @@
       </div>  <!-- end weather -->
 
       <div id="contentRow" class="row m-1">
+<!--Map..............................................................................................................-->
         <div id="map" class="col-8 border border-dark rounded p-4"></div>
-
-
 
 <!--Categories ......................................................................................................-->
         <div id="activityContainer" class="col-4 border border-dark rounded p-4">
@@ -117,25 +115,24 @@
             <div class="card">
               <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
-                <a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne">
+                <a class="activityButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnActivity="cafe">
                 <img src="assets/images/breakfast.JPG" alt="Breakfast" class="categories">
                 Breakfast
                 </a>
                 </h5>
               </div>
-
               <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
                   restaurant info to go here
                 </div>
               </div>
-            </div>
+            </div>  <!-- end of breakfast card -->
 
           <!--LUNCH-->
             <div class="card">
               <div class="card-header" role="tab" id="headingTwo">
                 <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="activityButton" btnActivity="restaurant">
                 <img src="assets/images/lunch.JPG" alt="Lunch" class="categories">
                 Lunch
                 </a>
@@ -146,13 +143,13 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>
+            </div>  <!-- end of lunch card -->
 
             <!--DINNER-->
             <div class="card">
               <div class="card-header" role="tab" id="headingThree">
                 <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" btnActivity="restaurant">
                 <img src="assets/images/dinner.JPG" alt="Dinner" class="categories">
                 Dinner
                 </a>
@@ -163,13 +160,13 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>
+            </div>  <!-- end of dinner card -->
 
             <!--BARS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingFour">
                 <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour">
+                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour" btnActivity="bar">
                 <img src="assets/images/bars.JPG" alt="Bars" class="categories">
                 Bars
                 </a>
@@ -180,13 +177,13 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>
+            </div>  <!-- end of bars card -->
 
             <!--NIGHTLIFE-->
             <div class="card">
               <div class="card-header" role="tab" id="headingFive">
                 <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive">
+                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive" btnActivity="night_club">
                 <img src="assets/images/nightlife.JPG" alt="Nightlife" class="categories">
                 Nightlife
                 </a>
@@ -197,13 +194,13 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>
+            </div>  <!-- end of nightlife card -->
 
             <!--ATTRACTIONS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingSix">
                 <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix">
+                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix" btnActivity="point_of_interest">
                 <img src="assets/images/attractions.JPG" alt="Attractions" class="categories">
                 Attractions
                 </a>
@@ -214,13 +211,13 @@
                 attractions info to go here
                 </div>
               </div>
-            </div>
+            </div>  <!-- end of attractions card -->
 
             <!--MUSEUMS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingSeven">
                 <h5 class="mb-0">
-                <a class="collapsed" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven">
+                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven" btnActivity="museum">
                 <img src="assets/images/museums.JPG" alt="Museums" class="categories">
                 Museums
                 </a>
@@ -231,14 +228,10 @@
                 Museums info to go here
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-
-
-
-
+            </div>  <!-- end of museums card -->
+          </div>  <!-- end of .accordian -->
+        </div> <!-- end of activity container -->
+      </div>  <!-- end of .contentRow -->
 <!--.....................................................................................................................-->
       <!-- footer -->
       <div class="footer">
@@ -259,8 +252,9 @@
     <!-- JavaScript -->
     <script src="assets/javascript/map.js"></script>
     <!-- Google Maps -->
+    <!-- and the Places library -->
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4&callback=initMap">
     </script>
   </body>
 </html>
