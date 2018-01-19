@@ -2,8 +2,6 @@
 .navbar, .navbar-brand, .nav-link {
   color: white;
   font-size: 18px;
-  text-shadow: 1px 1px gray;
-
 }
 
 .navbar {
