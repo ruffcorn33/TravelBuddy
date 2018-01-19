@@ -20,8 +20,8 @@
 
   <body>
 
-       <!--NAVBAR-->
-      <nav class="navbar navbar-expand-lg">
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand ml-5">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -102,42 +102,44 @@
         </div>
       </nav>  <!-- end navbar -->
 <!--...............................................................................................................-->
-<div class="content">
-  <div class="jumbotron minneapolis"></div>
-    
-    <div class="content-inside">
-      <div class="container mt-5">
-        <div id="titleRow" class="row mx-1 mb-1">
-          <div id="titleDisplay" class="col-md-12 border border-dark rounded px-4">
-            <!-- Welcome and trip input -->
-            <div class="container">
-              <form>
-                <div class="form-row mt-5">
-                  <div class="form-group col-md-5 mb-5">
-                    <label for="inputDestination">Change Current Location</label>
-                    <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="inputFromDate">Arrival</label>
-                    <input type="text" class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
-                  </div>
-                <div class="form-group col-md-3">
-                  <label for="inputToDate">Returning (optional)</label>
-                  <input type="text" class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
-                </div>
-                <div class="col-md-1">
-                  <label for="button">Click it</label>
-                  <button type="submit" class="btn btn-primary">Go!</button>
-                </div>
+    <div class="content">
+      <div class="jumbotron minneapolis"></div>
+
+      <div class="content-inside">
+        <div class="container">
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-5 mb-">
+                <label for="inputDestination">Pick a new destination...</label>
+                <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address or location">
               </div>
-            </form>
-          </div>
-        </div>
-      </div>
+              <div class="form-group col-md-3">
+                <label for="inputFromDate">Arrival</label>
+                <input type="text" class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="inputToDate">Returning (optional)</label>
+                <input type="text" class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
+              </div>
+              <div class="col-md-1">
+                <label for="button">Click it</label>
+                <button id="addTrip" type="submit" class="btn btn-primary float-right">Go!</button>
+              </div>
+            </div>  <!-- end of .form-row -->
+          </form>
+        </div>  <!-- end of .container -->
+      </div> <!-- end of .content-inside -->
 
       <div id="titleRow" class="row mx-1 mb-1">
-        <div id="titleDisplay" class="col-md-12 border border-dark rounded px-4">
-          <h5 class="p-4">My Trip Name:</h5> 
+        <div id="titleBox" class="col-md-12 border border-dark rounded px-4">
+          <h5 class="p-4">My Trip Name: <span>
+            <div class="input-group mb-3">
+              <input id="titleDisplay" type="text" class="form-control" placeholder="Enter a name for your trip" aria-label="Trip name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Save Trip</button>
+              </div>
+            </div>
+          </span></h5>
         </div>
       </div>
 
@@ -149,18 +151,18 @@
       </div>  <!-- end weather -->
 
       <div id="contentRow" class="row m-1">
-<!--Map..............................................................................................................-->
+        <!-- Map -->
         <div id="map" class="col-8 border border-dark rounded p-4"></div>
 
-<!--Categories ......................................................................................................-->
-
+        <!--Categories -->
         <div id="activityContainer" class="col-md-4 border border-dark rounded p-4">
-          <h4 class="text-center mb-3">Your Selected Activities:</h4>
+          <!-- <h4 class="text-center mb-3">Your Selected Activities:</h4> -->
 
           <!--BREAKFAST-->
           <div id="accordion" role="tablist">
             <div class="card">
-              <div class="card-header" role="tab" id="headingOne" ">
+              <!-- category 1 -->
+              <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
                 <a class="collapsed activityButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnActivity="cafe">
                 <img src="assets/images/breakfast.JPG" alt="Breakfast" class="categories mr-3">
@@ -173,8 +175,9 @@
                   restaurant info to go here
                 </div>
               </div>
-            </div>  <!-- end of breakfast card -->
-          <!--LUNCH-->
+            </div>  <!-- end of category 1 -->
+            <!-- category 2 -->
+            <!--LUNCH-->
             <div class="card">
               <div class="card-header" role="tab" id="headingTwo">
                 <h5 class="mb-0">
@@ -189,7 +192,8 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>  <!-- end of lunch card -->
+            </div>  <!-- end of category 2 -->
+            <!-- category 3 -->
             <!--DINNER-->
             <div class="card">
               <div class="card-header" role="tab" id="headingThree">
@@ -205,7 +209,8 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>  <!-- end of dinner card -->
+            </div>  <!-- end of category 3 -->
+            <!-- category 4 -->
             <!--BARS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingFour">
@@ -221,7 +226,8 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>  <!-- end of bars card -->
+            </div>  <!-- end of category 4 -->
+            <!-- category 5 -->
             <!--NIGHTLIFE-->
             <div class="card">
               <div class="card-header" role="tab" id="headingFive">
@@ -237,7 +243,8 @@
                 restaurant info to go here
                 </div>
               </div>
-            </div>  <!-- end of nightlife card -->
+            </div>  <!-- end of category 5 -->
+            <!-- category 6 -->
             <!--ATTRACTIONS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingSix">
@@ -253,7 +260,8 @@
                 attractions info to go here
                 </div>
               </div>
-            </div>  <!-- end of attractions card -->
+            </div>  <!-- end of category 6 -->
+            <!-- category 7 -->
             <!--MUSEUMS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingSeven">
@@ -269,16 +277,16 @@
                 Museums info to go here
                 </div>
               </div>
-            </div>  <!-- end of museums card -->
+            </div>  <!-- end of category 7 -->
           </div>  <!-- end of .accordian -->
         </div> <!-- end of activity container -->
       </div>  <!-- end of .contentRow -->
-    </div>  <!-- end .container -->
-  </div>
-</div>
-       
-      
-      
+    </div>  <!-- end .content -->
+  <!-- </div>
+</div> -->
+
+
+
 <!--.....................................................................................................................-->
 <!--FOOTER-->
 <div class="row">
@@ -292,7 +300,7 @@
     </footer>
   </div>
 </div>
-   
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

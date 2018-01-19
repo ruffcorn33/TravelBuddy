@@ -21,7 +21,8 @@ var mapById = document.getElementById('map');
 var tripName = formatTripName(tripAddress, tripFromDate, tripToDate);
 
 // display trip name suggestion
-$("#titleDisplay").text(tripName);
+// $("#titleDisplay").text(tripName);
+$("#titleDisplay").attr("placeholder", "Suggestion: "+tripName);
 
 // event handler for actType button click
 $(".activityButton").on("click", function(event){
