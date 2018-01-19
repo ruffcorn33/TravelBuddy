@@ -64,7 +64,13 @@
 }
 
 #contentRow {
+  /*height: 600px;*/
+}
+
+/* MAP */
+#map {
   height: 100%;
+  width: 100%;
 }
 
 
@@ -74,12 +80,6 @@
   background-color: #c9efc9;
   height: 80px;
   width: 200px;
-}
-
-
-/* MAP */
-#mapContainer {
-  background-color:;
 }
 
 
