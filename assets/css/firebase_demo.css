@@ -4,7 +4,8 @@
 }
 
 h1,
-h2{
+h2
+{
   color: #502525;
   text-shadow: 1px 1px #8fffc9;
 }
@@ -17,6 +18,11 @@ h1
 h2
 {
   font-size: 48px;
+}
+
+h3
+{
+  font-size: 36px;
 }
 
 button

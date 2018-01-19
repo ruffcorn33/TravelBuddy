@@ -14,46 +14,55 @@
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <!-- custom css -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <div class="container">
+  
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">TravelBuddy</a>
+      <!--NAVBAR-->
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand ml-5">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+          <ul class="navbar-nav mr-auto ml-2">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">About <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="about.html">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
-            <li class="nav-item dropdown disabled">
+            <!-- replace this list item with the commented code below after saved trip functionality is added-->
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">My Trips</a>
+            </li>
+            <!-- <li class="nav-item dropdown disabled">
               <a class="nav-link dropdown-toggle" href="main.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Trips
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <!-- dynamically append links to saved trips here -->
+                dynamically append links to saved trips here
               </div>
-            </li>
+            </li> -->
           </ul>
           <!-- righthand nav buttons -->
           <ul class="nav justify-content-end">
+
+
             <!-- log-in dropdown, Bootstrap -->
-            <li class="nav-item mr-2">
+            <li class="nav-item mr-3">
               <div class="btn-group">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  login
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Login
                 </button>
                 <form class="dropdown-menu p-4">
                   <div class="form-group">
-                    <label for="DropdownFormEmail">Email address</label>
+                    <label for="DropdownFormEmail">Email Address</label>
                     <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
                   </div>
                   <div class="form-group">
@@ -64,19 +73,25 @@
                 </form>
               </div>  <!-- end login dropdown -->
             </li>
+
+
             <!-- sign-in dropdown, Bootstrap -->
-            <li class="nav-item">
+            <li class="nav-item mr-5">
               <div class="btn-group">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  sign up
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Sign Up
                 </button>
                 <form class="dropdown-menu p-4">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="name" class="form-control" id="name" placeholder="John Smith">
+                  </div>
                   <div class="form-group">
-                    <label for="DropdownFormEmail">Email address</label>
+                    <label for="DropdownFormEmail">Email Address</label>
                     <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
                   </div>
                   <div class="form-group">
-                    <label for="DropdownFormPassword">Password</label>
+                    <label for="DropdownFormPassword">Create Password</label>
                     <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
                   </div>
                   <button type="submit" class="btn btn-primary">Sign up</button>
@@ -86,24 +101,33 @@
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->
+        
 
-      <!-- about -->
-      <div id="aboutRow" class="row mx-1">
-        <div id="aboutDisplay" class="col border border-dark rounded p-4">
-          about information goes here.
-        </div>
-      </div>  <!-- end contact -->
-
-      <!-- footer -->
-      <div class="footer">
-        <div class="container">
-          <div class="col-md-6">
-            <p>© 2018 - Team Whatever</p>
+        <!-- about -->
+        <div class="content">
+          <div class="content-inside">
+            <div class="container">
+              <div id="aboutRow" class="row mx-1">
+                <div id="aboutDisplay" class="col border border-dark rounded p-4">
+                  <h5>About Us:</h5>
+                  <p></p>
+                </div>
+              </div>  <!-- end contact -->
+            </div>
           </div>
         </div>
-      </div>  <!-- end of footer -->
+    
 
-    </div>  <!-- end .container -->
+    <!--FOOTER-->
+    <footer class="footer">
+      <div class="container text-center">
+        <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
+        <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
+        <p class="text-center">&copy;2018 Team A</p>
+      </div>
+    </footer>
+      
+
 
 
     <!-- Optional JavaScript -->

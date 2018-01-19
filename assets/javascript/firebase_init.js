@@ -1,4 +1,5 @@
 // Initialize Firebase
+
 // var config =
 // { // Project DB - uses auth
 //   apiKey: "AIzaSyAmo21fRAZj2Qob-T3rWAe2dSI2dLJ9i0c",
@@ -19,7 +20,3 @@ var config =
   messagingSenderId: "614199486533"
 };
 firebase.initializeApp(config);
-// grab handle to entire database
-// var database = firebase.database();
-// grab handle to the database 'timetable' child
-var travel_ref = firebase.database().ref("travel_buddy");
