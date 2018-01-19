@@ -35,10 +35,10 @@ Features that we would like to add at some point in the future.
 
 ## Authors (a.k.a Team A/C)
 
-Christopher Biessener
-Craig Christensen
-Cristina Zhang
-Chris York
+* Christopher Biessener
+* Craig Christensen
+* Cristina Zhang
+* Chris York
 
 ## Copyright
 
