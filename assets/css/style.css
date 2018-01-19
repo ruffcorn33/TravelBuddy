@@ -7,14 +7,18 @@
 }
 
 .navbar {
-  border-bottom: 5px solid #202020;
   background-color: #202020;
 
 }
 
 .nav-link:hover {
-  background-color: rgb(205, 218, 247);
+  background-color: #65A8FF;
+  color: black;
   height: 50px;
+  border-radius: 50px;
+  height: 50px;
+  padding: 10px;
+  opacity:0.9;
 }
 
 .dropdown-menu {
@@ -60,7 +64,7 @@
 }
 
 #contentRow {
-  height: 365px;
+  height: 100%;
 }
 
 
@@ -88,9 +92,8 @@
   background-size: cover; 
   height: 650px;
 }
-#activityContainer {
-  background-color:;
-}
+
+
 
 .categories {
   height: 70px;
@@ -98,11 +101,14 @@
   text-align: center;
   border-radius: 10px;
   border: 1px solid gray;
+  
 }
 
-a {
+a, a:link {
   color: black;
   text-shadow: 1px 1px rgb(205, 218, 247);
+  text-decoration: none;
+
 }
 
 .card:hover {
@@ -150,21 +156,35 @@ h2 {
 }
 
 
+/*FOOTER*/
 
-/* Footer Every Page */
-footer, .footer {
-   height:100px;
-   width: 100%;
-   color:white;
-   background-color: #202020;
-   text-shadow: 1px 1px gray;
-   
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.content {
+  min-height: 100%;
+  min-width: 100%;
+}
+.content-inside {
+  padding: 20px;
+  padding-bottom: 30px;
+}
+
+.footer {
+  height: 90px;
+  margin-top: -50px;
+  text-shadow: 1px 1px gray;
+  background-color: #202020;
+  color:white;
 }
 
 .fa {
   margin:10px;
   color: #65A8FF;
 }
+
+
 
 
 .bottom_ul {
@@ -189,3 +209,4 @@ footer, .footer {
   color:#FFF;
   font-size:12px;
 }
+
