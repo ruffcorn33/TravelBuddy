@@ -6,11 +6,11 @@ var tripLat = Number(localStorage.getItem("tripLat"));
 var tripLng = Number(localStorage.getItem("tripLng"));
 var tripFromDate = localStorage.getItem('tripBegDate')
 var tripToDate = localStorage.getItem('tripEndDate')
+var tripName = localStorage.getItem('tripName');
 // globals
 var activity;
 var map;
 var infowindow;
-var tripName = tripAddress;
 var latLng = {lat:tripLat,lng:tripLng};
 // suppress filling map with random markers in initMap
 var buttonClick = false;
@@ -18,16 +18,19 @@ var request;
 var service;
 var markers=[];
 var mapById = document.getElementById('map');
-var tripName = formatTripName(tripAddress, tripFromDate, tripToDate);
 
 // display trip name suggestion
-// $("#titleDisplay").text(tripName);
-$("#titleDisplay").attr("placeholder", "Suggestion: "+tripName);
+$("#trip-name").attr("placeholder", "Suggestion: "+tripName);
+// get user input for trip name
+$('#saveTrip').on('click', function(){
+  tripName = $("#trip-name").val().trim();
+  $("#trip-name").attr(tripName);
+});
 
 // event handler for actType button click
-$(".activityButton").on("click", function(event){
+$(".categoryButton").on("click", function(event){
   event.preventDefault();
-  activity = $(this).attr("btnActivity");
+  activity = $(this).attr("btnCategory");
   console.log(activity + " button clicked");
   buttonClick = true;
   initMap();
@@ -37,7 +40,7 @@ $(".activityButton").on("click", function(event){
 // called on main.html load and when activity buttons are clicked
 function initMap(){
   var options = {
-    zoom:13,
+    zoom:14,
     center:latLng
   }
   console.log("Loading map for: ");
@@ -86,7 +89,6 @@ function callback(results, status) {
 
 function createMarker(place) {
   // place a marker on map
-  var placeLoc = place.geometry.location;
   marker = new google.maps.Marker({
     position: place.geometry.location,
     map: map,
@@ -94,21 +96,20 @@ function createMarker(place) {
   });
   // open infowindow when marker is clicked
   google.maps.event.addListener(marker, 'click', function(){
-    var spanOpen = '<span style="color:red">';
-    var btnStr = '<button id="addToList type="submit" class="btn btn-primary float-right">Add</button>';
     var rating = '';
     var price = '';
     openNow = '';
+
     if (place.rating) {
-      rating = 'Rated: ' + place.rating;
+      rating = 'Rated: ' + place.rating +"  ";
     } else {
       rating = '';
     };
 
-    if (place.price_level = 1) {price = '$'}
-    else if (place.price_level = 2) {price = '$$'}
-    else if (place.price_level = 3) {price = '$$$'}
-    else if (place.price_level = 5) {price = '$$$$'}
+    if (place.price_level === 1) {price = '$'}
+    else if (place.price_level === 2) {price = '$$'}
+    else if (place.price_level === 3) {price = '$$$'}
+    else if (place.price_level === 5) {price = '$$$$'}
     else {price = ''};
 
     if (place.opening_hours.open_now) {
@@ -117,34 +118,55 @@ function createMarker(place) {
       openNow = '';
     };
 
-    var contentString = "<div class='container'><div id='heading'><h4>"+
-      place.name +
-      "</h4></div><div id='content'><h6>"+
-      rating + '<h6> Price: ' + price +
-      '</h6>' + spanOpen + openNow + '</span>'+
-      "</h6>"+
-      btnStr+
-      "</div></div>";
+    // build this marker's infowindow
+    var contentString = ([
+      "<div class='info-container'>",
+        "<div id='heading'>",
+          "<h4>",
+            place.name,
+          "</h4>",
+        "</div>",
+        "<div id='info-content'>",
+          "<h6>",
+            rating,
+            // "<h6> Price: ",
+              price,
+            // "</h6>",
+            '<span style="color:red">',
+              openNow,
+            "</span>",
+          "</h6>",
+          "<form id='iw-form'>",
+            '<button id="addToList type="submit" class="btn btn-primary float-right">',
+              "Add",
+            '</button>',
+          "</form>",
+        "</div>",
+      "</div>"
+    ].join(''));
 
     infowindow.setContent(contentString);
     infowindow.open(map, this);
+    google.maps.event.addListener(infowindow, 'domready', function(){
+      $('#iw-form').submit(function(event){
+        event.preventDefault();
+        console.log('infowindow button clicked');
+      });
+    });
+
   });
   return marker;
 }
+
+
+
+// $("#info-content").on("click", "#addToList", function() {
+//   console.log("info button clicked");
+// });
 
 function clearResults(markers) {
   for (var m in markers) {
     markers[m].setMap(null);
   }
   markers = [];
-}
-
-function formatTripName(trip, fromDate, toDate) {
-  var name = trip;
-  if (toDate) {
-    name = name + " from " + fromDate + " to " + toDate;
-  } else {
-    name = name + " on " + fromDate;
-  }
-  return name;
 }

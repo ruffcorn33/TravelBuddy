@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
     integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
     crossorigin="anonymous">
+    <!-- Axios, a promise based HTTP client for the browser and node.js -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>TravelBuddy</title>
     <!-- jquery reference -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -134,9 +136,9 @@
         <div id="titleBox" class="col-md-12 border border-dark rounded px-4">
           <h5 class="p-4">My Trip Name: <span>
             <div class="input-group mb-3">
-              <input id="titleDisplay" type="text" class="form-control" placeholder="Enter a name for your trip" aria-label="Trip name" aria-describedby="basic-addon2">
+              <input id="trip-name" type="text" class="form-control" placeholder="Enter a name for your trip" aria-label="Trip name" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Save Trip</button>
+                <button id="saveTrip" class="btn btn-outline-secondary" type="button">Save Trip</button>
               </div>
             </div>
           </span></h5>
@@ -144,8 +146,8 @@
       </div>
 
       <!-- weather -->
-      <div id="titleRow" class="row mx-1 mb-1">
-        <div id="titleDisplay" class="col-md-12 border border-dark rounded px-4">
+      <div id="weatherRow" class="row mx-1 mb-1">
+        <div id="weatherDisplay" class="col-md-12 border border-dark rounded px-4">
           <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>
         </div>
       </div>  <!-- end weather -->
@@ -164,7 +166,7 @@
               <!-- category 1 -->
               <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnActivity="cafe">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnCategory="cafe">
                 <img src="assets/images/breakfast.JPG" alt="Breakfast" class="categories mr-3">
                 Breakfast
                 </a>
@@ -172,7 +174,7 @@
               </div>
               <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                  restaurant info to go here
+                  Choose a category to search then click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 1 -->
@@ -181,7 +183,7 @@
             <div class="card">
               <div class="card-header" role="tab" id="headingTwo">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="activityButton" btnActivity="restaurant">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="categoryButton" btnCategory="restaurant">
                 <img src="assets/images/lunch.JPG" alt="Lunch" class="categories mr-3">
                 Lunch
                 </a>
@@ -189,7 +191,7 @@
               </div>
               <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 2 -->
@@ -198,7 +200,7 @@
             <div class="card">
               <div class="card-header" role="tab" id="headingThree">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" btnActivity="restaurant">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" btn-outline-secondaryategory="restaurant">
                 <img src="assets/images/dinner.JPG" alt="Dinner" class="categories mr-3">
                 Dinner
                 </a>
@@ -206,7 +208,7 @@
               </div>
               <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 3 -->
@@ -215,7 +217,7 @@
             <div class="card">
               <div class="card-header" role="tab" id="headingFour">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour" btnActivity="bar">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour" btnCategory="bar">
                 <img src="assets/images/bars.JPG" alt="Bars" class="categories mr-3">
                 Bars
                 </a>
@@ -223,7 +225,7 @@
               </div>
               <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 4 -->
@@ -232,7 +234,7 @@
             <div class="card">
               <div class="card-header" role="tab" id="headingFive">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive" btnActivity="night_club">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive" btnCategory="night_club">
                 <img src="assets/images/nightlife.JPG" alt="Nightlife" class="categories mr-3">
                 Nightlife
                 </a>
@@ -240,7 +242,7 @@
               </div>
               <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 5 -->
@@ -249,7 +251,7 @@
             <div class="card">
               <div class="card-header" role="tab" id="headingSix">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix" btnActivity="point_of_interest">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix" btnCategory="park">
                 <img src="assets/images/attractions.JPG" alt="Attractions" class="categories mr-3">
                 Attractions
                 </a>
@@ -257,7 +259,7 @@
               </div>
               <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix" data-parent="#accordion">
                 <div class="card-body">
-                attractions info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 6 -->
@@ -266,7 +268,7 @@
             <div class="card">
               <div class="card-header" role="tab" id="headingSeven">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven" btnActivity="museum">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven" btnCategory="museum">
                 <img src="assets/images/museums.JPG" alt="Museums" class="categories mr-3">
                 Museums
                 </a>
@@ -274,7 +276,7 @@
               </div>
               <div id="collapseSeven" class="collapse" role="tabpanel" aria-labelledby="headingSeven" data-parent="#accordion">
                 <div class="card-body">
-                Museums info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 7 -->
@@ -307,6 +309,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
     <!-- JavaScript -->
+    <script src="assets/javascript/script.js"></script>
     <script src="assets/javascript/map.js"></script>
     <!-- Google Maps -->
     <!-- and the Places library -->
