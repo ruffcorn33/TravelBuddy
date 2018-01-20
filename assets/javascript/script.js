@@ -3,6 +3,24 @@ var tripBegDate;
 var tripEndDate;
 var tripName;
 
+// setup the datepickers to be a date range
+var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+$('#inputFromDate').datepicker({
+  uiLibrary: 'bootstrap4',
+  // iconsLibrary: 'fontawesome',
+  minDate: today,
+  maxDate: function () {
+    return $('#inputToDate').val();
+  }
+});
+$('#inputToDate').datepicker({
+  uiLibrary: 'bootstrap4',
+  // iconsLibrary: 'fontawesome',
+  minDate: function () {
+    return $('#inputFromDate').val();
+  }
+});
+
 $("#addTrip").on("click", function(event) {
   event.preventDefault();
   tripDestination = $("#inputDestination").val().trim();

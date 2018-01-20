@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
     integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
     crossorigin="anonymous">
+    <!-- Gijgo library - for datepicker widget -->
     <!-- Axios, a promise based HTTP client for the browser and node.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>TravelBuddy - Welcome!</title>
@@ -15,6 +16,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Firebase reference -->
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <!-- custom css -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- icons-->
@@ -178,11 +181,11 @@
           </div>
           <div class="form-group col-md-3">
             <label for="inputFromDate">Arrival</label>
-            <input type="text" class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
+            <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
           </div>
           <div class="form-group col-md-3">
             <label for="inputToDate">Returning (optional)</label>
-            <input type="text" class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
+            <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
           </div>
           <div class="col-md-1">
             <label for="button">Click it</label>
