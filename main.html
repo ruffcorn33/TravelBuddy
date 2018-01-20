@@ -3,15 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap reference -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
-    integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
-    crossorigin="anonymous">
-    <title>TravelBuddy</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
     <!-- jquery reference -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap reference -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Axios, a promise based HTTP client for the browser and node.js -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>TravelBuddy - Welcome!</title>
     <!-- Firebase reference -->
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <!-- Gijgo library - for datepicker widget -->
+    <script src="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <!-- custom css -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- icons-->
@@ -20,8 +26,8 @@
 
   <body>
 
-       <!--NAVBAR-->
-      <nav class="navbar navbar-expand-lg">
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand ml-5">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -99,48 +105,51 @@
         </div>
       </nav>  <!-- end navbar -->
 <!--...............................................................................................................-->
-<div class="content">
-  <div class="jumbotron minneapolis"></div>
-    <div class="content-inside">
-      <div class="container mt-5">
-        <div id="titleRow" class="row mx-1 mb-1">
-          <div id="titleDisplay" class="col-md-12 border border-dark rounded px-4">
-            <!-- Welcome and trip input -->
-            <div class="container">
-              <form>
-                <div class="form-row mt-5">
-                  <div class="form-group col-md-5 mb-5">
-                    <label for="inputDestination">Change Current Location</label>
-                    <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="inputFromDate">Arrival</label>
-                    <input type="text" class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
-                  </div>
-                <div class="form-group col-md-3">
-                  <label for="inputToDate">Returning (optional)</label>
-                  <input type="text" class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
-                </div>
-                <div class="col-md-1">
-                  <label for="button">Click it</label>
-                  <button type="submit" class="btn btn-primary">Go!</button>
-                </div>
+
+    <div class="content">
+      <div class="jumbotron minneapolis"></div>
+      <div class="content-inside">
+        <div class="container">
+          <form>
+            <div class="form-row">
+              <div class="form-group col-md-5 mb-5">
+                <label for="inputDestination">Tell us where you are going...</label>
+                <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
               </div>
-            </form>
-          </div>
-        </div>
-      </div>
+              <div class="form-group col-md-3">
+                <label for="inputFromDate">Arrival</label>
+                <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="inputToDate">Returning (optional)</label>
+                <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
+              </div>
+              <div class="col-md-1">
+                <label for="button">Click it</label>
+                <button id="addTrip" type="submit" class="btn btn-primary float-right">Go!</button>
+              </div>
+            </div>  <!-- end of .form-row -->
+          </form>
+        </div>  <!-- end of .container -->
+      </div> <!-- end of .content-inside -->
 
       <div id="titleRow" class="row mx-1 mb-1">
-        <div id="titleDisplay" class="col-md-12 border border-dark rounded px-4">
-          <h5 class="p-4">My Trip Name:</h5> 
+        <div id="titleBox" class="col-md-12 border border-dark rounded px-4">
+          <h5 class="p-4">My Trip Name: <span>
+            <div class="input-group mb-3">
+              <input id="trip-name" type="text" class="form-control" placeholder="Enter a name for your trip" aria-label="Trip name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="saveTrip" class="btn btn-outline-secondary" type="button">Save Trip</button>
+              </div>
+            </div>
+          </span></h5>
         </div>
       </div>
 
       <!-- weather -->
-      <div id="titleRow" class="row mx-1 mb-1">
-        <div id="titleDisplay" class="col-md-8 border border-dark rounded px-4">
-          <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>
+      <div id="weatherRow" class="row mx-1 mb-1">
+        <div id="weatherDisplay" class="col-md-12 border border-dark rounded px-4">
+          <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>  
         </div><!-- end weather -->
         
         <!--Checkboxes-->
@@ -160,25 +169,21 @@
         </div>
       </div>
 
-
-
-
-
       <div id="contentRow" class="row m-1">
-<!--Map..............................................................................................................-->
+        <!-- Map -->
         <div id="map" class="col-8 border border-dark rounded p-4"></div>
 
-<!--Categories ......................................................................................................-->
-
+        <!--Categories -->
         <div id="activityContainer" class="col-md-4 border border-dark rounded p-4">
-          <h4 class="text-center mb-3">Your Selected Activities:</h4>
+          <!-- <h4 class="text-center mb-3">Your Selected Activities:</h4> -->
 
           <!--BREAKFAST-->
           <div id="accordion" role="tablist">
             <div class="card">
-              <div class="card-header" role="tab" id="headingOne" ">
+              <!-- category 1 -->
+              <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnActivity="cafe">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnCategory="cafe">
                 <img src="assets/images/breakfast.JPG" alt="Breakfast" class="categories mr-3">
                 Breakfast
                 </a>
@@ -186,15 +191,16 @@
               </div>
               <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                  restaurant info to go here
+                  Choose a category to search then click map markers to add to lists.
                 </div>
               </div>
-            </div>  <!-- end of breakfast card -->
-          <!--LUNCH-->
+            </div>  <!-- end of category 1 -->
+            <!-- category 2 -->
+            <!--LUNCH-->
             <div class="card">
               <div class="card-header" role="tab" id="headingTwo">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="activityButton" btnActivity="restaurant">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="categoryButton" btnCategory="restaurant">
                 <img src="assets/images/lunch.JPG" alt="Lunch" class="categories mr-3">
                 Lunch
                 </a>
@@ -202,15 +208,16 @@
               </div>
               <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
-            </div>  <!-- end of lunch card -->
+            </div>  <!-- end of category 2 -->
+            <!-- category 3 -->
             <!--DINNER-->
             <div class="card">
               <div class="card-header" role="tab" id="headingThree">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" btnActivity="restaurant">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" btn-outline-secondaryategory="restaurant">
                 <img src="assets/images/dinner.JPG" alt="Dinner" class="categories mr-3">
                 Dinner
                 </a>
@@ -218,15 +225,16 @@
               </div>
               <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
-            </div>  <!-- end of dinner card -->
+            </div>  <!-- end of category 3 -->
+            <!-- category 4 -->
             <!--BARS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingFour">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour" btnActivity="bar">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour" btnCategory="bar">
                 <img src="assets/images/bars.JPG" alt="Bars" class="categories mr-3">
                 Bars
                 </a>
@@ -234,15 +242,16 @@
               </div>
               <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
-            </div>  <!-- end of bars card -->
+            </div>  <!-- end of category 4 -->
+            <!-- category 5 -->
             <!--NIGHTLIFE-->
             <div class="card">
               <div class="card-header" role="tab" id="headingFive">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive" btnActivity="night_club">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive" btnCategory="night_club">
                 <img src="assets/images/nightlife.JPG" alt="Nightlife" class="categories mr-3">
                 Nightlife
                 </a>
@@ -250,15 +259,16 @@
               </div>
               <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#accordion">
                 <div class="card-body">
-                restaurant info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
-            </div>  <!-- end of nightlife card -->
+            </div>  <!-- end of category 5 -->
+            <!-- category 6 -->
             <!--ATTRACTIONS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingSix">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix" btnActivity="point_of_interest">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix" btnCategory="park">
                 <img src="assets/images/attractions.JPG" alt="Attractions" class="categories mr-3">
                 Attractions
                 </a>
@@ -266,15 +276,16 @@
               </div>
               <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix" data-parent="#accordion">
                 <div class="card-body">
-                attractions info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
-            </div>  <!-- end of attractions card -->
+            </div>  <!-- end of category 6 -->
+            <!-- category 7 -->
             <!--MUSEUMS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingSeven">
                 <h5 class="mb-0">
-                <a class="collapsed activityButton" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven" btnActivity="museum">
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven" btnCategory="museum">
                 <img src="assets/images/museums.JPG" alt="Museums" class="categories mr-3">
                 Museums
                 </a>
@@ -282,39 +293,31 @@
               </div>
               <div id="collapseSeven" class="collapse" role="tabpanel" aria-labelledby="headingSeven" data-parent="#accordion">
                 <div class="card-body">
-                Museums info to go here
+                Click map markers to add to lists.
                 </div>
               </div>
-            </div>  <!-- end of museums card -->
+            </div>  <!-- end of category 7 -->
           </div>  <!-- end of .accordian -->
         </div> <!-- end of activity container -->
       </div>  <!-- end of .contentRow -->
-    </div>  <!-- end .container -->
-  </div>
-</div>
-       
-      
-      
+    </div>  <!-- end .content -->
+
 <!--.....................................................................................................................-->
-<!--FOOTER-->
-<div class="row">
-  <div class="col-md-12">
-    <footer class="footer mt-5">
-      <div class="container text-center">
-        <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
-        <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
-        <p class="text-center">&copy;2018 Team A</p>
+    <!--FOOTER-->
+    <div class="row">
+      <div class="col-md-12">
+        <footer class="footer mt-5">
+          <div class="container text-center">
+            <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
+            <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
+            <p class="text-center">&copy;2018 Team A</p>
+          </div>
+        </footer>
       </div>
-    </footer>
-  </div>
-</div>
-   
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    </div>
+
     <!-- JavaScript -->
+    <script src="assets/javascript/script.js"></script>
     <script src="assets/javascript/map.js"></script>
     <!-- Google Maps -->
     <!-- and the Places library -->

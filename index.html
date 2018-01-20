@@ -4,24 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="assets/css/reset.css">
+    <!-- jquery reference -->
     <!-- Bootstrap reference -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
-    integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
-    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Axios, a promise based HTTP client for the browser and node.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>TravelBuddy - Welcome!</title>
-    <!-- jquery reference -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Firebase reference -->
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <!-- Gijgo library - for datepicker widget -->
+    <script src="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <!-- custom css -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    
+
 <!--NAVBAR-->
       <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand ml-5">TravelBuddy</a>
@@ -104,69 +107,69 @@
 
 <!--......................................................................................................................-->
 
-<!--Carousel-->
 <div class="content">
-<div id="carouselExampleControls" class="carousel slide mb-5" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="img-fluid" src="assets/images/europe.JPG" alt="Europe" width="100%"> 
-        <div class="absolute-div">
-          <div class="carousel-caption trickcenter">
-            <h1 class="bounce text-center">Welcome to TravelBuddy!</h1>
-            <h2 class="bounce text-center">This is some text about TravelBuddy</h2>
+  <!--Carousel-->
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="img-fluid" src="assets/images/europe.JPG" alt="Europe" width="100%">
+          <div class="absolute-div">
+            <div class="carousel-caption trickcenter">
+              <h1 class="bounce text-center">Welcome to TravelBuddy!</h1>
+              <h2 class="bounce text-center">This is some text about TravelBuddy</h2>
+            </div>
           </div>
-        </div>
-    </div>
-
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="assets/images/wdc.JPG" alt="Washington D.C." width="100%">
-        <div class="absolute-div">
-          <div class="carousel-caption trickcenter">
-            <h1>TravelBuddy!</h1>
-            <h2 class="text-center">Sign Up Now and Plan Your Trips</h2>
+      </div>
+      <!-- slide 1 -->
+      <div class="carousel-item">
+        <img class="d-block img-fluid" src="assets/images/wdc.JPG" alt="Washington D.C." width="100%">
+          <div class="absolute-div">
+            <div class="carousel-caption trickcenter">
+              <h1>TravelBuddy!</h1>
+              <h2 class="text-center">Sign Up Now and Plan Your Trips</h2>
+            </div>
           </div>
-        </div>
-    </div>
-
-    <div class="carousel-item">
-      <img class="img-fluid" src="assets/images/sanantonio.JPG" alt="San Antonio" width="100%"> 
-        <div class="absolute-div">
-          <div class="carousel-caption trickcenter">
-            <h2 class="text-center">Try New Food and Drinks</h2>
+      </div>
+      <!-- slide 2 -->
+      <div class="carousel-item">
+        <img class="img-fluid" src="assets/images/sanantonio.JPG" alt="San Antonio" width="100%">
+          <div class="absolute-div">
+            <div class="carousel-caption trickcenter">
+              <h2 class="text-center">Try New Food and Drinks</h2>
+            </div>
           </div>
-        </div>
-    </div>
-
-    <div class="carousel-item">
-      <img class="d-block img-fluid" src="assets/images/chicago.JPG" alt="Chicago" width="100%">
-        <div class="absolute-div">
-          <div class="carousel-caption trickcenter">
-            <h2 class="text-center">Get Out of Your Comfort Zone</h2>
+      </div>
+      <!-- slide 3 -->
+      <div class="carousel-item">
+        <img class="d-block img-fluid" src="assets/images/chicago.JPG" alt="Chicago" width="100%">
+          <div class="absolute-div">
+            <div class="carousel-caption trickcenter">
+              <h2 class="text-center">Get Out of Your Comfort Zone</h2>
+            </div>
           </div>
-        </div>
-    </div>
-
-    <div class="carousel-item">
-      <img class="img-fluid" src="assets/images/barcelona.JPG" alt="Barcelona" width="100%">
-        <div class="absolute-div">
-          <div class="carousel-caption trickcenter">
-            <h2 class="text-center">Explore the World</h2>
+      </div>
+      <!-- slide 4 -->
+      <div class="carousel-item">
+        <img class="img-fluid" src="assets/images/barcelona.JPG" alt="Barcelona" width="100%">
+          <div class="absolute-div">
+            <div class="carousel-caption trickcenter">
+              <h2 class="text-center">Explore the World</h2>
+            </div>
           </div>
-        </div> 
-    </div>
-    <!--Controlling the carousel-->
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
-<div class="content-inside">
-    <!-- Welcome and trip input -->
+      </div>
+      <!--Controlling the carousel-->
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>  <!-- end of.carousel-inner -->
+  </div>  <!-- end of #carouselExampleControls -->
+  <!-- Welcome and trip input -->
+  <div class="content-inside">
     <div class="container">
       <form>
         <div class="form-row">
@@ -176,44 +179,32 @@
           </div>
           <div class="form-group col-md-3">
             <label for="inputFromDate">Arrival</label>
-            <input type="text" class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
+            <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
           </div>
           <div class="form-group col-md-3">
             <label for="inputToDate">Returning (optional)</label>
-            <input type="text" class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
+            <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
           </div>
           <div class="col-md-1">
             <label for="button">Click it</label>
             <button id="addTrip" type="submit" class="btn btn-primary float-right">Go!</button>
           </div>
-        </div>
+        </div>  <!-- end of .form-row -->
       </form>
-    </div>
-    </div>
-    </div>
+    </div>  <!-- end of .container -->
+  </div> <!-- end of .content-inside -->
+</div>  <!-- end of .content -->
 
-
-
-
-          
 <!--......................................................................................................................-->
 
-
-<!--FOOTER-->
-<footer class="footer mt-5">
-  <div class="container text-center">
-    <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
-    <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
-    <p class="text-center">&copy;2018 Team A</p>
-  </div>
-</footer>
-  
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <!--FOOTER-->
+    <footer class="footer mt-5">
+      <div class="container text-center">
+        <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
+        <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
+        <p class="text-center">&copy;2018 Team A</p>
+      </div>
+    </footer>
     <!-- JavaScript -->
     <script src="assets/javascript/script.js"></script>
   </body>
