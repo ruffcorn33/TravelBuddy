@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <!-- jquery reference -->
     <!-- Bootstrap reference -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
-    integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
-    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Axios, a promise based HTTP client for the browser and node.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>TravelBuddy</title>
-    <!-- jquery reference -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>TravelBuddy - Welcome!</title>
     <!-- Firebase reference -->
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <!-- Gijgo library - for datepicker widget -->
@@ -109,22 +110,21 @@
 <!--...............................................................................................................-->
     <div class="content">
       <div class="jumbotron minneapolis"></div>
-
       <div class="content-inside">
         <div class="container">
           <form>
             <div class="form-row">
-              <div class="form-group col-md-5 mb-">
-                <label for="inputDestination">Pick a new destination...</label>
-                <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address or location">
+              <div class="form-group col-md-5 mb-5">
+                <label for="inputDestination">Tell us where you are going...</label>
+                <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
               </div>
               <div class="form-group col-md-3">
                 <label for="inputFromDate">Arrival</label>
-                <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY" width="200">
+                <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
               </div>
               <div class="form-group col-md-3">
                 <label for="inputToDate">Returning (optional)</label>
-                <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)" width="200">
+                <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
               </div>
               <div class="col-md-1">
                 <label for="button">Click it</label>
@@ -287,30 +287,21 @@
         </div> <!-- end of activity container -->
       </div>  <!-- end of .contentRow -->
     </div>  <!-- end .content -->
-  <!-- </div>
-</div> -->
-
-
 
 <!--.....................................................................................................................-->
-<!--FOOTER-->
-<div class="row">
-  <div class="col-md-12">
-    <footer class="footer mt-5">
-      <div class="container text-center">
-        <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
-        <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
-        <p class="text-center">&copy;2018 Team A</p>
+    <!--FOOTER-->
+    <div class="row">
+      <div class="col-md-12">
+        <footer class="footer mt-5">
+          <div class="container text-center">
+            <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
+            <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
+            <p class="text-center">&copy;2018 Team A</p>
+          </div>
+        </footer>
       </div>
-    </footer>
-  </div>
-</div>
+    </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
     <!-- JavaScript -->
     <script src="assets/javascript/script.js"></script>
     <script src="assets/javascript/map.js"></script>
