@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>firebase_demo_form</title>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <!-- Local Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="assets/css/firebase_demo.css">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+  <!-- Moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Overlock+SC" rel="stylesheet">
+  <!-- Gijgo library - for datepicker widget -->
+  <script src="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
+  <link href="https://cdn.jsdelivr.net/gh/atatanasov/gijgo@1.7.3/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="container">
+              <!-- <button class="btn float-right" id="google_sign_in">Sign in with Google</button> -->
+
+    <div class="row"> <!-- user row -->
+      <div class="col">
+        <!-- Current User -->
+        <div class="card">
+          <div class="card-heading card_header p-2">
+            <h2 class="card-title pl-4 m-0"><strong>Current User</strong></h2>
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody id="userRow">
+              </tbody>
+            </table>
+            <hr>
+            <div class="d-flex"><h3 class="pt-2 pb-2 pl-3">User Trips </h3><p class="pl-5 align-self-end">Select a Trip by clicking on its Name.</p></div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody id="tripRows">
+              </tbody>
+            </table>
+            <h3 class="pt-2 pb-2 pl-3">Activities for trip <span id="activeTrip" class="bg-primary"></span></h3>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Name</th>
+                  <th>Location</th>
+                </tr>
+              </thead>
+              <tbody id="activityRows">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end user row -->
+  
+    <div class="row"> <!-- add trip row -->
+      <div class="col">
+        <!-- Add Trip -->
+        <div class="card">
+          <div class="card-heading card_header p-2">
+            <h2 class="card-title pl-4 m-0"><strong>Add Trip</strong></h2>
+          </div>
+          <div class="card-body">
+            <!-- Entry Form -->
+            <div>
+              <div class="form-group">
+                <label for="inp_trip_name">Trip Name</label>
+                <input class="form-control" id="inp_trip_name">
+                </input>
+              </div>
+              <div class="form-group">
+                <label for="inp_trip_location">Trip Location</label>
+                <input class="form-control" id="inp_trip_location" type="text">
+              </div>
+              <div class="form-group">
+                <label for="inp_start_date">Trip Start Date</label>
+                <input class="form-control" id="inp_start_date" width="200">
+              </div>
+              <div class="form-group">
+                <label for="inp_end_date">Trip End Date</label>
+                <input class="form-control" id="inp_end_date" width="200">
+              </div>
+              <button class="btn" id="submit_trip" type="button">Submit And Select Trip</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end add trip row -->
+
+    <div class="row"> <!-- add activity row -->
+      <div class="col">
+        <!-- Add Activity -->
+        <div class="card">
+          <div class="card-heading card_header p-2">
+            <h2 class="card-title pl-4 m-0"><strong>Add Activity</strong></h2>
+          </div>
+          <div class="card-body">
+            <!-- Entry Form -->
+            <div>
+              <div class="form-group">
+                <label for="inp_activity_category">Activity Category</label>
+                <select class="form-control" id="inp_activity_category">
+                  <!-- build select list in js -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="inp_activity_name">Activity Name</label>
+                <input class="form-control" id="inp_activity_name" type="text">
+              </div>
+              <div class="form-group">
+                <label for="inp_activity_location">Activity Location</label>
+                <input class="form-control" id="inp_activity_location" type="text">
+              </div>
+              <button disabled class="btn" id="submit_activity" type="button">Submit Activity</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end add activity row -->
+
+    <div class="row"> <!-- Firebase dump row -->
+      <div class="col">
+        <!-- Firebase Dump -->
+        <div class="card">
+          <div class="card-heading card_header p-2">
+            <h2 class="card-title pl-4 m-0"><strong>Firebase Dump</strong></h2>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-danger float-left mr-2" id="dump_user" type="button">Dump User</button>
+            <button class="btn btn-danger float-left mr-2" id="dump_trip" type="button">Dump Trip</button>
+            <button class="btn btn-danger float-left mr-2" id="dump_activity" type="button">Dump Activity</button>
+          </div>
+          <div class="card-body">
+            <hr>
+            <pre id="firebase_dump"></pre>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end Firebase dump row -->
+
+  </div> <!-- end container -->
+
+  <!-- JavaScript -->
+  <script src="assets/javascript/firebase_init.js"></script>
+  <script src="assets/javascript/firebase_main.js"></script>
+
+</body>

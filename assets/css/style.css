@@ -1,12 +1,69 @@
-#weatherDisplay {
-  background-color: #c9efc9;
-  height: 80px;
+
+/* NAVBAR */
+.navbar, .navbar-brand, .nav-link {
+  color: white;
+  font-size: 20px;
+  text-shadow: 1px 1px black;
+}
+
+.navbar {
+  background-color: none;
+  margin-top: none;
+  position: 0 0;
+
+}
+
+.nav-link:hover {
+  background-color: #65A8FF;
+  color: black;
+  height: 50px;
+  border-radius: 50px;
+  height: 50px;
+  padding: 10px;
+  opacity:0.9;
+}
+
+.my-nav{
+  z-index: 999;
+  background: none;
+  border:0 !important;
+  border-radius: 0;
+}
+
+.dropdown-menu {
   width: 200px;
 }
 
-#contactDisplay {
-  background-color: #c9efca;
-  height: 450px;
+.btn-group {
+  margin-right: 40px;
+}
+
+
+
+/* Contact*/
+.text {
+  font-size: 20px;
+}
+.icons {
+  height: 150px;
+  width: 150px;
+}
+
+.contact {
+  background-image: url('../images/contact.JPG');
+  width: 100%;
+  height: 720px;
+  opacity: 0.8;
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover; 
+}
+
+.us {
+  height: 250px;
+  width: 300px;
+  text-align: center;
+  box-shadow: none;
 }
 
 
@@ -16,28 +73,157 @@
 }
 
 #contentRow {
-  height: 365px;
+  height: 900px;
 }
 
-#mapContainer {
-  background-color: #c9d7ef;
+/* Activities Main */
+.minneapolis {
+  background-image: url('../images/minneapolis.JPG');
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover; 
+  height: 720px;
+  position: relative;
+}
+
+.change-trip {
+  position: absolute;
+  top:40%;
+  width: 100%;
+}
+
+.from-row {
+  color: black;
+}
+
+.text-white {
+  text-shadow: 2px 1px black;
+  font-size: 18px;
+
+}
+
+
+/* MAP */
+#map {
+  height: 100%;
+  width: 100%;
 }
 
 #activityContainer {
-  background-color: #efcfc9;
+  height: 100%;
+}
+
+
+/* WEATHER */
+#weatherDisplay {
+  background-color: #c9efc9;
+  height: 80px;
+  width: 200px;
+}
+
+
+/*Categories*/
+.categories {
+  height: 70px;
+  width: 110px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid gray;
+  
+}
+
+a, a:link {
+  color: black;
+  text-shadow: 1px 1px rgb(205, 218, 247);
+  text-decoration: none;
+
+}
+
+.card:hover {
+    box-shadow: inset 0 0 3px 4px  rgb(205, 218, 247);
+}
+
+.card {
+  border: 1px solid gray;
+}
+
+
+
+/* Carousel Index */
+.my-carousel {
+  margin-top: -70px;
+}
+
+.carousel-inner, .carousel-item, .img {
+  height: 720px;
+}
+
+.form-row {
+  color: black;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.carousel-caption {
+    position: absolute;
+    z-index: 1;
+    display:table;
+    width:100%;
+    height:100%;
+}
+
+.trickcenter {
+    position: fixed;
+    top: 84%; 
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+.date {
+   position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+h1 {
+  font-size: 80px;
+  text-shadow: 3px 3px black;
+}
+
+h2 {
+  text-shadow: 3px 3px black;
+}
+
+
+/*FOOTER*/
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.content {
+  min-height: 100%;
+  min-width: 100%;
+}
+.content-inside {
+  padding: 20px;
+  padding-bottom: 30px;
 }
 
 .footer {
-   min-height:40px;
-   background-color:#000000;
+  height: 90px;
+  margin-top: -50px;
+  text-shadow: 1px 1px gray;
+  background-color: #202020;
+  color:white;
 }
 
-.footer p {
-   text-align:left;
-    color:#FFF;
-    padding:10px 0;
-    margin-bottom:0px;
+.fa {
+  margin:10px;
+  color: #65A8FF;
 }
+
+
+
 
 .bottom_ul {
   list-style-type:none;
@@ -61,3 +247,4 @@
   color:#FFF;
   font-size:12px;
 }
+
