@@ -1,10 +1,5 @@
 // firebase_main.js
-
-//
-// generally:
-//  don't use .set() since set wipes out all data and replaces with what's passed in - unless you're setting a leaf node
-//  use .update() because it replaces/adds as neccesary
-//
+//   the Firebase Library for TravelBuddy
 
 //
 // Global Scope
@@ -44,82 +39,19 @@ activity_categories_ref.orderByKey().once('value').then(function(snapshot)
   activityCategoriesArray = snapshot.val();
   console.log("Actvity Catagories:", activityCategoriesArray);
   // now build the html for the form
-  for ( var i = 0; i < activityCategoriesArray.length; ++i)
-  {
-    var option = $('<option>' + activityCategoriesArray[i] + '</option>');
-    $('#inp_activity_category').append(option);
-  }
+  // TODO - integrate? with Project UI (maybe just delete?)
+  set_categories_selection();
 });
 
-// TODO - use proper log in stuff - 'child_added' is used instead of 'value' to get only one user (for now)
-users_ref.once('child_added').then(function(user_snap)
-{
-  user = user_snap.val();
-  user_uid = user_snap.key;
-  user_ref = firebase.database().ref('travel_buddy/users/' + user_uid);
-  user_trips_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips');
-  var trip_name = "";
-  console.log("User Key:", user_snap.key, "User:", user);
-  login_user(user);
-
-  // register trips listener for this user
-  user_trips_ref.orderByChild("start_date").on("child_added", function(child)
-  {
-    var trip = child.val();
-    // log child
-    console.log("Trip Key:", child.key, "Trip:", trip);
-    // build the table row
-    var tr = $('<tr>'
-              + '<td class="user_trip">' + child.key + '</td>'
-              + '<td>' + trip.location + '</td>'
-              + '<td>' + trip.start_date + '</td>'
-              + '<td>' + trip.end_date + '</td>'
-              );
-    // Writes the saved value from firebase to our display
-    $("#tripRows").append(tr);
-  }, function(errorObject)
-  { // Handles firebase failure if it occurs
-    console.log("read trips failed: " + errorObject.code);
-  });
-
-  // register on click event for submit_trip button - relative to this user
-  $("#submit_trip").on("click", function(event)
-  {
-    event.preventDefault();
-    do_submit_trip(event, false);
-
-    // clear form
-    // $("#inp_trip_name").val("");
-    // $("#inp_trip_location").val("");
-    // clear activities
-    $('#activityRows').empty();
-    // display the active trip name
-    $('#activeTrip').text(current_trip_name);
-    // enable the submit_activity button
-    $('#submit_activity').prop("disabled", false);
-  });
-
-  // register on click event for submit_trip button - relative to this user
-  $("#update_trip").on("click", function(event)
-  {
-    event.preventDefault();
-    // TODO - save and check id vs current trip - if the name changed, need to delete the old id
-    do_submit_trip(event, true);
-
-    // clear form
-    // $("#inp_trip_name").val("");
-    // $("#inp_trip_location").val("");
-    // display the active trip name
-    $('#activeTrip').text(current_trip_name);
-    // enable the submit_activity button
-    $('#submit_activity').prop("disabled", false);
-  });
-});
 // add/update a trip in Firebase - 'exposed' method to the app
 //   event - the event from the click-handler
 //   update - boolean whether to update existing trip
+//
+//   return false if a different trip than active trip
 function do_submit_trip(event, update)
 {
+  // return value
+  var rv = true;
   // Capture User Inputs and store them into variables
   trip_name      = $("#inp_trip_name").val().trim();
   var location   = $("#inp_trip_location").val().trim();
@@ -137,129 +69,28 @@ function do_submit_trip(event, update)
       "end_date" : end_date,
     }, update);
   // set the active trip name
+  if (current_trip_name !== trip_name)
+  {
+    // different trip than currently displayed
+    rv = false;
+  }
   current_trip_name = trip_name;
   // get Firebase ref to this trip's activities object
   activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities');
   // register the events for the submit activity UI
+  // TODO - integrate with real Project UI
   register_activity_ui(trip_name);
+
+  return rv;
 }
 
 //
 // Event Functions
 //
 
-// on click event for trip name selection
-$('#tripRows').on('click', 'td.user_trip', function()
-{
-  // get the trip name clicked on
-  current_trip_name = $(this).text();
-  // user is selecting active trip to display activities for
-  console.log("trip clicked:", current_trip_name);
-  // display the active trip name
-  $('#activeTrip').text(current_trip_name);
-  // get the Firebase ref for the current trip
-  active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name);
-  // get Firebase ref to this trip's activities object
-  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name + '/activities');
-  // register the events for the submit activity UI
-  register_activity_ui(current_trip_name);
-  // enable the submit_activity button
-  $('#submit_activity').prop("disabled", false);
-});
-
-// on click event for the dump_user button
-$('#dump_user').on('click', function()
-{
-  query_user().then(function(usr)
-  {
-    demo_JSON_dump(usr);
-  })
-});
-
-// on click event for the dump_trip button
-$('#dump_trip').on('click', function()
-{
-  query_trip().then(function(trip)
-  {
-    demo_JSON_dump(trip);
-  })
-});
-
-// on click event for the dump_activity button
-$('#dump_activity').on('click', function()
-{
-  query_activity().then(function(activity)
-  {
-    demo_JSON_dump(activity);
-  })
-});
-
 //
 // Utility Functions
 //
-function login_user(user)
-{
-  console.log("logging in:", user.name, user.email);
-  // TODO - replace this placeholder code
-  // build the table row
-  var tr = $('<tr>'
-            + '<td>' + user.name + '</td>'
-            + '<td>' + user.email + '</td>'
-            );
-  // Writes the saved value from firebase to our display
-  $("#userRow").append(tr);
-}
-
-function register_activity_ui(trip_name)
-{  
-  // register on click event for submit_activity button - relative to this user/trip
-  $("#submit_activity").on("click", function(event)
-  {
-    event.preventDefault();
-    // Capture User Inputs and store them into variables
-    var category          = $("#inp_activity_category").val();
-    current_activity_name = $("#inp_activity_name").val().trim();
-    var location          = $("#inp_activity_location").val().trim();
-    // log data
-    console.log("category: ", category, "name: ", activity_name, "location: ", location);
-    // get Firebase ref for this activity
-    var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities/' + current_activity_name);
-    // store data
-    // use set() because it is a leaf node
-    activity_ref.set(
-    {
-      "category" : category,
-      "location" : location,
-    });
-    // clear form
-    $("#inp_activity_name").val("");
-    $("#inp_activity_location").val("");
-  });
-
-  // register activity listener for this trip
-  activities_ref.orderByChild("category").on("child_added", function(child)
-  {
-    display_activity(child.val(), child.key);
-  }, function(errorObject)
-  { // Handles firebase failure if it occurs
-    console.log("read activities failed: " + errorObject.code);
-  });
-}
-
-function display_activity(activity, activity_name)
-{
-  // log activity
-  console.log("Activity:", activity);
-  // build the table row
-  var tr = $('<tr>'
-            + '<td>' + activity.category + '</td>'
-            + '<td>' + activity_name + '</td>'
-            + '<td>' + activity.location + '</td>'
-            );
-  // Writes the saved value from firebase to our display
-  $("#activityRows").append(tr);
-  current_activity_name = activity_name;
-}
 
 // return a promise which returns the JSON object for the currently logged in user
 function query_user()
@@ -438,10 +269,4 @@ function store_activity(id, activity, update)
       "category" : activity.category,
     });
   }
-}
-
-// debug function to dump a JSON object
-function demo_JSON_dump(obj)
-{
-  $('#firebase_dump').text(JSON.stringify(obj, null, 2));
 }
