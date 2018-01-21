@@ -104,6 +104,7 @@
                 <input class="form-control" id="inp_end_date" width="200">
               </div>
               <button class="btn" id="submit_trip" type="button">Submit And Select Trip</button>
+              <button class="btn" id="update_trip" type="button">Update Selected Trip</button>
             </div>
           </div>
         </div>
@@ -135,6 +136,7 @@
                 <input class="form-control" id="inp_activity_location" type="text">
               </div>
               <button disabled class="btn" id="submit_activity" type="button">Submit Activity</button>
+              <button disabled class="btn" id="update_activity" type="button">Update Activity</button>
             </div>
           </div>
         </div>
@@ -166,5 +168,25 @@
   <!-- JavaScript -->
   <script src="assets/javascript/firebase_init.js"></script>
   <script src="assets/javascript/firebase_main.js"></script>
+  <script>
+    // setup the datepickers to be a date range
+    // TODO - this datepicker code needs to be moved to global scope of a 'main project' js file
+    var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    $('#inp_start_date').datepicker({
+      uiLibrary: 'bootstrap4',
+      // iconsLibrary: 'fontawesome',
+      minDate: today,
+      maxDate: function () {
+        return $('#inp_end_date').val();
+      }
+    });
+    $('#inp_end_date').datepicker({
+      uiLibrary: 'bootstrap4',
+      // iconsLibrary: 'fontawesome',
+      minDate: function () {
+        return $('#inp_start_date').val();
+      }
+    });
+  </script>
 
 </body>

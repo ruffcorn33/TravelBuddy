@@ -10,25 +10,6 @@
 // Global Scope
 //
 
-// setup the datepickers to be a date range
-// TODO - this datepicker code needs to be moved to global scope of a 'main project' js file
-var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-$('#inp_start_date').datepicker({
-  uiLibrary: 'bootstrap4',
-  // iconsLibrary: 'fontawesome',
-  minDate: today,
-  maxDate: function () {
-    return $('#inp_end_date').val();
-  }
-});
-$('#inp_end_date').datepicker({
-  uiLibrary: 'bootstrap4',
-  // iconsLibrary: 'fontawesome',
-  minDate: function () {
-    return $('#inp_start_date').val();
-  }
-});
-
 // array of activity categories stored in Firebase
 var activityCategoriesArray = [];
 
@@ -105,41 +86,63 @@ users_ref.once('child_added').then(function(user_snap)
   $("#submit_trip").on("click", function(event)
   {
     event.preventDefault();
-    // Capture User Inputs and store them into variables
-    trip_name      = $("#inp_trip_name").val().trim();
-    var location   = $("#inp_trip_location").val().trim();
-    var start_date = $("#inp_start_date").val();
-    var end_date   = $("#inp_end_date").val();
-    // log data
-    console.log("name: ", trip_name, "location: ", location, "start_date", start_date, "end_date", end_date);
-    // get the Firebase ref for the current trip
-    active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name);
-    // store data
-    // use set() because it is a NEW trip (use update() when editing trip so we don't lose activities)
-    active_trip_ref.set(
-    {
-      "location" : location,
-      "start_date" : start_date,
-      "end_date" : end_date,
-    });
-    // clear form
-    $("#inp_trip_name").val("");
-    $("#inp_trip_location").val("");
+    do_submit_trip(event, false);
 
+    // clear form
+    // $("#inp_trip_name").val("");
+    // $("#inp_trip_location").val("");
     // clear activities
     $('#activityRows').empty();
-    // set the active trip name
-    current_trip_name = trip_name;
     // display the active trip name
     $('#activeTrip').text(current_trip_name);
-    // get Firebase ref to this trip's activities object
-    activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities');
-    // register the events for the submit activity UI
-    register_activity_ui(trip_name);
+    // enable the submit_activity button
+    $('#submit_activity').prop("disabled", false);
+  });
+
+  // register on click event for submit_trip button - relative to this user
+  $("#update_trip").on("click", function(event)
+  {
+    event.preventDefault();
+    // TODO - save and check id vs current trip - if the name changed, need to delete the old id
+    do_submit_trip(event, true);
+
+    // clear form
+    // $("#inp_trip_name").val("");
+    // $("#inp_trip_location").val("");
+    // display the active trip name
+    $('#activeTrip').text(current_trip_name);
     // enable the submit_activity button
     $('#submit_activity').prop("disabled", false);
   });
 });
+// add/update a trip in Firebase - 'exposed' method to the app
+//   event - the event from the click-handler
+//   update - boolean whether to update existing trip
+function do_submit_trip(event, update)
+{
+  // Capture User Inputs and store them into variables
+  trip_name      = $("#inp_trip_name").val().trim();
+  var location   = $("#inp_trip_location").val().trim();
+  var start_date = $("#inp_start_date").val();
+  var end_date   = $("#inp_end_date").val();
+  // log data
+  console.log("name: ", trip_name, "location: ", location, "start_date", start_date, "end_date", end_date);
+  // get the Firebase ref for the current trip
+  active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name);
+  // store data
+  store_trip(trip_name,
+    {
+      "location" : location,
+      "start_date" : start_date,
+      "end_date" : end_date,
+    }, update);
+  // set the active trip name
+  current_trip_name = trip_name;
+  // get Firebase ref to this trip's activities object
+  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities');
+  // register the events for the submit activity UI
+  register_activity_ui(trip_name);
+}
 
 //
 // Event Functions
@@ -345,6 +348,96 @@ function query_activity(activity_name)
     deferred.reject(errorObject.code);
   });
   return deferred.promise();
+}
+
+// store a user in Firebase
+//   id: the id of the user to store
+//   user: a user object
+//   update: boolean to update existing or not, optional
+function store_user(id, user, update)
+{
+  var user_ref = firebase.database().ref('travel_buddy/users/' + id);
+  if ((typeof update != 'undefined') && (update === true))
+  {
+    user_ref.update(
+    {
+      "name" : user.location,
+      "email" : user.start_date,
+      "photoURL" : user.photoURL,
+    });
+  } else {
+    user_ref.set(
+    {
+      "name" : user.location,
+      "email" : user.start_date,
+      "photoURL" : user.photoURL,
+    });
+  }
+}
+
+// store a trip in Firebase
+//   id: the id of the trip to store
+//   trip: a trip object
+//   update: boolean to update existing or not, optional
+function store_trip(id, trip, update)
+{
+  var trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + id);
+
+  if ((typeof update != 'undefined') && (update === true))
+  {
+    console.log("updating trip:", id);
+    var obj = {};
+    if ((typeof trip.location != 'undefined') && (trip.location.length > 0))
+      obj.location = trip.location;
+    if ((typeof trip.start_date != 'undefined') && (trip.start_date.length > 0))
+      obj.start_date = trip.start_date;
+    if ((typeof trip.end_date != 'undefined') && (trip.end_date.length > 0))
+      obj.end_date = trip.end_date;
+    trip_ref.update(obj);
+  } else {
+    console.log("creating trip:", id);
+    if ((typeof trip.location == 'undefined') || (trip.location.length <= 0))
+    {
+      console.log("Must supply a trip location!");
+      return false;
+    }
+    if ((typeof trip.start_date == 'undefined') || (trip.start_date.length <= 0))
+    {
+      console.log("Must supply a trip start date!");
+      return false;
+    }
+    if ((typeof trip.end_date == 'undefined') || (trip.end_date.length <= 0))
+      trip.end_date = trip.start_date; // end date allowed to be missing
+    trip_ref.set({
+      "location" : trip.location,
+      "start_date" : trip.start_date,
+      "end_date" : trip.end_date,
+    });
+  }
+  return true;
+}
+
+// store an activity in Firebase
+//   id: the id of the activity to store
+//   trip: a activity object
+//   update: boolean to update existing or not, optional
+function store_activity(id, activity, update)
+{
+  var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
+  if ((typeof update != 'undefined') && (update === true))
+  {
+    activity_ref.update(
+    {
+      "location" : activity.location,
+      "category" : activity.category,
+    });
+  } else {
+    activity_ref.set(
+    {
+      "location" : activity.location,
+      "category" : activity.category,
+    });
+  }
 }
 
 // debug function to dump a JSON object
