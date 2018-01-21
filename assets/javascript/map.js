@@ -21,13 +21,16 @@ var mapById = document.getElementById('map');
 var ourCategories = ["cafe","restaurant","transit_station","bar","night_club","park","museum"];
 // array to hold activities within Categories
 var savedActivities = [];
+var listDiv;
+var inlist = false;
 
-// function ActivityObj(place_id, name, lat, lng) {
-//   this.place_id = place_id;
-//   this.name = name;
-//   this.lat = lat;
-//   this.lng = lng;
-// }
+function ActivityObj(place_id, name, lat, lng, category) {
+  this.place_id = place_id;
+  this.name = name;
+  this.lat = lat;
+  this.lng = lng;
+  this.category = category;
+}
 //
 // function CategoryObj(category, activityArray[]) {
 //   this.category = category;
@@ -63,6 +66,7 @@ $(".categoryButton").on("click", function(event){
   category = $(this).attr("btnCategory");
   console.log(category + " button clicked");
   buttonClick = true;
+  listDiv ="."+category;
   initMap();
 });
 
@@ -83,7 +87,7 @@ function initMap(){
     // setup paramters for Google Places request based on selected category
     request = {
       location: latLng,
-      radius: 3300,  //  about 2 miles
+      radius: 5000,
       type: [category],
     };
     infowindow = new google.maps.InfoWindow();
@@ -155,14 +159,16 @@ function createMarker(place) {
           "<h4>",
             place.name,
           "</h4>",
+          "<h6>",
+            place.vicinity,
+          "</h6>",
         "</div>",
+        "<br>",
         "<div id='info-content'>",
           "<h6>",
             rating,
-            // "<h6> Price: ",
               price,
-            // "</h6>",
-            '<span style="color:red">',
+            '<span class="float-right" style="color:red">',
               openNow,
             "</span>",
           "</h6>",
@@ -174,17 +180,43 @@ function createMarker(place) {
         "</div>",
       "</div>"
     ].join(''));
-
+    // open infowindow for clicked marker
     infowindow.setContent(contentString);
     infowindow.open(map, this);
+    // event listener for 'Add' button click on inforwindow
     google.maps.event.addListener(infowindow, 'domready', function(){
       $('#iw-form').submit(function(event){
         event.preventDefault();
-        // console.log(place);
-        if ($.inArray(place.id, savedActivities) == -1){
-          savedActivities.push(place.id);
-        };
+        console.log(place.name + ' -Add- button clicked');
 
+        //make initial unordered list element
+        var ulID = category+'-list';
+        if ($(listDiv).attr("list-started") == 'false') {
+          $(listDiv).html("");
+          //make initial unorderd list div
+          var ulDiv = $("<ul id='#" + ulID + "'>");
+          $(listDiv).append(ulDiv);
+          $(listDiv).attr("list-started", 'true');
+        };
+        // for some reason, this listener event wants to cycle through all of the
+        // clicked places instead of just the current one.  This is my kludgy
+        // workaround.  ToDo: find out how to instead clear that list after adding an
+        // activity.
+        // var result = $.grep(savedActivities, function(arr){ return arr.place_id === place.place_id; });
+        var result = $.grep(savedActivities, function(arr){ return arr.place_id === place.place_id; });
+        if (result.length == 0) {
+          var listItemContent = place.name;
+          // append list item
+          var listItem = "<li id='#" + place.place_id + "'>" + listItemContent + "</li>";
+          $(ulID).append(listItem);
+          var savedActivity = new ActivityObj(place.place_id, place.name, place.geometry.location.lat, place.geometry.location.lng, category);
+          savedActivities.push(savedActivity);
+        }
+        else if (result.length == 1) {
+        // access the foo property using result[0].foo
+        } else {
+          // multiple items found
+        };
       });
     });
 
