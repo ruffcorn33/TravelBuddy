@@ -26,23 +26,26 @@
 
   <body>
 
-    <!--NAVBAR-->
-    <nav class="navbar navbar-expand-lg">
+  <div class="content">
+    <!--Jumbotron for picture of minneapolis-->
+    <div class="container-fluid minneapolis">
+      <!--NAVBAR-->
+      <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand ml-5">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto ml-2">
             <li class="nav-item active">
-              <a class="nav-link shift" href="index.html">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link shift" style="text-shadow: 1px 1px black;" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" style="text-shadow: 1px 1px black;"  href="contact.html">Contact</a>
             </li>
             <!-- replace this list item with the commented code below after saved trip functionality is added-->
             <li class="nav-item">
-              <a class="nav-link" href="main.html">My Trips</a>
+              <a class="nav-link" style="text-shadow: 1px 1px black;"  href="main.html">My Trips</a>
             </li>
             <!-- <li class="nav-item dropdown disabled">
               <a class="nav-link dropdown-toggle" href="main.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -104,51 +107,52 @@
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->
+   
 <!--...............................................................................................................-->
 
-    <div class="content">
-      <div class="jumbotron minneapolis"></div>
-      <div class="content-inside">
-        <div class="container">
-          <form>
-            <div class="form-row">
-              <div class="form-group col-md-5 mb-5">
-                <label for="inputDestination">Tell us where you are going...</label>
-                <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="inputFromDate">Arrival</label>
-                <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="inputToDate">Returning (optional)</label>
-                <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
-              </div>
-              <div class="col-md-1">
-                <label for="button">Click it</label>
-                <button id="addTrip" type="submit" class="btn btn-primary float-right">Go!</button>
-              </div>
-            </div>  <!-- end of .form-row -->
-          </form>
-        </div>  <!-- end of .container -->
-      </div> <!-- end of .content-inside -->
-
-      <div id="titleRow" class="row mx-1 mb-1">
-        <div id="titleBox" class="col-md-12 border border-dark rounded px-4">
-          <h5 class="p-4">My Trip Name: <span>
+     
+      <div class="content-inside change-trip">
+        <form class="container">
+          <div id="titleRow" class="row mx-1">
+            <div id="titleBox" class="col-md-12 pb-3">
+              <label class="p-2 text-white">My Trip Name:</label><span>
             <div class="input-group mb-3">
               <input id="trip-name" type="text" class="form-control" placeholder="Enter a name for your trip" aria-label="Trip name" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button id="saveTrip" class="btn btn-outline-secondary" type="button">Save Trip</button>
-              </div>
+            <div class="input-group-append">
+              <button id="saveTrip" class="btn bg-primary text-white" type="button">Save Trip</button>
             </div>
-          </span></h5>
+            </div>
+            </span>
+          </div>
         </div>
-      </div>
+        <div class="form-row">
+          <div class="form-group col-md-5">
+            <label for="inputDestination white" class="text-white">Change Trip Location..</label>
+            <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputFromDate" class="text-white">Arrival</label>
+            <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
+          </div>
+            <div class="form-group col-md-3">
+              <label for="inputToDate" class="text-white">Returning (optional)</label>
+              <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY (optional)">
+            </div>
+            <div class="col-md-1 text-center">
+              <label for="button" class="text-white">Click</label>
+              <button id="addTrip" type="submit" class="btn btn-primary float-right">Go!</button>
+            </div>
+          </div>  <!-- end of .form-row -->
+        </form>
+      </div>  <!--end of .container -->
+    </div> <!--end of jumbotron-->
+    <!--end of .content-inside -->
+
+      
 
       <!-- weather -->
       <div id="weatherRow" class="row mx-1 mb-1">
-        <div id="weatherDisplay" class="col-md-12 border border-dark rounded px-4">
+        <div id="weatherDisplay" class="col-md-8 border border-dark rounded px-4">
           <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>  
         </div><!-- end weather -->
         
@@ -177,7 +181,7 @@
         <div id="activityContainer" class="col-md-4 border border-dark rounded p-4">
           <!-- <h4 class="text-center mb-3">Your Selected Activities:</h4> -->
 
-          <!--BREAKFAST-->
+          <!--Cafe-->
           <div id="accordion" role="tablist">
             <div class="card">
               <!-- category 1 -->
@@ -185,7 +189,7 @@
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnCategory="cafe">
                 <img src="assets/images/breakfast.JPG" alt="Breakfast" class="categories mr-3">
-                Breakfast
+                Cafe
                 </a>
                 </h5>
               </div>
@@ -196,13 +200,13 @@
               </div>
             </div>  <!-- end of category 1 -->
             <!-- category 2 -->
-            <!--LUNCH-->
+            <!--Restaurant-->
             <div class="card">
               <div class="card-header" role="tab" id="headingTwo">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="categoryButton" btnCategory="restaurant">
                 <img src="assets/images/lunch.JPG" alt="Lunch" class="categories mr-3">
-                Lunch
+                Restaurant
                 </a>
                 </h5>
               </div>
