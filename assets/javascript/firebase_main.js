@@ -37,7 +37,7 @@ var active_trip_ref = null;
 activity_categories_ref.orderByKey().once('value').then(function(snapshot)
 {
   activityCategoriesArray = snapshot.val();
-  console.log("Actvity Catagories:", activityCategoriesArray);
+  console.log("Actvity Categories:", activityCategoriesArray);
   // now build the html for the form
   // TODO - integrate? with Project UI (maybe just delete?)
   set_categories_selection();
@@ -61,7 +61,7 @@ function do_submit_trip(event, update)
   // log data
   console.log("name: ", trip_name, "location: ", location, "start_date", start_date, "end_date", end_date);
   // get the Firebase ref for the current trip
-  active_trip_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name);
+  active_trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + trip_name);
   // store data
   store_trip(trip_name,
     {
@@ -77,7 +77,7 @@ function do_submit_trip(event, update)
   }
   current_trip_name = trip_name;
   // get Firebase ref to this trip's activities object
-  activities_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities');
+  activities_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + trip_name + '/activities');
   // register the events for the submit activity UI
   // TODO - integrate with real Project UI
   register_activity_ui(trip_name);
@@ -102,7 +102,7 @@ function do_submit_activity(event, update)
   // log data
   console.log("category: ", category, "name: ", activity_name, "location: ", location);
   // get Firebase ref for this activity
-  var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name + '/activities/' + activity_name);
+  var activity_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name + '/activities/' + activity_name);
   // store data
   store_activity(activity_name,
     {
@@ -286,11 +286,11 @@ function store_trip(id, trip, update)
 
 // store an activity in Firebase
 //   id: the id of the activity to store
-//   trip: a activity object
+//   activity: a activity object
 //   update: boolean to update existing or not, optional
 function store_activity(id, activity, update)
 {
-  var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
+  var activity_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
     console.log("updating activity:", id);
@@ -318,4 +318,22 @@ function store_activity(id, activity, update)
       "category" : activity.category,
     });
   }
+}
+
+// delete a trip from Firebase
+//   id: the id of the trip to delete
+function delete_trip(id)
+{
+  var trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + id);
+  console.log("deleting trip:", id);
+  trip_ref.remove();
+}
+
+// delete a activity from Firebase
+//   id: the id of the activity to delete
+function delete_activity(id)
+{
+  var activity_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
+  console.log("deleting activity:", id);
+  activity_ref.remove();
 }

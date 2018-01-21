@@ -85,6 +85,13 @@ users_ref.once('child_added').then(function(user_snap)
     $('#submit_activity').prop("disabled", false);
     $('#update_activity').prop("disabled", false);
   });
+
+  // register on click event for delete_trip button - relative to this user
+  $("#delete_trip").on("click", function(event)
+  {
+    event.preventDefault();
+    delete_trip($("#inp_trip_name").val().trim());
+  });
 });
 
 //
@@ -181,6 +188,13 @@ function register_activity_ui(trip_name)
     // clear form
     // $("#inp_activity_name").val("");
     // $("#inp_activity_location").val("");
+  });
+
+  // register on click event for delete_activity button - relative to this user/trip
+  $("#delete_activity").on("click", function(event)
+  {
+    event.preventDefault();
+    delete_activity($("#inp_activity_name").val().trim());
   });
 
   // register activity listener for this trip
