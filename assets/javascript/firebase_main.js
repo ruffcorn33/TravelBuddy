@@ -53,6 +53,7 @@ function do_submit_trip(event, update)
   // return value
   var rv = true;
   // Capture User Inputs and store them into variables
+  // TODO - use Project UI ids
   trip_name      = $("#inp_trip_name").val().trim();
   var location   = $("#inp_trip_location").val().trim();
   var start_date = $("#inp_start_date").val();
@@ -80,6 +81,41 @@ function do_submit_trip(event, update)
   // register the events for the submit activity UI
   // TODO - integrate with real Project UI
   register_activity_ui(trip_name);
+
+  return rv;
+}
+
+// add/update a activity in Firebase - 'exposed' method to the app
+//   event - the event from the click-handler
+//   update - boolean whether to update existing activity
+//
+//   return false if a different activity than current activity
+function do_submit_activity(event, update)
+{
+  // return value
+  var rv = true;
+  // Capture User Inputs and store them into variables
+  // TODO - use Project UI ids
+  var category      = $("#inp_activity_category").val();
+  var activity_name = $("#inp_activity_name").val().trim();
+  var location      = $("#inp_activity_location").val().trim();
+  // log data
+  console.log("category: ", category, "name: ", activity_name, "location: ", location);
+  // get Firebase ref for this activity
+  var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name + '/activities/' + activity_name);
+  // store data
+  store_activity(activity_name,
+    {
+      "category" : category,
+      "location" : location,
+    }, update);
+  // set the current activity name
+  if (current_activity_name !== activity_name)
+  {
+    // different activity than currently displayed
+    rv = false;
+  }
+  current_activity_name = activity_name;
 
   return rv;
 }
@@ -257,12 +293,25 @@ function store_activity(id, activity, update)
   var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
-    activity_ref.update(
-    {
-      "location" : activity.location,
-      "category" : activity.category,
-    });
+    console.log("updating activity:", id);
+    var obj = {};
+    if ((typeof activity.location != 'undefined') && (activity.location.length > 0))
+      obj.location = activity.location;
+    if ((typeof activity.category != 'undefined') && (activity.category.length > 0))
+      obj.category = activity.category;
+    activity_ref.update(obj);
   } else {
+    console.log("creating activity:", id);
+    if ((typeof activity.location == 'undefined') || (activity.location.length <= 0))
+    {
+      console.log("Must supply an activity location!");
+      return false;
+    }
+    if ((typeof activity.category == 'undefined') || (activity.category.length <= 0))
+    {
+      console.log("Must supply an activity category!");
+      return false;
+    }
     activity_ref.set(
     {
       "location" : activity.location,

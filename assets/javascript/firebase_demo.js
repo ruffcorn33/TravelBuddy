@@ -62,6 +62,7 @@ users_ref.once('child_added').then(function(user_snap)
     $('#activeTrip').text(current_trip_name);
     // enable the submit_activity button
     $('#submit_activity').prop("disabled", false);
+    $('#update_activity').prop("disabled", false);
   });
 
   // register on click event for update_trip button - relative to this user
@@ -82,6 +83,7 @@ users_ref.once('child_added').then(function(user_snap)
     $('#activeTrip').text(current_trip_name);
     // enable the submit_activity button
     $('#submit_activity').prop("disabled", false);
+    $('#update_activity').prop("disabled", false);
   });
 });
 
@@ -113,6 +115,7 @@ $('#tripRows').on('click', 'td.user_trip', function()
   register_activity_ui(current_trip_name);
   // enable the submit_activity button
   $('#submit_activity').prop("disabled", false);
+  $('#update_activity').prop("disabled", false);
 });
 
 // on click event for the dump_user button
@@ -164,24 +167,20 @@ function register_activity_ui(trip_name)
   $("#submit_activity").on("click", function(event)
   {
     event.preventDefault();
-    // Capture User Inputs and store them into variables
-    var category          = $("#inp_activity_category").val();
-    current_activity_name = $("#inp_activity_name").val().trim();
-    var location          = $("#inp_activity_location").val().trim();
-    // log data
-    console.log("category: ", category, "name: ", activity_name, "location: ", location);
-    // get Firebase ref for this activity
-    var activity_ref = firebase.database().ref('travel_buddy/users' + '/' + user_uid + '/trips/' + trip_name + '/activities/' + current_activity_name);
-    // store data
-    // use set() because it is a leaf node
-    activity_ref.set(
-    {
-      "category" : category,
-      "location" : location,
-    });
+    do_submit_activity(event, false);
     // clear form
-    $("#inp_activity_name").val("");
-    $("#inp_activity_location").val("");
+    // $("#inp_activity_name").val("");
+    // $("#inp_activity_location").val("");
+  });
+
+  // register on click event for update_activity button - relative to this user/trip
+  $("#update_activity").on("click", function(event)
+  {
+    event.preventDefault();
+    do_submit_activity(event, true);
+    // clear form
+    // $("#inp_activity_name").val("");
+    // $("#inp_activity_location").val("");
   });
 
   // register activity listener for this trip
