@@ -8,7 +8,7 @@ var tripFromDate = localStorage.getItem('tripBegDate')
 var tripToDate = localStorage.getItem('tripEndDate')
 var tripName = localStorage.getItem('tripName');
 // globals
-var activity;
+var category;
 var map;
 var infowindow;
 var latLng = {lat:tripLat,lng:tripLng};
@@ -18,6 +18,36 @@ var request;
 var service;
 var markers=[];
 var mapById = document.getElementById('map');
+var ourCategories = ["cafe","restaurant","transit_station","bar","night_club","park","museum"];
+// array to hold activities within Categories
+var savedActivities = [];
+
+// function ActivityObj(place_id, name, lat, lng) {
+//   this.place_id = place_id;
+//   this.name = name;
+//   this.lat = lat;
+//   this.lng = lng;
+// }
+//
+// function CategoryObj(category, activityArray[]) {
+//   this.category = category;
+//   this.activityArray = activityArray[];
+// }
+//
+//
+// var test;
+// for (i=0; i<ourCategories.length; i++){
+//    test = new categoryObj(
+//     ourCategories[i],
+//     activityArray[]
+//   );
+// }
+
+function fillCategoryList(p) {
+  console.log(p.name);
+
+}
+
 
 // display trip name suggestion
 $("#trip-name").attr("placeholder", "Suggestion: "+tripName);
@@ -30,14 +60,14 @@ $('#saveTrip').on('click', function(){
 // event handler for actType button click
 $(".categoryButton").on("click", function(event){
   event.preventDefault();
-  activity = $(this).attr("btnCategory");
-  console.log(activity + " button clicked");
+  category = $(this).attr("btnCategory");
+  console.log(category + " button clicked");
   buttonClick = true;
   initMap();
 });
 
 // MAP LOAD & RELOAD
-// called on main.html load and when activity buttons are clicked
+// called on main.html load and when category buttons are clicked
 function initMap(){
   var options = {
     zoom:14,
@@ -50,11 +80,11 @@ function initMap(){
   // the buttonClick flag is set to false on page load to prevent markers
   // on map unless coming from an actType button click
   if (buttonClick){
-    // setup paramters for Google Places request based on selected activity
+    // setup paramters for Google Places request based on selected category
     request = {
       location: latLng,
       radius: 3300,  //  about 2 miles
-      type: [activity],
+      type: [category],
     };
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
@@ -67,7 +97,7 @@ function initMap(){
       var request = {
         location: event.latLng,
         radius: 3300,
-        type: [activity],
+        type: [category],
       };
       service.nearbySearch(request, callback);
     })
@@ -150,19 +180,17 @@ function createMarker(place) {
     google.maps.event.addListener(infowindow, 'domready', function(){
       $('#iw-form').submit(function(event){
         event.preventDefault();
-        console.log('infowindow button clicked');
+        // console.log(place);
+        if ($.inArray(place.id, savedActivities) == -1){
+          savedActivities.push(place.id);
+        };
+
       });
     });
 
   });
   return marker;
 }
-
-
-
-// $("#info-content").on("click", "#addToList", function() {
-//   console.log("info button clicked");
-// });
 
 function clearResults(markers) {
   for (var m in markers) {

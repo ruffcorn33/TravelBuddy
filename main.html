@@ -152,10 +152,12 @@
 
       <!-- weather -->
       <div id="weatherRow" class="row mx-1 mb-1">
+
         <div id="weatherDisplay" class="col-md-8 border border-dark rounded px-4">
           <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>  
+
         </div><!-- end weather -->
-        
+
         <!--Checkboxes-->
         <div id="radio" class="col-md-4 border border-dark rounded p-4">
           <div class="form-check">
@@ -181,55 +183,56 @@
         <div id="activityContainer" class="col-md-4 border border-dark rounded p-4">
           <!-- <h4 class="text-center mb-3">Your Selected Activities:</h4> -->
 
-          <!--Cafe-->
+          <!--CAFES-->
+
           <div id="accordion" role="tablist">
             <div class="card">
               <!-- category 1 -->
               <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnCategory="cafe">
-                <img src="assets/images/breakfast.JPG" alt="Breakfast" class="categories mr-3">
-                Cafe
+                <img src="assets/images/breakfast.JPG" alt="Cafes" class="categories mr-3">
+                Cafes
                 </a>
                 </h5>
               </div>
               <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
+                <div class="card-body cafe">
                   Choose a category to search then click map markers to add to lists.
                 </div>
               </div>
             </div>  <!-- end of category 1 -->
             <!-- category 2 -->
-            <!--Restaurant-->
+            <!--RESTAURANTS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingTwo">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="categoryButton" btnCategory="restaurant">
-                <img src="assets/images/lunch.JPG" alt="Lunch" class="categories mr-3">
-                Restaurant
+                <img src="assets/images/lunch.JPG" alt="Restaurants" class="categories mr-3">
+                Restaurants
                 </a>
                 </h5>
               </div>
               <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body">
-                Click map markers to add to lists.
+                <div class="card-body restaurant">
+                Click map markers to add restaurants to this list.
                 </div>
               </div>
             </div>  <!-- end of category 2 -->
             <!-- category 3 -->
-            <!--DINNER-->
+            <!--TRANSIT STATIONS-->
             <div class="card">
               <div class="card-header" role="tab" id="headingThree">
                 <h5 class="mb-0">
-                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" btn-outline-secondaryategory="restaurant">
-                <img src="assets/images/dinner.JPG" alt="Dinner" class="categories mr-3">
-                Dinner
+                <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" class="categoryButton" btnCategory="transit_station">
+                <img src="assets/images/dinner.JPG" alt="Transit Stations" class="categories mr-3">
+                Transit Stations
                 </a>
                 </h5>
               </div>
               <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body">
-                Click map markers to add to lists.
+                <div class="card-body transit_station">
+                Click map markers to add transit stations to this list.
                 </div>
               </div>
             </div>  <!-- end of category 3 -->
@@ -245,8 +248,8 @@
                 </h5>
               </div>
               <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
-                <div class="card-body">
-                Click map markers to add to lists.
+                <div class="card-body bar">
+                Click map markers to add bars to this list.
                 </div>
               </div>
             </div>  <!-- end of category 4 -->
@@ -262,8 +265,8 @@
                 </h5>
               </div>
               <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#accordion">
-                <div class="card-body">
-                Click map markers to add to lists.
+                <div class="card-body night_club">
+                Click map markers to add night clubs to this list.
                 </div>
               </div>
             </div>  <!-- end of category 5 -->
@@ -273,14 +276,14 @@
               <div class="card-header" role="tab" id="headingSix">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix" btnCategory="park">
-                <img src="assets/images/attractions.JPG" alt="Attractions" class="categories mr-3">
-                Attractions
+                <img src="assets/images/attractions.JPG" alt="Parks" class="categories mr-3">
+                Parks
                 </a>
                 </h5>
               </div>
               <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix" data-parent="#accordion">
-                <div class="card-body">
-                Click map markers to add to lists.
+                <div class="card-body park">
+                Click map markers to add parks to this list.
                 </div>
               </div>
             </div>  <!-- end of category 6 -->
@@ -296,8 +299,8 @@
                 </h5>
               </div>
               <div id="collapseSeven" class="collapse" role="tabpanel" aria-labelledby="headingSeven" data-parent="#accordion">
-                <div class="card-body">
-                Click map markers to add to lists.
+                <div class="card-body museum">
+                Click map markers to add museums to this list.
                 </div>
               </div>
             </div>  <!-- end of category 7 -->
