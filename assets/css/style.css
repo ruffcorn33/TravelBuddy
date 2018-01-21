@@ -1,11 +1,15 @@
+
 /* NAVBAR */
 .navbar, .navbar-brand, .nav-link {
   color: white;
-  font-size: 18px;
+  font-size: 20px;
+  text-shadow: 1px 1px black;
 }
 
 .navbar {
-  background-color: #202020;
+  background-color: none;
+  margin-top: none;
+  position: 0 0;
 
 }
 
@@ -17,6 +21,13 @@
   height: 50px;
   padding: 10px;
   opacity:0.9;
+}
+
+.my-nav{
+  z-index: 999;
+  background: none;
+  border:0 !important;
+  border-radius: 0;
 }
 
 .dropdown-menu {
@@ -41,7 +52,7 @@
 .contact {
   background-image: url('../images/contact.JPG');
   width: 100%;
-  height: 650px;
+  height: 720px;
   opacity: 0.8;
   background-repeat: no-repeat;
   background-position: center; 
@@ -65,12 +76,42 @@
   height: 900px;
 }
 
+/* Activities Main */
+.minneapolis {
+  background-image: url('../images/minneapolis.JPG');
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover; 
+  height: 720px;
+  position: relative;
+}
+
+.change-trip {
+  position: absolute;
+  top:40%;
+  width: 100%;
+}
+
+.from-row {
+  color: black;
+}
+
+.text-white {
+  text-shadow: 2px 1px black;
+  font-size: 18px;
+
+}
+
+
 /* MAP */
 #map {
   height: 100%;
   width: 100%;
 }
 
+#activityContainer {
+  height: 100%;
+}
 
 
 /* WEATHER */
@@ -81,18 +122,7 @@
 }
 
 
-
-/* Activities Main */
-.minneapolis {
-  background-image: url('../images/minneapolis.JPG');
-  background-repeat: no-repeat;
-  background-position: center; 
-  background-size: cover; 
-  height: 650px;
-}
-
-
-
+/*Categories*/
 .categories {
   height: 70px;
   width: 110px;
@@ -118,9 +148,14 @@ a, a:link {
 }
 
 
+
 /* Carousel Index */
+.my-carousel {
+  margin-top: -70px;
+}
+
 .carousel-inner, .carousel-item, .img {
-  height: 650px;
+  height: 720px;
 }
 
 .form-row {
@@ -142,6 +177,11 @@ a, a:link {
     top: 84%; 
     left: 50%;
     transform: translate(-50%, -50%);  
+}
+.date {
+   position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 h1 {
