@@ -326,6 +326,11 @@ function delete_trip(id)
 {
   var trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + id);
   console.log("deleting trip:", id);
+  if ((typeof id == 'undefined') || (id.length <= 0))
+  {
+    console.log("Must supply an id!");
+    return false;
+  }
   trip_ref.remove();
 }
 
@@ -335,5 +340,10 @@ function delete_activity(id)
 {
   var activity_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
   console.log("deleting activity:", id);
+  if ((typeof id == 'undefined') || (id.length <= 0))
+  {
+    console.log("Must supply an id!");
+    return false;
+  }
   activity_ref.remove();
 }
