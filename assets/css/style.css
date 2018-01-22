@@ -1,17 +1,25 @@
+body {
+  font-family: 'PT Sans', sans-serif;
+}
+
 
 /* NAVBAR */
 .navbar, .navbar-brand, .nav-link {
   color: white;
   font-size: 20px;
-  text-shadow: 1px 1px black;
 }
 
 .navbar {
-  background-color: none;
+  width: 100%;
   margin-top: none;
-  position: 0 0;
-
 }
+
+.buddy {
+  font-family: 'Raleway', sans-serif;
+  font-size: 28px;
+  color:#65A8FF
+}
+
 
 .nav-link:hover {
   background-color: #65A8FF;
@@ -28,6 +36,8 @@
   background: none;
   border:0 !important;
   border-radius: 0;
+  background-color: black;
+  opacity: 0.8;
 }
 
 .dropdown-menu {
@@ -37,7 +47,6 @@
 .btn-group {
   margin-right: 40px;
 }
-
 
 
 /* Contact*/
@@ -52,28 +61,15 @@
 .contact {
   background-image: url('../images/contact.JPG');
   width: 100%;
-  height: 720px;
-  opacity: 0.8;
+  height: 750px;
   background-repeat: no-repeat;
   background-position: center; 
   background-size: cover; 
+  margin-top: -60px;
 }
 
 .us {
-  height: 250px;
-  width: 300px;
-  text-align: center;
-  box-shadow: none;
-}
-
-
-#aboutDisplay {
-  background-color: #efcfc9;
-  height: 450px;
-}
-
-#contentRow {
-  height: 900px;
+ margin-top: 80px;
 }
 
 /* Activities Main */
@@ -82,14 +78,16 @@
   background-repeat: no-repeat;
   background-position: center; 
   background-size: cover; 
-  height: 720px;
-  position: relative;
+  height: 750px;
+  width:100%;
+  margin-top: -65px;
+  border-bottom: 2px solid black;
 }
 
 .change-trip {
-  position: absolute;
-  top:40%;
+  top:90%;
   width: 100%;
+  margin-top:300px;
 }
 
 .from-row {
@@ -98,27 +96,57 @@
 
 .text-white {
   text-shadow: 2px 1px black;
-  font-size: 18px;
+  font-size: 20px;
 
 }
 
 
 /* MAP */
-#map {
+.holder{
   height: 100%;
   width: 100%;
+  background-color:;
+  margin-bottom: 0px;
+}
+
+#map {
+  height: 1000px;
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  margin-left: 60px;
 }
 
 #activityContainer {
   height: 100%;
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  margin-right: 40px;
+  float: left;
+}
+
+#contentRow {
+  height: 100%;
+  margin-bottom: 0px;
 }
 
 
 /* WEATHER */
+#weatherRow{
+  background-color: #202020;
+  color: white;
+  margin-top: 0px;
+  width: 100%;
+  margin-left: 0px;
+}
+
 #weatherDisplay {
-  background-color: #c9efc9;
-  height: 80px;
-  width: 200px;
+  background-color: #202020;
+  height: 200px;
+  text-align: center;
+  width: 100%;
+  
 }
 
 
@@ -126,6 +154,7 @@
 .categories {
   height: 70px;
   width: 110px;
+  margin: 20px;
   text-align: center;
   border-radius: 10px;
   border: 1px solid gray;
@@ -155,7 +184,7 @@ a, a:link {
 }
 
 .carousel-inner, .carousel-item, .img {
-  height: 720px;
+  height: 750px;
 }
 
 .form-row {
@@ -174,18 +203,17 @@ a, a:link {
 
 .trickcenter {
     position: fixed;
-    top: 84%; 
+    top: 93%; 
     left: 50%;
     transform: translate(-50%, -50%);  
 }
-.date {
-   position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+
+.where {
+  margin-top: -350px;
 }
 
 h1 {
-  font-size: 80px;
+  font-size: 60px;
   text-shadow: 3px 3px black;
 }
 
@@ -200,30 +228,29 @@ html, body {
   height: 100%;
   margin: 0;
 }
+
 .content {
   min-height: 100%;
   min-width: 100%;
 }
+
 .content-inside {
   padding: 20px;
   padding-bottom: 30px;
 }
 
 .footer {
-  height: 90px;
-  margin-top: -50px;
+  height: 100px;
   text-shadow: 1px 1px gray;
   background-color: #202020;
   color:white;
+  margin-top: -50px;
 }
 
 .fa {
   margin:10px;
   color: #65A8FF;
 }
-
-
-
 
 .bottom_ul {
   list-style-type:none;

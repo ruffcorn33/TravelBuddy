@@ -22,16 +22,18 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway" rel="stylesheet">
   </head>
 
   <body>
 
   <div class="content">
-    <!--Jumbotron for picture of minneapolis-->
-    <div class="container-fluid minneapolis">
+    <!--Jumbotron for picture of minneapolis
+    <div class="container-fluid minneapolis">-->
       <!--NAVBAR-->
-      <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand ml-5">TravelBuddy</a>
+      <nav class="my-nav navbar navbar-expand-lg">
+        <a class="buddy navbar-brand ml-5">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -60,12 +62,12 @@
           <ul class="nav justify-content-end">
 
             <!-- log-in dropdown, Bootstrap -->
-            <li class="nav-item mr-3">
+            <li class="nav-item">
               <div class="btn-group">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Login
                 </button>
-                <form class="dropdown-menu p-4">
+                <form class="dropdown-menu p-2">
                   <div class="form-group">
                     <label for="DropdownFormEmail">Email Address</label>
                     <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
@@ -109,10 +111,10 @@
    
 <!--...............................................................................................................-->
      
-      <div class="content-inside change-trip">
+      <div class="content-inside minneapolis">
         <form class="container">
           <div id="titleRow" class="row mx-1">
-            <div id="titleBox" class="col-md-12 pb-3">
+            <div id="titleBox" class="col-md-12 pb-3 change-trip">
               <label class="p-2 text-white">My Trip Name:</label><span>
             <div class="input-group mb-3">
               <input id="trip-name" type="text" class="form-control" placeholder="Enter a name for your trip" aria-label="Trip name" aria-describedby="basic-addon2">
@@ -143,20 +145,21 @@
           </div>  <!-- end of .form-row -->
         </form>
       </div>  <!--end of .container -->
-    </div> <!--end of jumbotron-->
-    <!--end of .content-inside -->
+    <!--end of content-->
+   
 
       
 
       <!-- weather -->
-      <div id="weatherRow" class="row mx-1 mb-1">
-        <div id="weatherDisplay" class="col-md-8 border border-dark rounded px-4">
+      <div id="weatherRow" class="row">
+        <div id="weatherDisplay" class="col-md-8 mt-5">
           <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>  
         </div><!-- end weather -->
 
         <!--Checkboxes-->
-        <div id="radio" class="col-md-4 border border-dark rounded p-4">
-          <div class="form-check">
+        <div id="radio" class="col-md-4">
+          <div class="form-check mt-5">
+            <h5>View</h5>
             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
             <label class="form-check-label" for="exampleRadios1">
             My Markers
@@ -173,14 +176,13 @@
 
       <div id="contentRow" class="row m-1">
         <!-- Map -->
-        <div id="map" class="col-8 border border-dark rounded p-4"></div>
+        <div id="map" class="col-md-7 border border-dark rounded p-4"></div>
 
         <!--Categories -->
         <div id="activityContainer" class="col-md-4 border border-dark rounded p-4">
           <!-- <h4 class="text-center mb-3">Your Selected Activities:</h4> -->
 
           <!--CAFES-->
-
           <div id="accordion" role="tablist">
             <div class="card">
               <!-- category 1 -->
