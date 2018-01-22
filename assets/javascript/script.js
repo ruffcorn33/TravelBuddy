@@ -47,9 +47,9 @@ $("#addTrip").on("click", function(event) {
     // }
     // when the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     }
     // make the modal say what it needs to say
     $('#verifyContent').empty();
