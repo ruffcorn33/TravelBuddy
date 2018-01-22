@@ -152,7 +152,7 @@ function do_travel_buddy_signin(u)
 //
 
 //
-// Utility Functions
+// CRUD Functions
 //
 
 // return a promise which returns the JSON object for the currently logged in user
@@ -332,12 +332,12 @@ function store_activity(id, activity, update)
     activity_ref.update(obj);
   } else {
     console.log("creating activity:", id);
-    if ((typeof activity.location == 'undefined') || (activity.location.length <= 0))
+    if (!validate_exists(activity.location))
     {
       console.log("Must supply an activity location!");
       return false;
     }
-    if ((typeof activity.category == 'undefined') || (activity.category.length <= 0))
+    if (!validate_exists(activity.category))
     {
       console.log("Must supply an activity category!");
       return false;
@@ -356,7 +356,7 @@ function delete_trip(id)
 {
   var trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + id);
   console.log("deleting trip:", id);
-  if ((typeof id == 'undefined') || (id.length <= 0))
+  if (!validate_exists(id))
   {
     console.log("Must supply an id!");
     return false;
@@ -370,10 +370,25 @@ function delete_activity(id)
 {
   var activity_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
   console.log("deleting activity:", id);
-  if ((typeof id == 'undefined') || (id.length <= 0))
+  if (!validate_exists(id))
   {
     console.log("Must supply an id!");
     return false;
   }
   activity_ref.remove();
+}
+
+//
+// Utility Functions
+//
+
+// validate that a variable exists and has a string length of at least 1 character
+// return true if above is true, otherwise false
+function validate_exists(v)
+{
+  if ((typeof v == 'undefined') || (v.length <= 0))
+  {
+    return false;
+  }
+  return true;
 }
