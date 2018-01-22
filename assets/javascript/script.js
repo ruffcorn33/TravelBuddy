@@ -23,6 +23,7 @@ $('#inputToDate').datepicker({
 
 $("#addTrip").on("click", function(event) {
   event.preventDefault();
+
   tripDestination = $("#inputDestination").val().trim();
   tripBegDate = $("#inputFromDate").val().trim();
   tripEndDate = $("#inputToDate").val().trim();

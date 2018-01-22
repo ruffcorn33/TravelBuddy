@@ -92,7 +92,7 @@ function initMap(){
     };
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
+    service.nearbySearch(request, doMarkers);
     // add a listener to the map to detect rightclick.  This will recenter the
     // search area, clear existing markers and place
     google.maps.event.addListener(map, 'rightclick', function(event){
@@ -103,14 +103,14 @@ function initMap(){
         radius: 3300,
         type: [category],
       };
-      service.nearbySearch(request, callback);
+      service.nearbySearch(request, doMarkers);
     })
     // reset flag
     buttonClick = false;
   }
 }
 
-function callback(results, status) {
+function doMarkers(results, status) {
   if(status == google.maps.places.PlacesServiceStatus.OK){
     for (var i = 0; i < results.length; i++){
       markers.push(createMarker(results[i]));
@@ -140,16 +140,20 @@ function createMarker(place) {
       rating = '';
     };
 
-    if (place.price_level === 1) {price = '$'}
-    else if (place.price_level === 2) {price = '$$'}
-    else if (place.price_level === 3) {price = '$$$'}
-    else if (place.price_level === 5) {price = '$$$$'}
-    else {price = ''};
+    if (place.price_level) {
+      if (place.price_level === 1) {price = '$'}
+      else if (place.price_level === 2) {price = '$$'}
+      else if (place.price_level === 3) {price = '$$$'}
+      else if (place.price_level === 5) {price = '$$$$'}
+      else {price = ''}
+    };
 
-    if (place.opening_hours.open_now) {
-      openNow = '  Open Now';
-    } else {
-      openNow = '';
+    if (place.opening_hours) {
+      if (place.opening_hours.open_now) {
+        openNow = '  Open Now';
+      } else {
+        openNow = '';
+      }
     };
 
     // build this marker's infowindow
@@ -164,7 +168,7 @@ function createMarker(place) {
           "</h6>",
         "</div>",
         "<br>",
-        "<div id='info-content'>",
+        "<div class='info-content'>",
           "<h6>",
             rating,
               price,
@@ -172,8 +176,10 @@ function createMarker(place) {
               openNow,
             "</span>",
           "</h6>",
-          "<form id='iw-form'>",
-            '<button id="addToList type="submit" class="btn btn-primary float-right">',
+          "<form id='",
+          place.place_id,
+          "'>",
+            '<button type="submit" class="btn btn-primary float-right">',
               "Add",
             '</button>',
           "</form>",
@@ -185,7 +191,8 @@ function createMarker(place) {
     infowindow.open(map, this);
     // event listener for 'Add' button click on inforwindow
     google.maps.event.addListener(infowindow, 'domready', function(){
-      $('#iw-form').submit(function(event){
+      var uniqueID = "#"+place.place_id;
+      $(uniqueID).submit(function(event){
         event.preventDefault();
         console.log(place.name + ' -Add- button clicked');
 
@@ -194,28 +201,23 @@ function createMarker(place) {
         if ($(listDiv).attr("list-started") == 'false') {
           $(listDiv).html("");
           //make initial unorderd list div
-          var ulDiv = $("<ul id='#" + ulID + "'>");
-          $(listDiv).append(ulDiv);
+          var ulElement = $("<ul id='" + ulID + "'>");
+          $(listDiv).append(ulElement);
           $(listDiv).attr("list-started", 'true');
         };
-        // for some reason, this listener event wants to cycle through all of the
-        // clicked places instead of just the current one.  This is my kludgy
-        // workaround.  ToDo: find out how to instead clear that list after adding an
-        // activity.
-        // var result = $.grep(savedActivities, function(arr){ return arr.place_id === place.place_id; });
-        var result = $.grep(savedActivities, function(arr){ return arr.place_id === place.place_id; });
-        if (result.length == 0) {
+
+        var savedActivity = new ActivityObj(place.place_id, place.name, place.geometry.location.lat, place.geometry.location.lng, category);
+        var matches = savedActivities.filter(obj => obj.place_id === place.place_id);
+        if (matches.length == 0) {
           var listItemContent = place.name;
+          var hashID = "#"+ulID;
           // append list item
-          var listItem = "<li id='#" + place.place_id + "'>" + listItemContent + "</li>";
-          $(ulID).append(listItem);
-          var savedActivity = new ActivityObj(place.place_id, place.name, place.geometry.location.lat, place.geometry.location.lng, category);
           savedActivities.push(savedActivity);
+          var liAndID = "<li id='" + place.place_id + "'>";
+          $(hashID).prepend($(liAndID).text(place.name));
         }
-        else if (result.length == 1) {
-        // access the foo property using result[0].foo
-        } else {
-          // multiple items found
+        else if (matches.length > 0) {
+          console.log("That place is already in your list.")
         };
       });
     });
