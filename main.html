@@ -108,7 +108,7 @@
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->
-   
+
 <!--...............................................................................................................-->
      
       <div class="content-inside minneapolis">
@@ -148,12 +148,13 @@
     <!--end of content-->
    
 
-      
+
 
       <!-- weather -->
       <div id="weatherRow" class="row">
         <div id="weatherDisplay" class="col-md-8 mt-5">
           <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>  
+
         </div><!-- end weather -->
 
         <!--Checkboxes-->
@@ -180,12 +181,11 @@
 
         <!--Categories -->
         <div id="activityContainer" class="col-md-4 border border-dark rounded p-4">
-          <!-- <h4 class="text-center mb-3">Your Selected Activities:</h4> -->
-
-          <!--CAFES-->
+          <h4 class="text-center mb-3">Choose a category to search</h4>
           <div id="accordion" role="tablist">
             <div class="card">
               <!-- category 1 -->
+              <!--CAFES-->
               <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnCategory="cafe">
@@ -194,9 +194,9 @@
                 </a>
                 </h5>
               </div>
-              <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body cafe">
-                  Choose a category to search then click map markers to add to lists.
+              <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body cafe" list-started="false">
+                  Click map markers to add restaurants to this list.
                 </div>
               </div>
             </div>  <!-- end of category 1 -->
@@ -212,7 +212,7 @@
                 </h5>
               </div>
               <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body restaurant">
+                <div class="card-body restaurant" list-started="false">
                 Click map markers to add restaurants to this list.
                 </div>
               </div>
@@ -229,7 +229,7 @@
                 </h5>
               </div>
               <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body transit_station">
+                <div class="card-body transit_station" list-started="false">
                 Click map markers to add transit stations to this list.
                 </div>
               </div>
@@ -246,7 +246,7 @@
                 </h5>
               </div>
               <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
-                <div class="card-body bar">
+                <div class="card-body bar" list-started="false">
                 Click map markers to add bars to this list.
                 </div>
               </div>
@@ -263,7 +263,7 @@
                 </h5>
               </div>
               <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive" data-parent="#accordion">
-                <div class="card-body night_club">
+                <div class="card-body night_club" list-started="false">
                 Click map markers to add night clubs to this list.
                 </div>
               </div>
@@ -280,7 +280,7 @@
                 </h5>
               </div>
               <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix" data-parent="#accordion">
-                <div class="card-body park">
+                <div class="card-body park" list-started="false">
                 Click map markers to add parks to this list.
                 </div>
               </div>
@@ -297,7 +297,7 @@
                 </h5>
               </div>
               <div id="collapseSeven" class="collapse" role="tabpanel" aria-labelledby="headingSeven" data-parent="#accordion">
-                <div class="card-body museum">
+                <div class="card-body museum" list-started="false">
                 Click map markers to add museums to this list.
                 </div>
               </div>
