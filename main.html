@@ -110,7 +110,7 @@
       </nav>  <!-- end navbar -->
 
 <!--...............................................................................................................-->
-     
+
       <div class="content-inside minneapolis">
         <form class="container">
           <div id="titleRow" class="row mx-1">
@@ -146,14 +146,14 @@
         </form>
       </div>  <!--end of .container -->
     <!--end of content-->
-   
+
 
 
 
       <!-- weather -->
       <div id="weatherRow" class="row">
         <div id="weatherDisplay" class="col-md-8 mt-5">
-          <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>  
+          <p class="p-4">Weather display goes here. If forecast is unavailable, just display location and dates.</p>
 
         </div><!-- end weather -->
 
@@ -161,13 +161,13 @@
         <div id="radio" class="col-md-4">
           <div class="form-check mt-5">
             <h5>View</h5>
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
             <label class="form-check-label" for="exampleRadios1">
             My Markers
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked>
             <label class="form-check-label" for="exampleRadios2">
             All Markers
             </label>
@@ -329,7 +329,10 @@
     <!-- Google Maps -->
     <!-- and the Places library -->
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4&callback=initMap">
     </script>
+    <!-- <script async defer
+      src= "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBh8WwgRLrg0-MbRqSy2a6VhXMkCl9SKXw">
+    </script> -->
   </body>
 </html>
