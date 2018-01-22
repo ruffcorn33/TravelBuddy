@@ -120,6 +120,33 @@ function do_submit_activity(event, update)
   return rv;
 }
 
+// take the Google User object and sign-in to TravelBuddy
+function do_travel_buddy_signin(u)
+{
+  var obj = {
+    "name": u.displayName,
+    "email": u.email,
+    "photoURL": u.photoURL,
+  };
+
+  // fetch the user record if it exists, else create it
+  var tb_user = undefined;
+  query_user(u.uid).then(function(usr)
+  {
+    tb_user = usr;
+    if (typeof tb_user === "object")
+    {
+      // existing user
+    } else {
+      // new user, create it
+      store_user(u.uid, obj, false);
+    }
+  });
+
+  // TODO - integrate with Project UI
+  // display_user(obj);
+}
+
 //
 // Event Functions
 //
@@ -129,23 +156,26 @@ function do_submit_activity(event, update)
 //
 
 // return a promise which returns the JSON object for the currently logged in user
-function query_user()
+// if nothing passed in for uid, use the current signed in user
+function query_user(uid)
 {
   var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
-  // TODO - when Auth is working for real, use the following line
-  // var user = firebase.auth().currentUser;
-  // TODO - but for now, with fake login, use the current global user_uid
-  if ((typeof user_uid == 'undefined') || (user_uid.length <= 0))
+  if ((typeof uid == 'undefined') || (uid.length <= 0))
   {
-    console.log("query_user:  user_uid undefined or too short");
-    deferred.reject({user_uid:"user_uid undefined or too short"});
-    return deferred.promise();
+    // get logged in user
+    var firebase_user = firebase.auth().currentUser;
+    if (firebase_user)
+      user_uid = firebase_user.uid;
+    else
+      return deferred.reject(undefined);
+  } else {
+    user_uid = uid;
   }
   users_ref.child(user_uid).once('value').then(function(user_snap)
   {
     // reset global user object
     user = user_snap.val();
-    console.log("in query_trip:once, snap.val():", user)
+    console.log("in query_user:once, snap.val():", user)
     deferred.resolve(user);
   }, function(errorObject)
   { // Handles firebase failure if it occurs
@@ -187,7 +217,7 @@ function query_trip(trip_name)
 }
 
 // return a promise which returns the JSON object for the trip
-// if nothing passed in for activity_name, use global current trip
+// if nothing passed in for activity_name, use global current acivivty
 function query_activity(activity_name)
 {
   var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
@@ -228,15 +258,15 @@ function store_user(id, user, update)
   {
     user_ref.update(
     {
-      "name" : user.location,
-      "email" : user.start_date,
+      "name" : user.name,
+      "email" : user.email,
       "photoURL" : user.photoURL,
     });
   } else {
     user_ref.set(
     {
-      "name" : user.location,
-      "email" : user.start_date,
+      "name" : user.name,
+      "email" : user.email,
       "photoURL" : user.photoURL,
     });
   }

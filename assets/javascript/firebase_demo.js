@@ -23,7 +23,7 @@ users_ref.once('child_added').then(function(user_snap)
   user_trips_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips');
   var trip_name = "";
   console.log("User Key:", user_snap.key, "User:", user);
-  login_user(user);
+  display_user(user);
 
   // register trips listener for this user
   user_trips_ref.orderByChild("start_date").on("child_added", function(child)
@@ -128,7 +128,7 @@ $('#tripRows').on('click', 'td.user_trip', function()
 // on click event for the dump_user button
 $('#dump_user').on('click', function()
 {
-  query_user().then(function(usr)
+  query_user(user_uid).then(function(usr)
   {
     demo_JSON_dump(usr);
   })
@@ -155,9 +155,8 @@ $('#dump_activity').on('click', function()
 //
 // Utility Functions
 //
-function login_user(user)
+function display_user(user)
 {
-  console.log("logging in:", user.name, user.email);
   // TODO - replace this placeholder code
   // build the table row
   var tr = $('<tr>'
