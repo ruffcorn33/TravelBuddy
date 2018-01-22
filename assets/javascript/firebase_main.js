@@ -40,8 +40,29 @@ activity_categories_ref.orderByKey().once('value').then(function(snapshot)
   console.log("Actvity Categories:", activityCategoriesArray);
   // now build the html for the form
   // TODO - integrate? with Project UI (maybe just delete?)
-  set_categories_selection();
+  // set_categories_selection();
 });
+
+// load 'default' user
+// that is to say, create a random user to use for the session
+// if this user ends up with any data, transfer it to the newly logged in user
+// this session user can only change if a different user signs in
+var session_uid = localStorage.getItem("user_uid");
+if (validate_exists(session_uid))
+{
+  user_uid = session_uid;
+  current_trip_name = localStorage.getItem("tripName").replace(/\//g, "");
+  active_trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name);
+} else {
+  var session_user_ref = users_ref.push(
+        {
+          "name": "Session User"
+        });
+  user_ref = session_user_ref;
+  user_uid = session_user_ref.key;
+  localStorage.setItem("user_uid", user_uid);
+  console.log("session user id:", user_uid);
+}
 
 // add/update a trip in Firebase - 'exposed' method to the app
 //   event - the event from the click-handler
@@ -253,6 +274,7 @@ function query_activity(activity_name)
 //   update: boolean to update existing or not, optional
 function store_user(id, user, update)
 {
+  id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
   var user_ref = firebase.database().ref('travel_buddy/users/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
@@ -278,6 +300,7 @@ function store_user(id, user, update)
 //   update: boolean to update existing or not, optional
 function store_trip(id, trip, update)
 {
+  id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
   var trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + id);
 
   if ((typeof update != 'undefined') && (update === true))
@@ -291,6 +314,12 @@ function store_trip(id, trip, update)
     if ((typeof trip.end_date != 'undefined') && (trip.end_date.length > 0))
       obj.end_date = trip.end_date;
     trip_ref.update(obj);
+    if (id !== current_trip_name)
+    {
+      console.log("removing old node", active_trip_ref.key);
+      // if the user renamed the trip, remove the old node
+      active_trip_ref.remove();
+    }
   } else {
     console.log("creating trip:", id);
     if ((typeof trip.location == 'undefined') || (trip.location.length <= 0))
@@ -311,6 +340,8 @@ function store_trip(id, trip, update)
       "end_date" : trip.end_date,
     });
   }
+  current_trip_name = id;
+  active_trip_ref = trip_ref;
   return true;
 }
 
@@ -320,6 +351,7 @@ function store_trip(id, trip, update)
 //   update: boolean to update existing or not, optional
 function store_activity(id, activity, update)
 {
+  id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
   var activity_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
@@ -386,7 +418,7 @@ function delete_activity(id)
 // return true if above is true, otherwise false
 function validate_exists(v)
 {
-  if ((typeof v == 'undefined') || (v.length <= 0))
+  if ((typeof v == 'undefined') || v == null || (v.length <= 0))
   {
     return false;
   }

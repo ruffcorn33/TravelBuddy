@@ -27,12 +27,44 @@ $("#addTrip").on("click", function(event) {
   tripDestination = $("#inputDestination").val().trim();
   tripBegDate = $("#inputFromDate").val().trim();
   tripEndDate = $("#inputToDate").val().trim();
+  // is this an update?
+  var update = false;
+  if ($(this).attr("update") === "true") {
+    update = true;
+    localStorage.setItem("update", "true");
+  } else {
+    localStorage.setItem("update", "false");
+  }
+
   // validate the input
-  if (validateExists(tripDestination) && validateExists(tripBegDate)) {
+  // don't need to validate on an update
+  if (update || (validateExists(tripDestination) && validateExists(tripBegDate))) {
     // input is validated, proceed
-    localStorage.setItem("tripBegDate", tripBegDate);
-    localStorage.setItem("tripEndDate", tripEndDate);
+
+    // store values in localStorage
+    if (validateExists(tripBegDate)) {
+      localStorage.setItem("tripBegDate", tripBegDate);
+    } else if (update) {
+      tripBegDate = localStorage.getItem("tripBegDate");
+    }
+    if (validateExists(tripEndDate)) {
+      localStorage.setItem("tripEndDate", tripEndDate);
+    } else if (update) {
+      tripEndDate = localStorage.getItem("tripEndDate");
+    }
+    // store in Firebase
+    if (update) {
+      var idx = tripDestination.indexOf(",");
+      tripName = formatTripName(tripDestination.substr(0, idx), tripBegDate, tripEndDate);
+    }
+    store_trip(tripName, {
+        "location": tripDestination,
+        "start_date": tripBegDate,
+        "end_date": tripEndDate,
+      }, update);
+    // continue with TravelBuddy
     doParams(tripDestination);
+    localStorage.setItem("update", "false");
   } else {
     // input validation failed, popup the errors
 
@@ -72,7 +104,7 @@ $("#addTrip").on("click", function(event) {
 // return true if above is true, otherwise false
 function validateExists(v)
 {
-  if ((typeof v == 'undefined') || (v.length <= 0))
+  if ((typeof v == 'undefined') || v == null || (v.length <= 0))
   {
     return false;
   }
