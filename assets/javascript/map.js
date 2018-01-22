@@ -31,26 +31,6 @@ function ActivityObj(place_id, name, lat, lng, category) {
   this.lng = lng;
   this.category = category;
 }
-//
-// function CategoryObj(category, activityArray[]) {
-//   this.category = category;
-//   this.activityArray = activityArray[];
-// }
-//
-//
-// var test;
-// for (i=0; i<ourCategories.length; i++){
-//    test = new categoryObj(
-//     ourCategories[i],
-//     activityArray[]
-//   );
-// }
-
-function fillCategoryList(p) {
-  console.log(p.name);
-
-}
-
 
 // display trip name suggestion
 $("#trip-name").attr("placeholder", "Suggestion: "+tripName);
@@ -60,7 +40,7 @@ $('#saveTrip').on('click', function(){
   $("#trip-name").attr(tripName);
 });
 
-// event handler for actType button click
+// event handler for category button click
 $(".categoryButton").on("click", function(event){
   event.preventDefault();
   category = $(this).attr("btnCategory");
@@ -76,7 +56,7 @@ function initMap(){
   var options = {
     zoom:14,
     center:latLng
-  }
+  };
   console.log("Loading map for: ");
   console.log(latLng);
   map = new google.maps.Map(mapById, options);
@@ -92,24 +72,26 @@ function initMap(){
     };
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
+
     service.nearbySearch(request, doMarkers);
     // add a listener to the map to detect rightclick.  This will recenter the
     // search area, clear existing markers and place
-    google.maps.event.addListener(map, 'rightclick', function(event){
+    google.maps.event.addListener(map, 'rightclick', function(event, request){
       map.setCenter(event.latlng);
       clearResults(markers);
       var request = {
         location: event.latLng,
-        radius: 3300,
+        radius: 5000,
         type: [category],
       };
       service.nearbySearch(request, doMarkers);
-    })
+    });
     // reset flag
     buttonClick = false;
-  }
-}
+  }  // end of category button click handler
+}  // end of initMap()
 
+// loop through places in results from nearbySearch request
 function doMarkers(results, status) {
   if(status == google.maps.places.PlacesServiceStatus.OK){
     for (var i = 0; i < results.length; i++){
@@ -121,6 +103,7 @@ function doMarkers(results, status) {
   }
 }
 
+// create a marker from a place in results from nearbySearch request
 function createMarker(place) {
   // place a marker on map
   marker = new google.maps.Marker({
@@ -130,16 +113,20 @@ function createMarker(place) {
   });
   // open infowindow when marker is clicked
   google.maps.event.addListener(marker, 'click', function(){
+
+    // prepare information to display in infowindow
     var rating = '';
     var price = '';
     openNow = '';
 
+    // if rating exists, format it for display
     if (place.rating) {
       rating = 'Rated: ' + place.rating +"  ";
     } else {
       rating = '';
     };
 
+    // if price_level exists, format it for display
     if (place.price_level) {
       if (place.price_level === 1) {price = '$'}
       else if (place.price_level === 2) {price = '$$'}
@@ -148,6 +135,7 @@ function createMarker(place) {
       else {price = ''}
     };
 
+    // if opening_hours exists, format for display
     if (place.opening_hours) {
       if (place.opening_hours.open_now) {
         openNow = '  Open Now';
@@ -156,8 +144,8 @@ function createMarker(place) {
       }
     };
 
-    // build this marker's infowindow
-    var contentString = ([
+    // build html for infowindow
+    var contentString1 = ([
       "<div class='info-container'>",
         "<div id='heading'>",
           "<h4>",
@@ -179,15 +167,32 @@ function createMarker(place) {
           "<form id='",
           place.place_id,
           "'>",
-            '<button type="submit" class="btn btn-primary float-right">',
-              "Add",
-            '</button>',
-          "</form>",
-        "</div>",
-      "</div>"
     ].join(''));
+
+    var contentString2;
+    var alreadyAdded = savedActivities.filter(obj => obj.name === this.title);
+    if (alreadyAdded.length == 0) {
+      contentString2 = ([
+        '<button id="addActivityBtn" type="submit" class="btn btn-primary float-right">',
+        "Add",
+        '</button>',
+        "</form>",
+        "</div>",
+        "</div>"
+      ].join(''));
+    } else{
+      contentString2 = ([
+        "</form>",
+        "</div>",
+        "</div>"
+      ].join(''));
+    }
+
+    var contentString = contentString1+contentString2;
+
     // open infowindow for clicked marker
     infowindow.setContent(contentString);
+
     infowindow.open(map, this);
     // event listener for 'Add' button click on inforwindow
     google.maps.event.addListener(infowindow, 'domready', function(){
@@ -196,7 +201,8 @@ function createMarker(place) {
         event.preventDefault();
         console.log(place.name + ' -Add- button clicked');
 
-        //make initial unordered list element
+        // make initial unordered list element
+        // skip if already in html
         var ulID = category+'-list';
         if ($(listDiv).attr("list-started") == 'false') {
           $(listDiv).html("");
@@ -206,25 +212,38 @@ function createMarker(place) {
           $(listDiv).attr("list-started", 'true');
         };
 
+        // NEW ACTIVITY
+        // prepare an object to save in array
         var savedActivity = new ActivityObj(place.place_id, place.name, place.geometry.location.lat, place.geometry.location.lng, category);
+
+        // check to see if this place is saved already
+        // and prevent duplicates if it has been
         var matches = savedActivities.filter(obj => obj.place_id === place.place_id);
         if (matches.length == 0) {
-          var listItemContent = place.name;
-          var hashID = "#"+ulID;
-          // append list item
+          // save activity object to array
           savedActivities.push(savedActivity);
+          // append list item
+          var hashID = "#"+ulID;
           var liAndID = "<li id='" + place.place_id + "'>";
           $(hashID).prepend($(liAndID).text(place.name));
+          // hide Add button
+          var btn = document.getElementById('addActivityBtn');
+          btn.style.display = "none";
+
         }
+        // handle if already in array (skip)
         else if (matches.length > 0) {
           console.log("That place is already in your list.")
-        };
-      });
-    });
+        };  // end of 'add activity' code
 
-  });
+      });  // end of $(uniqueID).submit(function(event)
+
+    });  // end of 'Add' button event listener
+
+  });  // end of marker click event to open infowindow
+
   return marker;
-}
+}  // end of createMarker()
 
 function clearResults(markers) {
   for (var m in markers) {
