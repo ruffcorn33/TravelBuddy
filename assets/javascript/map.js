@@ -233,11 +233,13 @@ function createMarker(place) {
 
         // NEW ACTIVITY
         // prepare an object to save in array
+        var placeLat = place.geometry.location.lat();
+        var placeLng = place.geometry.location.lng();
         var savedActivity = new ActivityObj(
           place.place_id,
           place.name,
-          place.geometry.location.lat,
-          place.geometry.location.lng,
+          placeLat,
+          placeLng,
           category
         );
 

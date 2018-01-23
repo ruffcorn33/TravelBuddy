@@ -123,9 +123,12 @@ function doParams(tripDestination, tripBegDate, tripEndDate, update){
         continue;
       };
     };
+
     localStorage.setItem("tripLoc", tripLoc);
-    localStorage.setItem("tripLat", response.data.results[0].geometry.location.lat);
-    localStorage.setItem("tripLng", response.data.results[0].geometry.location.lng);
+    var tripLat = response.data.results[0].geometry.location.lat;
+    var tripLng = response.data.results[0].geometry.location.lng;
+    localStorage.setItem("tripLat", tripLat);
+    localStorage.setItem("tripLng", tripLng);
     var tripPid = response.data.results[0].place_id;
     localStorage.setItem("tripPid", tripPid);
     tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
