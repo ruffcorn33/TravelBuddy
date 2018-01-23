@@ -24,6 +24,7 @@ var savedActivities = [];
 var listDiv;
 var inlist = false;
 var userLatLng;
+//getLocationHTML();
 
 function ActivityObj(place_id, name, lat, lng, category) {
   this.place_id = place_id;
@@ -105,7 +106,8 @@ function doMarkers(results, status) {
   }
 }
 
-
+// animate marker drop with bounce
+// timer prevents all markers from dropping at once
 function addMarkerWithTimeout(place, timeout) {
   window.setTimeout(function() {
     markers.push(createMarker(place));
