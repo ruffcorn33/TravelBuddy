@@ -114,7 +114,15 @@ function doParams(tripDestination, tripBegDate, tripEndDate, update){
     console.log(response);
     // store locaton data in local storage for use by main.js and maps.js
     // localStorage.setItem("tripLoc", response.data.results[0].formatted_address);
-    var tripLoc = response.data.results[0].address_components[0].short_name;
+    var tripLoc = "Your Trip";
+    for (i=0; i<response.data.results[0].address_components.length; i++){
+      if ((response.data.results[0].address_components[i].types[0] === 'locality')
+          &&
+          (response.data.results[0].address_components[i].types[1] === 'political')){
+        tripLoc = response.data.results[0].address_components[i].short_name;
+        continue;
+      };
+    };
     localStorage.setItem("tripLoc", tripLoc);
     localStorage.setItem("tripLat", response.data.results[0].geometry.location.lat);
     localStorage.setItem("tripLng", response.data.results[0].geometry.location.lng);
