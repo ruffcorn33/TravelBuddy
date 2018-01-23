@@ -8,8 +8,6 @@
 // array of activity categories stored in Firebase
 var activityCategoriesArray = [];
 
-// current user's JSON record
-var user = null;
 // the Firebase uid for this user
 var user_uid = null;
 // the name of the current trip
@@ -61,7 +59,13 @@ if (validate_exists(session_uid))
   user_ref = session_user_ref;
   user_uid = session_user_ref.key;
   localStorage.setItem("user_uid", user_uid);
+  localStorage.setItem("user_name", "Session User");
   console.log("session user id:", user_uid);
+  // on disconnect remove the session user object
+  // !!!
+  // It appears as if switching pages counts as a disconnect
+  // !!!
+  // session_user_ref.onDisconnect().remove();
 }
 
 // add/update a trip in Firebase - 'exposed' method to the app
@@ -144,11 +148,28 @@ function do_submit_activity(event, update)
 // take the Google User object and sign-in to TravelBuddy
 function do_travel_buddy_signin(u)
 {
-  var obj = {
-    "name": u.displayName,
-    "email": u.email,
-    "photoURL": u.photoURL,
-  };
+  var session_uname = localStorage.getItem("user_name");
+  var session_uid = localStorage.getItem("user_uid");
+  var obj = {};
+  if (session_uname === "Session User")
+  {
+    // copy session user's trips into signed in user's object
+    query_user(session_uid).then(function(usr)
+    {
+      obj = usr;
+      obj.name = u.displayName;
+      obj.email = u.email;
+      obj.photoURL = u.photoURL;
+      var session_user_ref = firebase.database().ref("travel_buddy/users/" + session_uid);
+      session_user_ref.remove();
+    });
+  } else {
+    obj = {
+      "name": u.displayName,
+      "email": u.email,
+      "photoURL": u.photoURL,
+    };
+  }
 
   // fetch the user record if it exists, else create it
   var tb_user = undefined;
@@ -157,15 +178,19 @@ function do_travel_buddy_signin(u)
     tb_user = usr;
     if (typeof tb_user === "object")
     {
-      // existing user
+      // existing user, update with session
+      store_user(u.uid, obj, true);
     } else {
       // new user, create it
       store_user(u.uid, obj, false);
     }
   });
 
-  // TODO - integrate with Project UI
-  // display_user(obj);
+  // set localStorage
+  localStorage.setItem("user_uid", u.uid);
+  localStorage.setItem("user_name", u.displayName);
+  localStorage.setItem("user_email", u.email);
+  localStorage.setItem("user_photoURL", u.photoURL);
 }
 
 //
@@ -195,7 +220,7 @@ function query_user(uid)
   users_ref.child(user_uid).once('value').then(function(user_snap)
   {
     // reset global user object
-    user = user_snap.val();
+    var user = user_snap.val();
     console.log("in query_user:once, snap.val():", user)
     deferred.resolve(user);
   }, function(errorObject)
@@ -278,12 +303,14 @@ function store_user(id, user, update)
   var user_ref = firebase.database().ref('travel_buddy/users/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
-    user_ref.update(
-    {
-      "name" : user.name,
-      "email" : user.email,
-      "photoURL" : user.photoURL,
-    });
+    var obj = {};
+    if (validate_exists(user.name))
+      obj.name = user.name;
+    if (validate_exists(user.email))
+      obj.email = user.email;
+    if (validate_exists(user.photoURL))
+      obj.photoURL = user.photoURL;
+    user_ref.update(obj);
   } else {
     user_ref.set(
     {
@@ -307,12 +334,14 @@ function store_trip(id, trip, update)
   {
     console.log("updating trip:", id);
     var obj = {};
-    if ((typeof trip.location != 'undefined') && (trip.location.length > 0))
+    if (validate_exists(trip.location))
       obj.location = trip.location;
-    if ((typeof trip.start_date != 'undefined') && (trip.start_date.length > 0))
+    if (validate_exists(trip.start_date))
       obj.start_date = trip.start_date;
-    if ((typeof trip.end_date != 'undefined') && (trip.end_date.length > 0))
+    if (validate_exists(trip.end_date))
       obj.end_date = trip.end_date;
+    if (validate_exists(trip.place_id))
+      obj.place_id = trip.place_id;
     trip_ref.update(obj);
     if (id !== current_trip_name)
     {
@@ -322,22 +351,23 @@ function store_trip(id, trip, update)
     }
   } else {
     console.log("creating trip:", id);
-    if ((typeof trip.location == 'undefined') || (trip.location.length <= 0))
+    if (!validate_exists(trip.location))
     {
       console.log("Must supply a trip location!");
       return false;
     }
-    if ((typeof trip.start_date == 'undefined') || (trip.start_date.length <= 0))
+    if (!validate_exists(trip.start_date))
     {
       console.log("Must supply a trip start date!");
       return false;
     }
-    if ((typeof trip.end_date == 'undefined') || (trip.end_date.length <= 0))
+    if (!validate_exists(trip.end_date))
       trip.end_date = trip.start_date; // end date allowed to be missing
     trip_ref.set({
       "location" : trip.location,
       "start_date" : trip.start_date,
       "end_date" : trip.end_date,
+      "place_id" : trip.place_id,
     });
   }
   current_trip_name = id;
@@ -357,9 +387,9 @@ function store_activity(id, activity, update)
   {
     console.log("updating activity:", id);
     var obj = {};
-    if ((typeof activity.location != 'undefined') && (activity.location.length > 0))
+    if (validate_exists(activity.location))
       obj.location = activity.location;
-    if ((typeof activity.category != 'undefined') && (activity.category.length > 0))
+    if (validate_exists(activity.category))
       obj.category = activity.category;
     activity_ref.update(obj);
   } else {
