@@ -42,6 +42,11 @@ $("#addTrip").on("click", function(event) {
     // input is validated, proceed
 
     // store values in localStorage
+    if (validateExists(tripDestination)) {
+      localStorage.setItem("tripDestination", tripDestination);
+    } else if (update) {
+      tripDestination = localStorage.getItem("tripDestination");
+    }
     if (validateExists(tripBegDate)) {
       localStorage.setItem("tripBegDate", tripBegDate);
     } else if (update) {
@@ -123,7 +128,6 @@ function doParams(tripDestination, tripBegDate, tripEndDate, update){
         continue;
       };
     };
-
     localStorage.setItem("tripLoc", tripLoc);
     var tripLat = response.data.results[0].geometry.location.lat;
     var tripLng = response.data.results[0].geometry.location.lng;
@@ -134,9 +138,6 @@ function doParams(tripDestination, tripBegDate, tripEndDate, update){
     tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
     localStorage.setItem("tripName", tripName);
     // store in Firebase
-    // var update = false;
-    // if (localStorage.getItem("update") === "true")
-    //   update = true;
     store_trip(tripName, {
         "location": tripDestination,
         "start_date": tripBegDate,

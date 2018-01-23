@@ -1,11 +1,11 @@
 
 // get trip values set welocome page in local storage
-var tripAddress = localStorage.getItem("tripLoc");
+var tripDestination = localStorage.getItem("tripDestination");
 var tripPid = localStorage.getItem("tripPid");
 var tripLat = Number(localStorage.getItem("tripLat"));
 var tripLng = Number(localStorage.getItem("tripLng"));
-var tripFromDate = localStorage.getItem('tripBegDate')
-var tripToDate = localStorage.getItem('tripEndDate')
+var tripFromDate = localStorage.getItem('tripBegDate');
+var tripToDate = localStorage.getItem('tripEndDate');
 var tripName = localStorage.getItem('tripName');
 // globals
 var category;
@@ -40,6 +40,18 @@ $("#trip-name").attr("placeholder", "Suggestion: "+tripName);
 $('#saveTrip').on('click', function(){
   tripName = $("#trip-name").val().trim();
   $("#trip-name").attr(tripName);
+  // store in Firebase
+  var trip =  {
+      "location": localStorage.getItem("tripDestination"),
+      "start_date": localStorage.getItem('tripBegDate'),
+      "end_date": localStorage.getItem('tripEndDate'),
+      "place_id": localStorage.getItem("tripPid"),
+    }
+  store_trip(tripName, trip, true); // is potentially an update - gotta remove the old name
+  // now add the activities
+  for (var i = 0; i < savedActivities.length; ++i) {
+    store_activity(savedActivities[i].name, savedActivities[i], false);
+  }
 });
 
 // event handler for category button click
@@ -254,7 +266,8 @@ function createMarker(place) {
           var liAndID = "<li id='" + place.place_id + "'>";
           $(hashID).prepend($(liAndID).text(place.name));
           $("#addActivityBtn").hide();
-
+          // store in Firebase
+          store_activity(savedActivity.name, savedActivity, false);
         }
         // handle if already in array (skip)
         else if (matches.length > 0) {
