@@ -23,6 +23,7 @@ var ourCategories = ["cafe","restaurant","transit_station","bar","night_club","p
 var savedActivities = [];
 var listDiv;
 var inlist = false;
+var userLatLng;
 
 function ActivityObj(place_id, name, lat, lng, category) {
   this.place_id = place_id;
@@ -95,12 +96,27 @@ function initMap(){
 function doMarkers(results, status) {
   if(status == google.maps.places.PlacesServiceStatus.OK){
     for (var i = 0; i < results.length; i++){
-      markers.push(createMarker(results[i]));
-      console.log(results[i]);
+      addMarkerWithTimeout(results[i], i*100);
+      // markers.push(createMarker(results[i]));
+      // console.log(results[i]);
     }
   } else {
     console.log(google.maps.places.PlacesServiceStatus);
   }
+}
+
+
+function addMarkerWithTimeout(place, timeout) {
+  window.setTimeout(function() {
+    markers.push(createMarker(place));
+    console.log(place);
+
+    // markers.push(new google.maps.Marker({
+    //   position: position,
+    //   map: map,
+    //   animation: google.maps.Animation.DROP
+    // }));
+  }, timeout);
 }
 
 // create a marker from a place in results from nearbySearch request
@@ -109,6 +125,7 @@ function createMarker(place) {
   marker = new google.maps.Marker({
     position: place.geometry.location,
     map: map,
+    animation: google.maps.Animation.DROP,
     title: place.name
   });
   // open infowindow when marker is clicked
@@ -214,7 +231,13 @@ function createMarker(place) {
 
         // NEW ACTIVITY
         // prepare an object to save in array
-        var savedActivity = new ActivityObj(place.place_id, place.name, place.geometry.location.lat, place.geometry.location.lng, category);
+        var savedActivity = new ActivityObj(
+          place.place_id,
+          place.name,
+          place.geometry.location.lat,
+          place.geometry.location.lng,
+          category
+        );
 
         // check to see if this place is saved already
         // and prevent duplicates if it has been
@@ -226,9 +249,7 @@ function createMarker(place) {
           var hashID = "#"+ulID;
           var liAndID = "<li id='" + place.place_id + "'>";
           $(hashID).prepend($(liAndID).text(place.name));
-          // hide Add button
-          var btn = document.getElementById('addActivityBtn');
-          btn.style.display = "none";
+          $("#addActivityBtn").hide();
 
         }
         // handle if already in array (skip)
@@ -250,4 +271,20 @@ function clearResults(markers) {
     markers[m].setMap(null);
   }
   markers = [];
+}
+
+// get current location from HTML Geolocation API
+function getLocationHTML() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getUserPosition);
+  } else {
+      console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function getUserPosition(position) {
+  userLatLng = {
+    lat:position.coords.latitude,
+    lng:position.coords.longitude
+  };
 }
