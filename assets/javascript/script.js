@@ -52,19 +52,8 @@ $("#addTrip").on("click", function(event) {
     } else if (update) {
       tripEndDate = localStorage.getItem("tripEndDate");
     }
-    // store in Firebase
-    if (update) {
-      var idx = tripDestination.indexOf(",");
-      tripName = formatTripName(tripDestination.substr(0, idx), tripBegDate, tripEndDate);
-    }
-    store_trip(tripName, {
-        "location": tripDestination,
-        "start_date": tripBegDate,
-        "end_date": tripEndDate,
-      }, update);
     // continue with TravelBuddy
-    doParams(tripDestination);
-    localStorage.setItem("update", "false");
+    doParams(tripDestination, tripBegDate, tripEndDate, update);
   } else {
     // input validation failed, popup the errors
 
@@ -111,7 +100,7 @@ function validateExists(v)
   return true;
 }
 
-function doParams(){
+function doParams(tripDestination, tripBegDate, tripEndDate, update){
   // get location data
   // using Axios to handle the Google Geocode request and response
   // https://github.com/axios/axios
@@ -129,9 +118,20 @@ function doParams(){
     localStorage.setItem("tripLoc", tripLoc);
     localStorage.setItem("tripLat", response.data.results[0].geometry.location.lat);
     localStorage.setItem("tripLng", response.data.results[0].geometry.location.lng);
-    localStorage.setItem("tripPid", response.data.results[0].place_id);
+    var tripPid = response.data.results[0].place_id;
+    localStorage.setItem("tripPid", tripPid);
     tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
     localStorage.setItem("tripName", tripName);
+    // store in Firebase
+    // var update = false;
+    // if (localStorage.getItem("update") === "true")
+    //   update = true;
+    store_trip(tripName, {
+        "location": tripDestination,
+        "start_date": tripBegDate,
+        "end_date": tripEndDate,
+        "place_id": tripPid,
+      }, update);
     // clear input fields
     $("#inputDestination").val("");
     $("#inputFromDate").val("");
