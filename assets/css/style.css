@@ -1,5 +1,6 @@
 body {
   font-family: 'PT Sans', sans-serif;
+  background-color: #F0F0F0;
 }
 
 
@@ -22,13 +23,16 @@ body {
 
 
 .nav-link:hover {
-  background-color: #65A8FF;
-  color: black;
-  height: 50px;
-  border-radius: 50px;
-  height: 50px;
-  padding: 10px;
-  opacity:0.9;
+  background: rgba(0,0,0,0);
+  color: white;
+  box-shadow: inset 0 0 0 3px white;
+}
+
+.nav-link:hover
+{
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
 }
 
 .my-nav{
@@ -112,16 +116,16 @@ body {
 #map {
   height: 1000px;
   width: 100%;
-  margin-top: 80px;
-  margin-bottom: 40px;
+  margin-top: 50px;
+  margin-bottom: 20px;
   margin-left: 60px;
 }
 
 #activityContainer {
   height: 100%;
   width: 100%;
-  margin-top: 80px;
-  margin-bottom: 40px;
+  margin-top: 50px;
+  margin-bottom: 20px;
   margin-right: 40px;
   float: left;
 }
@@ -143,7 +147,7 @@ body {
 
 #weatherDisplay {
   background-color: #202020;
-  height: 200px;
+  height: 150px;
   text-align: center;
   width: 100%;
   
@@ -251,6 +255,8 @@ html, body {
   margin:10px;
   color: #65A8FF;
 }
+
+
 
 .bottom_ul {
   list-style-type:none;
