@@ -206,7 +206,7 @@ function do_travel_buddy_signin(u)
 function query_user(uid)
 {
   var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
-  if ((typeof uid == 'undefined') || (uid.length <= 0))
+  if (!validate_exists(uid))
   {
     // get logged in user
     var firebase_user = firebase.auth().currentUser;
@@ -237,9 +237,9 @@ function query_trip(trip_name)
 {
   var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
   var trip;
-  if ((typeof trip_name == 'undefined') || (trip_name.length <= 0))
+  if (!validate_exists(trip_name))
   {
-    if ((typeof current_trip_name == 'undefined') || (current_trip_name.length <= 0))
+    if (!validate_exists(current_trip_name))
     {
       console.log("query_trip:  trip_name undefined or too short");
       deferred.reject({trip_name:"trip_name undefined or too short"});
@@ -268,9 +268,9 @@ function query_activity(activity_name)
 {
   var deferred = $.Deferred(); // force synchronous 'cuz Firebase could be slow
   var activity;
-  if ((typeof activity_name == 'undefined') || (activity_name.length <= 0))
+  if (!validate_exists(activity_name))
   {
-    if ((typeof current_activity_name == 'undefined') || (current_activity_name.length <= 0))
+    if (!validate_exists(current_activity_name))
     {
       console.log("query_activity:  activity_name undefined or too short");
       deferred.reject({activity_name:"activity_name undefined or too short"});
@@ -299,7 +299,13 @@ function query_activity(activity_name)
 //   update: boolean to update existing or not, optional
 function store_user(id, user, update)
 {
-  id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
+  if (validate_exists(id))
+  {
+    id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
+  } else {
+    console.log("store_user called without an id");
+    return false;
+  }
   var user_ref = firebase.database().ref('travel_buddy/users/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
@@ -312,12 +318,7 @@ function store_user(id, user, update)
       obj.photoURL = user.photoURL;
     user_ref.update(obj);
   } else {
-    user_ref.set(
-    {
-      "name" : user.name,
-      "email" : user.email,
-      "photoURL" : user.photoURL,
-    });
+    user_ref.set(user);
   }
 }
 
@@ -327,7 +328,13 @@ function store_user(id, user, update)
 //   update: boolean to update existing or not, optional
 function store_trip(id, trip, update)
 {
-  id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
+  if (validate_exists(id))
+  {
+    id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
+  } else {
+    console.log("store_trip called without an id");
+    return false;
+  }
   var trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + id);
 
   if ((typeof update != 'undefined') && (update === true))
@@ -363,12 +370,7 @@ function store_trip(id, trip, update)
     }
     if (!validate_exists(trip.end_date))
       trip.end_date = trip.start_date; // end date allowed to be missing
-    trip_ref.set({
-      "location" : trip.location,
-      "start_date" : trip.start_date,
-      "end_date" : trip.end_date,
-      "place_id" : trip.place_id,
-    });
+    trip_ref.set(trip);
   }
   current_trip_name = id;
   active_trip_ref = trip_ref;
@@ -381,34 +383,36 @@ function store_trip(id, trip, update)
 //   update: boolean to update existing or not, optional
 function store_activity(id, activity, update)
 {
-  id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
+  if (validate_exists(id))
+  {
+    id = id.replace(/\//g, ""); // can't have '/' in Firebase ids
+  } else {
+    console.log("store_activity called without an id");
+    return false;
+  }
   var activity_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name + '/activities/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
     console.log("updating activity:", id);
     var obj = {};
-    if (validate_exists(activity.location))
-      obj.location = activity.location;
+    if (validate_exists(activity.place_id))
+      obj.place_id = activity.place_id;
+    if (validate_exists(activity.lat))
+      obj.lat = activity.lat;
+    if (validate_exists(activity.lng))
+      obj.lng = activity.lng;
     if (validate_exists(activity.category))
       obj.category = activity.category;
     activity_ref.update(obj);
   } else {
     console.log("creating activity:", id);
-    if (!validate_exists(activity.location))
-    {
-      console.log("Must supply an activity location!");
-      return false;
-    }
     if (!validate_exists(activity.category))
     {
       console.log("Must supply an activity category!");
       return false;
     }
-    activity_ref.set(
-    {
-      "location" : activity.location,
-      "category" : activity.category,
-    });
+    delete activity.name; // name is the key
+    activity_ref.set(activity);
   }
 }
 
