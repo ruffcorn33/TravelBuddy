@@ -119,16 +119,9 @@ body {
   margin-top: 50px;
   margin-bottom: 20px;
   margin-left: 60px;
+  margin-right: 40px;
 }
 
-#activityContainer {
-  height: 100%;
-  width: 100%;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  margin-right: 40px;
-  float: left;
-}
 
 #contentRow {
   height: 100%;
@@ -156,13 +149,22 @@ body {
 
 /*Categories*/
 .categories {
-  height: 70px;
-  width: 110px;
-  margin: 20px;
+  height: 50px;
+  width: 90px;
+  margin: 5px;
   text-align: center;
   border-radius: 10px;
   border: 1px solid gray;
   
+}
+
+
+#activityContainer {
+  height: 100%;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-right: 40px;
 }
 
 a, a:link {
@@ -178,6 +180,7 @@ a, a:link {
 
 .card {
   border: 1px solid gray;
+  width: 320px;
 }
 
 
