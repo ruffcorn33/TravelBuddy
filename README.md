@@ -10,10 +10,13 @@ Hosting URL: tbd
 * jQuery
 * Bootstrap
 * Firebase
-* Google Places
+* Google Maps JavaScript API
+* Google Maps Geocoding API
+* Google Places API Web Service
 * Google Fonts
 * Gijgo library
 * openWeatherMaps
+* [Axios](https://github.com/axios/axios)
 
 ### Prerequisites
 
@@ -24,12 +27,22 @@ Hosting URL: tbd
 ### Completed Features
 
 - [x] Google authentication
-- [x] tbd
+- [x] Use Google Geocoding to get location data from user inputToDate
+- [x] Use location data to display a Google maps
+- [x] Use local storage to pass data from welcome page to main page
+- [x] Use Google Places to perform a nearbySearch using selected category
+- [x] Place markers on map for places returned by nearbySearch
+- [x] Use animation when placing markers
+- [x] Display infowindow when place marker is clicked
+- [x] 'Add' button on infowindow adds that place to selected category list
+- [x] 'Add' button saves an activity object
+
 
 ### Next Steps
 
 Features that we would like to add at some point in the future.
 
+- [ ] Use Geolocation to place user's current location on map
 - [ ] Generate directions from user's current location to chosen activity
 - [ ] tbd
 
