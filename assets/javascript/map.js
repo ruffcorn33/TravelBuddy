@@ -284,19 +284,3 @@ function clearResults(markers) {
   }
   markers = [];
 }
-
-// get current location from HTML Geolocation API
-function getLocationHTML() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(getUserPosition);
-  } else {
-      console.log("Geolocation is not supported by this browser.");
-  }
-}
-
-function getUserPosition(position) {
-  userLatLng = {
-    lat:position.coords.latitude,
-    lng:position.coords.longitude
-  };
-}
