@@ -171,6 +171,7 @@ function do_travel_buddy_signin(u)
       obj.email = u.email;
       obj.photoURL = u.photoURL;
       var session_user_ref = firebase.database().ref("travel_buddy/users/" + session_uid);
+      update_signin_user(u.uid, obj);
       session_user_ref.remove();
     });
   } else {
@@ -179,28 +180,33 @@ function do_travel_buddy_signin(u)
       "email": u.email,
       "photoURL": u.photoURL,
     };
+    update_signin_user(u.uid, obj);
   }
-
-  // fetch the user record if it exists, else create it
-  var tb_user = undefined;
-  query_user(u.uid).then(function(usr)
-  {
-    tb_user = usr;
-    if (typeof tb_user === "object")
-    {
-      // existing user, update with session
-      store_user(u.uid, obj, true);
-    } else {
-      // new user, create it
-      store_user(u.uid, obj, false);
-    }
-  });
 
   // set localStorage
   localStorage.setItem("user_uid", u.uid);
   localStorage.setItem("user_name", u.displayName);
   localStorage.setItem("user_email", u.email);
   localStorage.setItem("user_photoURL", u.photoURL);
+}
+
+// fetch the user record if it exists, else create it
+// this function is necessitated by the asyncronous nature of JavaScript.
+function update_signin_user(uid, obj)
+{
+  var tb_user = undefined;
+  query_user(uid).then(function(usr)
+  {
+    tb_user = usr;
+    if (typeof tb_user === "object")
+    {
+      // existing user, update with session
+      store_user(uid, obj, true);
+    } else {
+      // new user, create it
+      store_user(uid, obj, false);
+    }
+  });  
 }
 
 // sign out of TravelBuddy
@@ -343,14 +349,7 @@ function store_user(id, user, update)
   var user_ref = firebase.database().ref('travel_buddy/users/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
-    var obj = {};
-    if (validate_exists(user.name))
-      obj.name = user.name;
-    if (validate_exists(user.email))
-      obj.email = user.email;
-    if (validate_exists(user.photoURL))
-      obj.photoURL = user.photoURL;
-    user_ref.update(obj);
+    user_ref.update(user);
   } else {
     user_ref.set(user);
   }
