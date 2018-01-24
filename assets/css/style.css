@@ -69,13 +69,19 @@ body {
   background-repeat: no-repeat;
   background-position: center; 
   background-size: cover; 
-  margin-top: -60px;
+  margin-top: -65px;
 }
 
 .us {
- margin-top: 80px;
+ margin-top: 200px;
+ color: white;
+ text-shadow: 2px 1px black;
 }
 
+hr {
+  border-color: white;
+  width: 300px;
+}
 /* Activities Main */
 .minneapolis {
   background-image: url('../images/minneapolis.JPG');
@@ -138,6 +144,7 @@ body {
   margin-left: 0px;
 }
 
+
 #weatherDisplay {
   background-color: #202020;
   height: 150px;
@@ -146,6 +153,10 @@ body {
   
 }
 
+.weather {
+  color: white;
+  text-shadow: 2px 1px black;
+}
 
 /*Categories*/
 .categories {
@@ -226,6 +237,13 @@ h1 {
 
 h2 {
   text-shadow: 3px 3px black;
+}
+
+#appDescription{
+  position: absolute;
+  top: 115%;
+  width: 1100px;
+  text-align: center;
 }
 
 
