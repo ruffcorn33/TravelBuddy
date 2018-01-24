@@ -86,6 +86,8 @@ function initApp()
       $('#google_sign_in').text('Sign out ' + displayName);
     } else {
       console.log("user logged out");
+      // sign out of the app
+      do_travel_buddy_signout();
       // user is signed out
       $('#google_sign_in').text('Sign in with Google');
     }

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TravelBuddy - Trips</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <!-- jquery reference -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -12,7 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Axios, a promise based HTTP client for the browser and node.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>TravelBuddy - Welcome!</title>
     <!-- Firebase reference -->
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
     <!-- Gijgo library - for datepicker widget -->
@@ -36,7 +36,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto ml-2">
             <li class="nav-item active">
               <a class="nav-link shift" style="text-shadow: 1px 1px black;" href="index.html">Home <span class="sr-only">(current)</span></a>
@@ -60,50 +60,13 @@
           <!-- righthand nav buttons -->
           <ul class="nav justify-content-end">
 
-            <!-- log-in dropdown, Bootstrap -->
+            <!-- log-in, Bootstrap -->
             <li class="nav-item">
               <div class="btn-group">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Login
-                </button>
-                <form class="dropdown-menu p-2">
-                  <div class="form-group">
-                    <label for="DropdownFormEmail">Email Address</label>
-                    <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormPassword">Password</label>
-                    <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-              </div>  <!-- end login dropdown -->
+                <button class="btn btn-secondary" id="google_sign_in" type="button">Sign in with Google</button>
+              </div>  <!-- end login -->
             </li>
 
-
-            <!-- sign-in dropdown, Bootstrap -->
-            <li class="nav-item mr-5">
-              <div class="btn-group">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sign Up
-                </button>
-                <form class="dropdown-menu p-4">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="John Smith">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormEmail">Email Address</label>
-                    <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormPassword">Create Password</label>
-                    <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign up</button>
-                </form>
-              </div>  <!-- end sign-in dropdown -->
-            </li>
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->
@@ -144,12 +107,8 @@
               <button id="addTrip" type="submit" class="btn btn-primary float-right" update="true">Go!</button>
             </div>
           </div>  <!-- end of .form-row -->
-        </form>
-      </div>  <!--end of .container -->
-    <!--end of content-->
-
-
-
+        </form> <!--end of .container -->
+      </div>  <!--end of .content-inside minneapolis -->
 
       <!-- weather -->
       <div id="weatherRow" class="row">
@@ -317,8 +276,6 @@
         </div> <!-- end of activity container -->
       </div>  <!-- end of .contentRow -->
   
-
-
 <!--.....................................................................................................................-->
     <!--FOOTER-->
     <div class="row">
@@ -336,6 +293,7 @@
 
     <!-- JavaScript -->
     <script src="assets/javascript/firebase_init.js"></script>
+    <script src="assets/javascript/google_auth.js"></script>
     <script src="assets/javascript/firebase_main.js"></script>
     <script src="assets/javascript/script.js"></script>
     <script src="assets/javascript/map.js"></script>
