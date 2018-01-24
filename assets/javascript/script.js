@@ -42,6 +42,11 @@ $("#addTrip").on("click", function(event) {
     // input is validated, proceed
 
     // store values in localStorage
+    if (validateExists(tripDestination)) {
+      localStorage.setItem("tripDestination", tripDestination);
+    } else if (update) {
+      tripDestination = localStorage.getItem("tripDestination");
+    }
     if (validateExists(tripBegDate)) {
       localStorage.setItem("tripBegDate", tripBegDate);
     } else if (update) {
@@ -52,19 +57,8 @@ $("#addTrip").on("click", function(event) {
     } else if (update) {
       tripEndDate = localStorage.getItem("tripEndDate");
     }
-    // store in Firebase
-    if (update) {
-      var idx = tripDestination.indexOf(",");
-      tripName = formatTripName(tripDestination.substr(0, idx), tripBegDate, tripEndDate);
-    }
-    store_trip(tripName, {
-        "location": tripDestination,
-        "start_date": tripBegDate,
-        "end_date": tripEndDate,
-      }, update);
     // continue with TravelBuddy
-    doParams(tripDestination);
-    localStorage.setItem("update", "false");
+    doParams(tripDestination, tripBegDate, tripEndDate, update);
   } else {
     // input validation failed, popup the errors
 
@@ -111,7 +105,7 @@ function validateExists(v)
   return true;
 }
 
-function doParams(){
+function doParams(tripDestination, tripBegDate, tripEndDate, update){
   // get location data
   // using Axios to handle the Google Geocode request and response
   // https://github.com/axios/axios
@@ -125,13 +119,31 @@ function doParams(){
     console.log(response);
     // store locaton data in local storage for use by main.js and maps.js
     // localStorage.setItem("tripLoc", response.data.results[0].formatted_address);
-    var tripLoc = response.data.results[0].address_components[0].short_name;
+    var tripLoc = "Your Trip";
+    for (i=0; i<response.data.results[0].address_components.length; i++){
+      if ((response.data.results[0].address_components[i].types[0] === 'locality')
+          &&
+          (response.data.results[0].address_components[i].types[1] === 'political')){
+        tripLoc = response.data.results[0].address_components[i].short_name;
+        continue;
+      };
+    };
     localStorage.setItem("tripLoc", tripLoc);
-    localStorage.setItem("tripLat", response.data.results[0].geometry.location.lat);
-    localStorage.setItem("tripLng", response.data.results[0].geometry.location.lng);
-    localStorage.setItem("tripPid", response.data.results[0].place_id);
+    var tripLat = response.data.results[0].geometry.location.lat;
+    var tripLng = response.data.results[0].geometry.location.lng;
+    localStorage.setItem("tripLat", tripLat);
+    localStorage.setItem("tripLng", tripLng);
+    var tripPid = response.data.results[0].place_id;
+    localStorage.setItem("tripPid", tripPid);
     tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
     localStorage.setItem("tripName", tripName);
+    // store in Firebase
+    store_trip(tripName, {
+        "location": tripDestination,
+        "start_date": tripBegDate,
+        "end_date": tripEndDate,
+        "place_id": tripPid,
+      }, update);
     // clear input fields
     $("#inputDestination").val("");
     $("#inputFromDate").val("");

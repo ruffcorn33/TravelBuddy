@@ -1,11 +1,11 @@
 
 // get trip values set welocome page in local storage
-var tripAddress = localStorage.getItem("tripLoc");
+var tripDestination = localStorage.getItem("tripDestination");
 var tripPid = localStorage.getItem("tripPid");
 var tripLat = Number(localStorage.getItem("tripLat"));
 var tripLng = Number(localStorage.getItem("tripLng"));
-var tripFromDate = localStorage.getItem('tripBegDate')
-var tripToDate = localStorage.getItem('tripEndDate')
+var tripFromDate = localStorage.getItem('tripBegDate');
+var tripToDate = localStorage.getItem('tripEndDate');
 var tripName = localStorage.getItem('tripName');
 // globals
 var category;
@@ -23,6 +23,8 @@ var ourCategories = ["cafe","restaurant","transit_station","bar","night_club","p
 var savedActivities = [];
 var listDiv;
 var inlist = false;
+var userLatLng;
+//getLocationHTML();
 
 function ActivityObj(place_id, name, lat, lng, category) {
   this.place_id = place_id;
@@ -38,6 +40,18 @@ $("#trip-name").attr("placeholder", "Suggestion: "+tripName);
 $('#saveTrip').on('click', function(){
   tripName = $("#trip-name").val().trim();
   $("#trip-name").attr(tripName);
+  // store in Firebase
+  var trip =  {
+      "location": localStorage.getItem("tripDestination"),
+      "start_date": localStorage.getItem('tripBegDate'),
+      "end_date": localStorage.getItem('tripEndDate'),
+      "place_id": localStorage.getItem("tripPid"),
+    }
+  store_trip(tripName, trip, true); // is potentially an update - gotta remove the old name
+  // now add the activities
+  for (var i = 0; i < savedActivities.length; ++i) {
+    store_activity(savedActivities[i].name, savedActivities[i], false);
+  }
 });
 
 // event handler for category button click
@@ -95,12 +109,28 @@ function initMap(){
 function doMarkers(results, status) {
   if(status == google.maps.places.PlacesServiceStatus.OK){
     for (var i = 0; i < results.length; i++){
-      markers.push(createMarker(results[i]));
-      console.log(results[i]);
+      addMarkerWithTimeout(results[i], i*100);
+      // markers.push(createMarker(results[i]));
+      // console.log(results[i]);
     }
   } else {
     console.log(google.maps.places.PlacesServiceStatus);
   }
+}
+
+// animate marker drop with bounce
+// timer prevents all markers from dropping at once
+function addMarkerWithTimeout(place, timeout) {
+  window.setTimeout(function() {
+    markers.push(createMarker(place));
+    console.log(place);
+
+    // markers.push(new google.maps.Marker({
+    //   position: position,
+    //   map: map,
+    //   animation: google.maps.Animation.DROP
+    // }));
+  }, timeout);
 }
 
 // create a marker from a place in results from nearbySearch request
@@ -109,6 +139,7 @@ function createMarker(place) {
   marker = new google.maps.Marker({
     position: place.geometry.location,
     map: map,
+    animation: google.maps.Animation.DROP,
     title: place.name
   });
   // open infowindow when marker is clicked
@@ -214,7 +245,15 @@ function createMarker(place) {
 
         // NEW ACTIVITY
         // prepare an object to save in array
-        var savedActivity = new ActivityObj(place.place_id, place.name, place.geometry.location.lat, place.geometry.location.lng, category);
+        var placeLat = place.geometry.location.lat();
+        var placeLng = place.geometry.location.lng();
+        var savedActivity = new ActivityObj(
+          place.place_id,
+          place.name,
+          placeLat,
+          placeLng,
+          category
+        );
 
         // check to see if this place is saved already
         // and prevent duplicates if it has been
@@ -226,10 +265,9 @@ function createMarker(place) {
           var hashID = "#"+ulID;
           var liAndID = "<li id='" + place.place_id + "'>";
           $(hashID).prepend($(liAndID).text(place.name));
-          // hide Add button
-          var btn = document.getElementById('addActivityBtn');
-          btn.style.display = "none";
-
+          $("#addActivityBtn").hide();
+          // store in Firebase
+          store_activity(savedActivity.name, savedActivity, false);
         }
         // handle if already in array (skip)
         else if (matches.length > 0) {
@@ -250,4 +288,20 @@ function clearResults(markers) {
     markers[m].setMap(null);
   }
   markers = [];
+}
+
+// get current location from HTML Geolocation API
+function getLocationHTML() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getUserPosition);
+  } else {
+      console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function getUserPosition(position) {
+  userLatLng = {
+    lat:position.coords.latitude,
+    lng:position.coords.longitude
+  };
 }

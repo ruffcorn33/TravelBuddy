@@ -17,7 +17,7 @@ function set_categories_selection()
 // TODO - use proper log in stuff - 'child_added' is used instead of 'value' to get only one user (for now)
 users_ref.once('child_added').then(function(user_snap)
 {
-  user = user_snap.val();
+  var user = user_snap.val();
   user_uid = user_snap.key;
   user_ref = firebase.database().ref('travel_buddy/users/' + user_uid);
   user_trips_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips');
@@ -131,7 +131,7 @@ $('#dump_user').on('click', function()
   query_user(user_uid).then(function(usr)
   {
     demo_JSON_dump(usr);
-  })
+  });
 });
 
 // on click event for the dump_trip button
@@ -140,7 +140,7 @@ $('#dump_trip').on('click', function()
   query_trip().then(function(trip)
   {
     demo_JSON_dump(trip);
-  })
+  });
 });
 
 // on click event for the dump_activity button
@@ -149,7 +149,7 @@ $('#dump_activity').on('click', function()
   query_activity().then(function(activity)
   {
     demo_JSON_dump(activity);
-  })
+  });
 });
 
 //
