@@ -3,10 +3,9 @@ function tripWeather() {
   // event.preventDefault();
   var APIKey = "2f34cea018b6436c4b7a13b8a8fe8bf2";
 
-  var lat = localStorage.getItem("lat");
-  console.log(lat);
-  var lon = localStorage.getItem("lon");
-  console.log(lon);
+  var lat = localStorage.getItem("tripLat");
+  var lon = localStorage.getItem("tripLng");
+  console.log("lat:", lat, "lon:", lon);
   var queryURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
  
 
@@ -25,6 +24,7 @@ function tripWeather() {
     $(".minTemp").append("Low Temp (fahrenheit): " + tempMinRD);
     $(".maxTemp").append("High Temp (fahrenheit): " + tempMaxRD);
   
+    console.log("weather:", response.name, response.wind.speed, response.weather[0].main, tempMinRD, tempMaxRD);
   });
  };
 
