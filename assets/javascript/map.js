@@ -110,8 +110,7 @@ function doMarkers(results, status) {
   if(status == google.maps.places.PlacesServiceStatus.OK){
     for (var i = 0; i < results.length; i++){
       addMarkerWithTimeout(results[i], i*100);
-      // markers.push(createMarker(results[i]));
-      // console.log(results[i]);
+      console.log(results[i]);
     }
   } else {
     console.log(google.maps.places.PlacesServiceStatus);
@@ -124,23 +123,19 @@ function addMarkerWithTimeout(place, timeout) {
   window.setTimeout(function() {
     markers.push(createMarker(place));
     console.log(place);
-
-    // markers.push(new google.maps.Marker({
-    //   position: position,
-    //   map: map,
-    //   animation: google.maps.Animation.DROP
-    // }));
   }, timeout);
 }
 
 // create a marker from a place in results from nearbySearch request
 function createMarker(place) {
   // place a marker on map
+  var iconPath = "assets/images/icons/" + category + "/marker_" + category + ".png";
   marker = new google.maps.Marker({
     position: place.geometry.location,
     map: map,
     animation: google.maps.Animation.DROP,
-    title: place.name
+    title: place.name,
+    icon: iconPath
   });
   // open infowindow when marker is clicked
   google.maps.event.addListener(marker, 'click', function(){
@@ -237,7 +232,7 @@ function createMarker(place) {
         var ulID = category+'-list';
         if ($(listDiv).attr("list-started") == 'false') {
           $(listDiv).html("");
-          //make initial unorderd list div
+          //make initial unordered list div
           var ulElement = $("<ul id='" + ulID + "'>");
           $(listDiv).append(ulElement);
           $(listDiv).attr("list-started", 'true');
