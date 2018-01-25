@@ -1,7 +1,7 @@
 var tripDestination;
 var tripBegDate;
 var tripEndDate;
-var tripName;
+var tripName = "";
 
 // these dates were originally intended to be used in the weather display
 // but now are only used to format a suggested trip name
@@ -25,6 +25,9 @@ $('#inputToDate').datepicker({
 
 $("#addTrip").on("click", function(event) {
   event.preventDefault();
+
+  // blow the savedTrip from user sign in away if we're adding a new trip
+  localStorage.removeItem("savedTrip");
 
   tripDestination = $("#inputDestination").val().trim();
   tripBegDate = $("#inputFromDate").val().trim();
@@ -134,19 +137,30 @@ function doParams(tripDestination, tripBegDate, tripEndDate, update){
     var tripLat = response.data.results[0].geometry.location.lat;
     var tripLng = response.data.results[0].geometry.location.lng;
     var tripPid = response.data.results[0].place_id;
-    tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
+
+    if (typeof $("#trip-name").val() === "undefined") {
+      tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
+    }
+    else {
+      tripName = $("#trip-name").val().trim();
+    }
+    console.log("tripName: "+tripName)
     localStorage.setItem("tripLoc", tripLoc);
     localStorage.setItem("tripLat", tripLat);
     localStorage.setItem("tripLng", tripLng);
     localStorage.setItem("tripPid", tripPid);
     localStorage.setItem("tripName", tripName);
     // store in Firebase
-    store_trip(tripName, {
-        "location": tripDestination,
+    var trip =  {
+        "location": tripDestination, // long name
+        "loc": tripLoc, // short name
         "start_date": tripBegDate,
         "end_date": tripEndDate,
         "place_id": tripPid,
-      }, update);
+        "lat": tripLat,
+        "lng": tripLng,
+      }
+    store_trip(tripName, trip, update);
     // clear input fields
     $("#inputDestination").val("");
     $("#inputFromDate").val("");
@@ -183,3 +197,29 @@ function toggleTripsNav() {
   //   userNav.style.display = "none";
   // }
 }
+
+function MyTripMenu(tName){
+  var tripLi = $("<li class='doMyTrip'>" + tName + "</li>");
+  $("#tripList").append(tripLi);
+}
+
+$("#tripList").on('click', "li.doMyTrip", function(){
+  var trip_array = parse_user_trips();
+  for (i=0; i < trip_array.length; i++){
+    if (trip_array[i].tripName === $(this).text()) {
+      localStorage.setItem("tripName", trip_array[i].tripName);
+      localStorage.setItem("tripPid", trip_array[i].tripObj.place_id);
+      localStorage.setItem("tripLoc", trip_array[i].tripObj.loc);
+      localStorage.setItem("tripLat", trip_array[i].tripObj.lat);
+      localStorage.setItem("tripLng", trip_array[i].tripObj.lng);
+      localStorage.setItem("tripBegDate", trip_array[i].tripObj.start_date);
+      localStorage.setItem("tripEndDate", trip_array[i].tripObj.end_date);
+      var savTripStr = JSON.stringify(trip_array[i].tripObj);
+      if (validateExists(savTripStr))
+        localStorage.setItem("savedTrip", savTripStr);
+    }
+  }
+
+  // change to maps page
+  location.href = "main.html";
+});
