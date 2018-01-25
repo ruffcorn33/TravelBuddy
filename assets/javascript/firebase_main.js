@@ -211,8 +211,13 @@ function update_signin_user(uid, obj)
     query_user(uid).then(function(usr)
     {
       localStorage.setItem("the_user", JSON.stringify(usr));
+      var trip_array = parse_user_trips();
+      for (i=0; i < trip_array.length; i++)
+      {
+        MyTripMenu(trip_array[i].tripName);
+      };
     });
-  });  
+  });
 }
 
 // sign out of TravelBuddy
@@ -237,6 +242,7 @@ function do_travel_buddy_signout()
   localStorage.removeItem("tripLng");
   localStorage.removeItem("tripBegDate");
   localStorage.removeItem("tripEndDate");
+  localStorage.removeItem("savedTrip");
   load_default_user();
   toggleTripsNav();
 }
@@ -296,7 +302,7 @@ function query_trip(trip_name)
       trip_name = current_trip_name;
     }
   }
-  
+
   user_trips_ref.child(trip_name).once('value').then(function(trip_snap)
   {
     trip = trip_snap.val();
@@ -327,7 +333,7 @@ function query_activity(activity_name)
       activity_name = current_activity_name;
     }
   }
-  
+
   activities_ref.child(activity_name).once('value').then(function(activity_snap)
   {
     activity = activity_snap.val();
@@ -381,16 +387,7 @@ function store_trip(id, trip, update)
   if ((typeof update != 'undefined') && (update === true))
   {
     console.log("updating trip:", id);
-    var obj = {};
-    if (validate_exists(trip.location))
-      obj.location = trip.location;
-    if (validate_exists(trip.start_date))
-      obj.start_date = trip.start_date;
-    if (validate_exists(trip.end_date))
-      obj.end_date = trip.end_date;
-    if (validate_exists(trip.place_id))
-      obj.place_id = trip.place_id;
-    trip_ref.update(obj);
+    trip_ref.update(trip);
     if (id !== current_trip_name)
     {
       console.log("removing old node", active_trip_ref.key);

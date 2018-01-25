@@ -54,7 +54,10 @@
                 My Trips
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <!-- dynamically append links to saved trips here -->
+                <ul id="tripList">
+                  <!-- dynamically append links to saved trips here -->
+
+                </ul>
               </div>
             </li>
           </ul>
@@ -68,29 +71,6 @@
               </div>  <!-- end login -->
             </li>
 
-            <!-- sign-in dropdown, Bootstrap -->
-            <li class="nav-item mr-5">
-              <div class="btn-group">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sign Up
-                </button>
-                <form class="dropdown-menu p-4">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="John Smith">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormEmail">Email Address</label>
-                    <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormPassword">Create Password</label>
-                    <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign up</button>
-                </form>
-              </div>  <!-- end sign-in dropdown  -->
-            </li>
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->

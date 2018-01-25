@@ -1,4 +1,5 @@
 
+
 // get trip values set welocome page in local storage
 var tripDestination = localStorage.getItem("tripDestination");
 var tripPid = localStorage.getItem("tripPid");
@@ -35,18 +36,40 @@ function ActivityObj(place_id, name, lat, lng, category) {
   this.category = category;
 }
 
+function parseSavedActivities(){
+  var tripObj = JSON.parse(localStorage.getItem("savedTrip"));
+  var actArray = parse_trip_activities(tripObj);
+  savedActivities = [];
+  for (var i = 0; i < actArray.length; i++){
+    var actObj = actArray[i].activityObj;
+    savedActivities.push(new ActivityObj(actObj.place_id, actArray[i].activityName, actObj.lat, actObj.lng, actObj.category));
+  }
+}
+// on page load - fill saved activities, if they're there
+parseSavedActivities();
+
 // display trip name suggestion
 $("#trip-name").attr("placeholder", "Suggestion: "+tripName);
+
 // get user input for trip name
 $('#saveTrip').on('click', function(){
-  tripName = $("#trip-name").val().trim();
-  $("#trip-name").attr(tripName);
+
+  if (typeof $("#trip-name").val() === "undefined") {
+    tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
+  }
+  else {
+    tripName = $("#trip-name").val().trim();
+  }
+
   // store in Firebase
   var trip =  {
-      "location": localStorage.getItem("tripDestination"),
+      "location": localStorage.getItem("tripDestination"), // long name
+      "loc": localStorage.getItem("tripLoc"), // short name
       "start_date": localStorage.getItem('tripBegDate'),
       "end_date": localStorage.getItem('tripEndDate'),
       "place_id": localStorage.getItem("tripPid"),
+      "lat": localStorage.getItem("tripLat"),
+      "lng": localStorage.getItem("tripLng"),
     }
   store_trip(tripName, trip, true); // is potentially an update - gotta remove the old name
   // now add the activities
