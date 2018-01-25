@@ -188,6 +188,7 @@ function do_travel_buddy_signin(u)
   localStorage.setItem("user_name", u.displayName);
   localStorage.setItem("user_email", u.email);
   localStorage.setItem("user_photoURL", u.photoURL);
+  toggleTripsNav();
 }
 
 // fetch the user record if it exists, else create it
@@ -206,6 +207,11 @@ function update_signin_user(uid, obj)
       // new user, create it
       store_user(uid, obj, false);
     }
+    // query the complete user's record back
+    query_user(uid).then(function(usr)
+    {
+      localStorage.setItem("the_user", JSON.stringify(usr));
+    });
   });  
 }
 
@@ -218,6 +224,7 @@ function do_travel_buddy_signout()
   var uname = localStorage.getItem("user_name");
   if (uname === "Session User")
     return;
+  localStorage.removeItem("the_user");
   localStorage.removeItem("user_uid");
   localStorage.removeItem("user_name");
   localStorage.removeItem("user_email");
@@ -231,6 +238,7 @@ function do_travel_buddy_signout()
   localStorage.removeItem("tripBegDate");
   localStorage.removeItem("tripEndDate");
   load_default_user();
+  toggleTripsNav();
 }
 
 //
@@ -490,4 +498,31 @@ function validate_exists(v)
     return false;
   }
   return true;
+}
+
+// parse a user object from the JSON.strigify()d version in localStorage
+function parse_user_trips()
+{
+  var user = JSON.parse(localStorage.getItem("the_user"));
+  var trips = user.trips;
+  var trip_array = [];
+
+  for (var tripName in trips)
+  {
+    trip_array.push({tripName: tripName, tripObj: trips[tripName]})
+  }
+  return trip_array;
+}
+
+// parse a user object from the JSON.strigify()d version in localStorage
+function parse_trip_activities(trip)
+{
+  var activities = trip.activities;
+  var activities_array = [];
+
+  for (var activityName in activities)
+  {
+    activities_array.push({activityName: activityName, activityObj: activities[activityName]})
+  }
+  return activities_array;
 }
