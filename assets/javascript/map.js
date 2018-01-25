@@ -24,7 +24,8 @@ var savedActivities = [];
 var listDiv;
 var inlist = false;
 var userLatLng;
-//getLocationHTML();
+var justMyMarkers = false;
+
 
 function ActivityObj(place_id, name, lat, lng, category) {
   this.place_id = place_id;
@@ -52,6 +53,60 @@ $('#saveTrip').on('click', function(){
   for (var i = 0; i < savedActivities.length; ++i) {
     store_activity(savedActivities[i].name, savedActivities[i], false);
   }
+});
+
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var labelIndex = 0;
+
+// event handler for 'my markers' radio button
+$("#my-markers").on('click', function(){
+  justMyMarkers = true;
+  clearResults(markers);
+  console.log("my markers button clicked");
+  // loop through savedActivities array and place saved markers on map
+  for (var i = 0; i < savedActivities.length; i++){
+    console.log(savedActivities[i].place_id);
+    var placeID = savedActivities[i].place_id;
+    var apiKey = "AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4";
+    var queryURL = "https://maps.googleapis.com/maps/api/place/details/json?place_id=" + placeID + "&key=" + apiKey;
+    var request = {
+      placeId: placeID
+    };
+    var myCategory = savedActivities[i].category;
+    var infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.getDetails(request, function(place, status) {
+      console.log(status)
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log("getDetail status: "+place);
+
+        var marker = new google.maps.Marker({
+          map: map,
+          label: labels[labelIndex++ % labels.length],
+          position: place.geometry.location
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+      }
+    });
+  };
+});
+
+function myMarkerWithTimeout(place, timeout) {
+  window.setTimeout(function() {
+    markers.push(createMarker(place));
+    console.log(place);
+  }, timeout);
+}
+
+// event handler for 'all markers' radio button
+$("#all-markers").on('click', function(){
+  console.log("all markers button clicked");
+  buttonClick = true;
+  listDiv ="."+category;
+  initMap();
 });
 
 // event handler for category button click
@@ -135,7 +190,7 @@ function createMarker(place) {
     map: map,
     animation: google.maps.Animation.DROP,
     title: place.name,
-    icon: iconPath
+    //icon: iconPath
   });
   // open infowindow when marker is clicked
   google.maps.event.addListener(marker, 'click', function(){
