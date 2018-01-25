@@ -3,6 +3,8 @@ var tripBegDate;
 var tripEndDate;
 var tripName;
 
+// these dates were originally intended to be used in the weather display
+// but now are only used to format a suggested trip name
 // setup the datepickers to be a date range
 var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 $('#inputFromDate').datepicker({
@@ -119,7 +121,8 @@ function doParams(tripDestination, tripBegDate, tripEndDate, update){
     console.log(response);
     // store locaton data in local storage for use by main.js and maps.js
     // localStorage.setItem("tripLoc", response.data.results[0].formatted_address);
-    var tripLoc = "Your Trip";
+    var tripLoc = "Your Trip";  // fail over default trip name
+    // get city from reponse data to use in formatting a suggested trip name
     for (i=0; i<response.data.results[0].address_components.length; i++){
       if ((response.data.results[0].address_components[i].types[0] === 'locality')
           &&
@@ -128,14 +131,14 @@ function doParams(tripDestination, tripBegDate, tripEndDate, update){
         continue;
       };
     };
-    localStorage.setItem("tripLoc", tripLoc);
     var tripLat = response.data.results[0].geometry.location.lat;
     var tripLng = response.data.results[0].geometry.location.lng;
+    var tripPid = response.data.results[0].place_id;
+    tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
+    localStorage.setItem("tripLoc", tripLoc);
     localStorage.setItem("tripLat", tripLat);
     localStorage.setItem("tripLng", tripLng);
-    var tripPid = response.data.results[0].place_id;
     localStorage.setItem("tripPid", tripPid);
-    tripName = formatTripName(tripLoc, tripBegDate, tripEndDate);
     localStorage.setItem("tripName", tripName);
     // store in Firebase
     store_trip(tripName, {
@@ -164,4 +167,19 @@ function formatTripName(trip, fromDate, toDate) {
     name = name + " on " + fromDate;
   }
   return name;
+}
+
+function toggleTripsNav() {
+  var guestNav = $("#guest-trips");
+  var userNav = $("#user-trips");
+  guestNav.toggleClass("d-none d-block");
+  userNav.toggleClass("d-none d-block");
+  // if (guestNav.style.display == "block"){
+  //   guestNav.style.display = "none";
+  //   userNav.style.display = "block";
+  // }
+  // else {
+  //   guestNav.style.display = "block";
+  //   userNav.style.display = "none";
+  // }
 }

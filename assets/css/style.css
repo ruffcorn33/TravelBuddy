@@ -67,8 +67,8 @@ body {
   width: 100%;
   height: 750px;
   background-repeat: no-repeat;
-  background-position: center; 
-  background-size: cover; 
+  background-position: center;
+  background-size: cover;
   margin-top: -65px;
 }
 
@@ -86,8 +86,8 @@ hr {
 .minneapolis {
   background-image: url('../images/minneapolis.JPG');
   background-repeat: no-repeat;
-  background-position: center; 
-  background-size: cover; 
+  background-position: center;
+  background-size: cover;
   height: 750px;
   width:100%;
   margin-top: -65px;
@@ -150,7 +150,7 @@ hr {
   height: 180px;
   text-align: center;
   width: 100%;
-  
+
 }
 
 .weather {
@@ -158,9 +158,7 @@ hr {
   text-shadow: 2px 1px black;
   font-size: 20px;
   margin-top: 10px;
-
 }
-
 
 /*Categories*/
 .categories {
@@ -170,8 +168,34 @@ hr {
   text-align: center;
   border-radius: 10px;
   border: 1px solid gray;
-  
 }
+
+/* .header1 {
+  background-color: #4498ff;
+}
+
+.header2 {
+  background-color: #fbff44;
+}
+.header3 {
+  background-color: #b9bab6;
+}
+
+.header4 {
+  background-color: #f9aa0c;
+}
+
+.header5 {
+  background-color: #a174fc;
+}
+
+.header6 {
+  background-color: #5bc160;
+}
+
+.header7 {
+  background-color: #000;
+} */
 
 
 #activityContainer {
@@ -228,9 +252,9 @@ a, a:link {
 
 .trickcenter {
     position: fixed;
-    top: 93%; 
+    top: 93%;
     left: 50%;
-    transform: translate(-50%, -50%);  
+    transform: translate(-50%, -50%);
 }
 
 .where {
