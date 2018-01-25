@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TravelBuddy - Welcome!</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <!-- jquery reference -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -12,7 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Axios, a promise based HTTP client for the browser and node.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>TravelBuddy - Welcome!</title>
     <!-- Firebase reference -->
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
     <!-- Gijgo library - for datepicker widget -->
@@ -43,65 +43,28 @@
               <a class="nav-link" style="text-shadow: 1px 1px black;"  href="contact.html">Contact</a>
             </li>
             <!-- replace this list item with the commented code below after saved trip functionality is added-->
-            <li class="nav-item">
+            <li id="guest-trips" class="nav-item d-block">
               <a class="nav-link" style="text-shadow: 1px 1px black;"  href="main.html">My Trips</a>
             </li>
-            <!-- <li class="nav-item dropdown disabled">
+            <li class="nav-item dropdown user-trips d-none">
               <a class="nav-link dropdown-toggle" href="main.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Trips
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 dynamically append links to saved trips here
               </div>
-            </li> -->
+            </li>
           </ul>
           <!-- righthand nav buttons -->
           <ul class="nav justify-content-end">
 
-            <!-- log-in dropdown, Bootstrap -->
+            <!-- log-in, Bootstrap -->
             <li class="nav-item">
               <div class="btn-group">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Login
-                </button>
-                <form class="dropdown-menu p-2">
-                  <div class="form-group">
-                    <label for="DropdownFormEmail">Email Address</label>
-                    <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormPassword">Password</label>
-                    <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-              </div>  <!-- end login dropdown -->
+                <button class="btn btn-secondary" id="google_sign_in" type="button">Sign in with Google</button>
+              </div>  <!-- end login -->
             </li>
 
-
-            <!-- sign-in dropdown, Bootstrap -->
-            <li class="nav-item mr-5">
-              <div class="btn-group">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sign Up
-                </button>
-                <form class="dropdown-menu p-4">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="John Smith">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormEmail">Email Address</label>
-                    <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormPassword">Create Password</label>
-                    <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign up</button>
-                </form>
-              </div>  <!-- end sign-in dropdown -->
-            </li>
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->
@@ -140,7 +103,7 @@
             </div>
           </div>
       </div>
- 
+
       <!--Controlling the carousel-->
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -181,8 +144,6 @@
 </div><!--end of col-->
 <!--end of row-->
 
-
-
 <!--......................................................................................................................-->
 
     <!--FOOTER-->
@@ -210,6 +171,7 @@
 
     <!-- JavaScript -->
     <script src="assets/javascript/firebase_init.js"></script>
+    <script src="assets/javascript/google_auth.js"></script>
     <script src="assets/javascript/firebase_main.js"></script>
     <script src="assets/javascript/script.js"></script>
   </body>

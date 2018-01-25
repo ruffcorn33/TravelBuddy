@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TravelBuddy - Trips</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <!-- jquery reference -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -12,7 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Axios, a promise based HTTP client for the browser and node.js -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>TravelBuddy - Welcome!</title>
     <!-- Firebase reference -->
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
     <!-- Gijgo library - for datepicker widget -->
@@ -29,14 +29,14 @@
   <body>
 
   <div class="content">
- 
-      <!--NAVBAR-->
+
+    <!--NAVBAR-->
       <nav class="my-nav navbar navbar-expand-lg">
         <a class="buddy navbar-brand ml-5">TravelBuddy</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto ml-2">
             <li class="nav-item active">
               <a class="nav-link shift" style="text-shadow: 1px 1px black;" href="index.html">Home <span class="sr-only">(current)</span></a>
@@ -60,50 +60,13 @@
           <!-- righthand nav buttons -->
           <ul class="nav justify-content-end">
 
-            <!-- log-in dropdown, Bootstrap -->
+            <!-- log-in, Bootstrap -->
             <li class="nav-item">
               <div class="btn-group">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Login
-                </button>
-                <form class="dropdown-menu p-2">
-                  <div class="form-group">
-                    <label for="DropdownFormEmail">Email Address</label>
-                    <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormPassword">Password</label>
-                    <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-              </div>  <!-- end login dropdown -->
+                <button class="btn btn-secondary" id="google_sign_in" type="button">Sign in with Google</button>
+              </div>  <!-- end login -->
             </li>
 
-
-            <!-- sign-in dropdown, Bootstrap -->
-            <li class="nav-item mr-5">
-              <div class="btn-group">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Sign Up
-                </button>
-                <form class="dropdown-menu p-4">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="John Smith">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormEmail">Email Address</label>
-                    <input type="email" class="form-control" id="DropdownFormEmail" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label for="DropdownFormPassword">Create Password</label>
-                    <input type="password" class="form-control" id="DropdownFormPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign up</button>
-                </form>
-              </div>  <!-- end sign-in dropdown -->
-            </li>
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->
@@ -144,8 +107,8 @@
               <button id="addTrip" type="submit" class="btn btn-primary float-right" update="true">Go!</button>
             </div>
           </div>  <!-- end of .form-row -->
-        </form>
-      </div>  <!--end of .container -->
+        </form> <!--end of .container -->
+      </div>  <!--end of .content-inside minneapolis -->
     <!--end of content-->
 
       <!-- weather -->
@@ -164,13 +127,13 @@
         <div id="radio" class="col-md-4">
           <div class="form-check mt-5">
             <h4>View</h4>
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+            <input id="my-markers" class="form-check-input" type="radio" name="exampleRadios" value="option1">
             <label class="form-check-label" for="exampleRadios1">
             My Markers
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked>
+            <input id="all-markers" class="form-check-input" type="radio" name="exampleRadios" value="option2" checked>
             <label class="form-check-label" for="exampleRadios2">
             All Markers
             </label>
@@ -192,7 +155,7 @@
             <div class="card">
               <!-- category 1 -->
               <!--CAFES-->
-              <div class="card-header" role="tab" id="headingOne">
+              <div class="card-header header1" role="tab" id="headingOne">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne" btnCategory="cafe">
                 <img src="assets/images/cafe.JPG" alt="Cafes" class="categories mr-3">
@@ -209,7 +172,7 @@
             <!-- category 2 -->
             <!--RESTAURANTS-->
             <div class="card">
-              <div class="card-header" role="tab" id="headingTwo">
+              <div class="card-header header2" role="tab" id="headingTwo">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo" class="categoryButton" btnCategory="restaurant">
                 <img src="assets/images/lunch.JPG" alt="Restaurants" class="categories mr-3">
@@ -226,7 +189,7 @@
             <!-- category 3 -->
             <!--TRANSIT STATIONS-->
             <div class="card">
-              <div class="card-header" role="tab" id="headingThree">
+              <div class="card-header header3" role="tab" id="headingThree">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree" class="categoryButton" btnCategory="transit_station">
                 <img src="assets/images/station.JPG" alt="Transit Stations" class="categories mr-3">
@@ -243,7 +206,7 @@
             <!-- category 4 -->
             <!--BARS-->
             <div class="card">
-              <div class="card-header" role="tab" id="headingFour">
+              <div class="card-header header4" role="tab" id="headingFour">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour" btnCategory="bar">
                 <img src="assets/images/bars.JPG" alt="Bars" class="categories mr-3">
@@ -260,7 +223,7 @@
             <!-- category 5 -->
             <!--NIGHTLIFE-->
             <div class="card">
-              <div class="card-header" role="tab" id="headingFive">
+              <div class="card-header header5" role="tab" id="headingFive">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseFive" role="button" aria-expanded="false" aria-controls="collapseFive" btnCategory="night_club">
                 <img src="assets/images/nightlife.JPG" alt="Nightlife" class="categories mr-3">
@@ -277,7 +240,7 @@
             <!-- category 6 -->
             <!--ATTRACTIONS-->
             <div class="card">
-              <div class="card-header" role="tab" id="headingSix">
+              <div class="card-header header6" role="tab" id="headingSix">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix" btnCategory="park">
                 <img src="assets/images/park.JPG" alt="Parks" class="categories mr-3">
@@ -294,7 +257,7 @@
             <!-- category 7 -->
             <!--MUSEUMS-->
             <div class="card">
-              <div class="card-header" role="tab" id="headingSeven">
+              <div class="card-header header7" role="tab" id="headingSeven">
                 <h5 class="mb-0">
                 <a class="collapsed categoryButton" data-toggle="collapse" href="#collapseSeven" role="button" aria-expanded="false" aria-controls="collapseSeven" btnCategory="museum">
                 <img src="assets/images/museums.JPG" alt="Museums" class="categories mr-3">
@@ -311,8 +274,6 @@
           </div>  <!-- end of .accordian -->
         </div> <!-- end of activity container -->
       </div>  <!-- end of .contentRow -->
-  
-
 
 <!--.....................................................................................................................-->
     <!--FOOTER-->
@@ -331,6 +292,7 @@
 
     <!-- JavaScript -->
     <script src="assets/javascript/firebase_init.js"></script>
+    <script src="assets/javascript/google_auth.js"></script>
     <script src="assets/javascript/firebase_main.js"></script>
     <script src="assets/javascript/script.js"></script>
     <script src="assets/javascript/map.js"></script>
@@ -338,7 +300,7 @@
     <!-- Google Maps -->
     <!-- and the Places library -->
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing&key=AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyADdZ4KZHwZP1YQFdmKa15i5JlbUnRfJw4&callback=initMap">
     </script>
     <!-- <script async defer
       src= "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBh8WwgRLrg0-MbRqSy2a6VhXMkCl9SKXw">

@@ -41,31 +41,41 @@ activity_categories_ref.orderByKey().once('value').then(function(snapshot)
   // set_categories_selection();
 });
 
+load_default_user();
+
 // load 'default' user
 // that is to say, create a random user to use for the session
 // if this user ends up with any data, transfer it to the newly logged in user
 // this session user can only change if a different user signs in
-var session_uid = localStorage.getItem("user_uid");
-if (validate_exists(session_uid))
+function load_default_user()
 {
-  user_uid = session_uid;
-  current_trip_name = localStorage.getItem("tripName").replace(/\//g, "");
-  active_trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name);
-} else {
-  var session_user_ref = users_ref.push(
-        {
-          "name": "Session User"
-        });
-  user_ref = session_user_ref;
-  user_uid = session_user_ref.key;
-  localStorage.setItem("user_uid", user_uid);
-  localStorage.setItem("user_name", "Session User");
-  console.log("session user id:", user_uid);
-  // on disconnect remove the session user object
-  // !!!
-  // It appears as if switching pages counts as a disconnect
-  // !!!
-  // session_user_ref.onDisconnect().remove();
+  var session_uid = localStorage.getItem("user_uid");
+  if (validate_exists(session_uid))
+  {
+    user_uid = session_uid;
+    var ls_trip = localStorage.getItem("tripName");
+    if (validate_exists(ls_trip))
+    {
+      current_trip_name = ls_trip.replace(/\//g, "");
+      active_trip_ref = firebase.database().ref('travel_buddy/users/' + user_uid + '/trips/' + current_trip_name);
+    }
+  } else {
+    var session_user_ref = users_ref.push(
+          {
+            "name": "Session User"
+          });
+    user_ref = session_user_ref;
+    user_uid = session_user_ref.key;
+    localStorage.setItem("user_uid", user_uid);
+    localStorage.setItem("user_name", "Session User");
+    console.log("session user id:", user_uid);
+    // on disconnect remove the session user object
+    // !!!
+    // It appears as if switching pages counts as a disconnect
+    // TODO - add code to remove stale session users
+    // !!!
+    // session_user_ref.onDisconnect().remove();
+  }
 }
 
 // add/update a trip in Firebase - 'exposed' method to the app
@@ -161,6 +171,7 @@ function do_travel_buddy_signin(u)
       obj.email = u.email;
       obj.photoURL = u.photoURL;
       var session_user_ref = firebase.database().ref("travel_buddy/users/" + session_uid);
+      update_signin_user(u.uid, obj);
       session_user_ref.remove();
     });
   } else {
@@ -169,28 +180,57 @@ function do_travel_buddy_signin(u)
       "email": u.email,
       "photoURL": u.photoURL,
     };
+    update_signin_user(u.uid, obj);
   }
-
-  // fetch the user record if it exists, else create it
-  var tb_user = undefined;
-  query_user(u.uid).then(function(usr)
-  {
-    tb_user = usr;
-    if (typeof tb_user === "object")
-    {
-      // existing user, update with session
-      store_user(u.uid, obj, true);
-    } else {
-      // new user, create it
-      store_user(u.uid, obj, false);
-    }
-  });
 
   // set localStorage
   localStorage.setItem("user_uid", u.uid);
   localStorage.setItem("user_name", u.displayName);
   localStorage.setItem("user_email", u.email);
   localStorage.setItem("user_photoURL", u.photoURL);
+}
+
+// fetch the user record if it exists, else create it
+// this function is necessitated by the asyncronous nature of JavaScript.
+function update_signin_user(uid, obj)
+{
+  var tb_user = undefined;
+  query_user(uid).then(function(usr)
+  {
+    tb_user = usr;
+    if (typeof tb_user === "object")
+    {
+      // existing user, update with session
+      store_user(uid, obj, true);
+    } else {
+      // new user, create it
+      store_user(uid, obj, false);
+    }
+  });  
+}
+
+// sign out of TravelBuddy
+function do_travel_buddy_signout()
+{
+  // because firebase.auth().onAuthStateChanged() calls this each time
+  // a new html gets loaded, need to check the user name to see if we're
+  // just a session user before clearing localStorage
+  var uname = localStorage.getItem("user_name");
+  if (uname === "Session User")
+    return;
+  localStorage.removeItem("user_uid");
+  localStorage.removeItem("user_name");
+  localStorage.removeItem("user_email");
+  localStorage.removeItem("user_photoURL");
+  localStorage.removeItem("tripPid");
+  localStorage.removeItem("tripName");
+  localStorage.removeItem("tripDestination");
+  localStorage.removeItem("tripLoc");
+  localStorage.removeItem("tripLat");
+  localStorage.removeItem("tripLng");
+  localStorage.removeItem("tripBegDate");
+  localStorage.removeItem("tripEndDate");
+  load_default_user();
 }
 
 //
@@ -262,7 +302,7 @@ function query_trip(trip_name)
   return deferred.promise();
 }
 
-// return a promise which returns the JSON object for the trip
+// return a promise which returns the JSON object for the activity
 // if nothing passed in for activity_name, use global current acivivty
 function query_activity(activity_name)
 {
@@ -309,14 +349,7 @@ function store_user(id, user, update)
   var user_ref = firebase.database().ref('travel_buddy/users/' + id);
   if ((typeof update != 'undefined') && (update === true))
   {
-    var obj = {};
-    if (validate_exists(user.name))
-      obj.name = user.name;
-    if (validate_exists(user.email))
-      obj.email = user.email;
-    if (validate_exists(user.photoURL))
-      obj.photoURL = user.photoURL;
-    user_ref.update(obj);
+    user_ref.update(user);
   } else {
     user_ref.set(user);
   }
