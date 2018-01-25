@@ -158,6 +158,7 @@ hr {
   text-shadow: 2px 1px black;
   font-size: 20px;
   margin-top: 10px;
+
 }
 
 
@@ -231,6 +232,7 @@ a, a:link {
 
 .where {
   margin-top: -350px;
+  position: relative;
 }
 
 h1 {
@@ -273,7 +275,7 @@ html, body {
   text-shadow: 1px 1px gray;
   background-color: #202020;
   color:white;
-  margin-top: -50px;
+  margin-top: -90px;
 }
 
 .fa {

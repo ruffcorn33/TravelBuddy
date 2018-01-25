@@ -110,7 +110,8 @@
 <!--......................................................................................................................-->
 
   <!--Carousel-->
-  <div id="carouselExampleControls" class="my-carousel carousel slide" data-ride="carousel">
+<div class="row">
+  <div id="carouselExampleControls" class="col-md-12 my-carousel carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img class="img-fluid" src="assets/images/europe.JPG" alt="Europe" width="100%">
@@ -156,7 +157,8 @@
     <div class="container where">
       <form>
         <div class="form-row">
-          <div class="form-group col-md-5">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-4">
             <label for="inputDestination" class="text-white">Tell us where you are going...</label>
             <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
           </div>
@@ -176,20 +178,23 @@
       </form>
     </div>  <!-- end of .container -->
   </div> <!-- end of .content-inside -->
-</div>
+</div><!--end of col-->
+<!--end of row-->
 
 
 
 <!--......................................................................................................................-->
 
     <!--FOOTER-->
-    <footer class="footer">
+  <div class="row">
+    <footer class="col-md-12 footer">
       <div class="container text-center">
         <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
         <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
         <p class="text-center">&copy;2018 Team A/C</p>
       </div>
     </footer>
+  </div>
 
     <!-- The Verification Modal -->
     <div id="verificationModal" class="modal">
