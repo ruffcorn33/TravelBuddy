@@ -172,12 +172,14 @@ function formatTripName(trip, fromDate, toDate) {
 function toggleTripsNav() {
   var guestNav = $("#guest-trips");
   var userNav = $("#user-trips");
-  if (guestNav.style.display == "block"){
-    guestNav.style.display = "none";
-    userNav.style.display = "block";
-  }
-  else {
-    guestNav.style.display = "block";
-    userNav.style.display = "none";
-  }
+  guestNav.toggleClass("d-none d-block");
+  userNav.toggleClass("d-none d-block");
+  // if (guestNav.style.display == "block"){
+  //   guestNav.style.display = "none";
+  //   userNav.style.display = "block";
+  // }
+  // else {
+  //   guestNav.style.display = "block";
+  //   userNav.style.display = "none";
+  // }
 }
