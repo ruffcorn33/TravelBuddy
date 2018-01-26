@@ -38,11 +38,13 @@ function ActivityObj(place_id, name, lat, lng, category) {
 
 function parseSavedActivities(){
   var tripObj = JSON.parse(localStorage.getItem("savedTrip"));
-  var actArray = parse_trip_activities(tripObj);
-  savedActivities = [];
-  for (var i = 0; i < actArray.length; i++){
-    var actObj = actArray[i].activityObj;
-    savedActivities.push(new ActivityObj(actObj.place_id, actArray[i].activityName, actObj.lat, actObj.lng, actObj.category));
+  if (typeof tripObj === "object" && tripObj != null) {
+    var actArray = parse_trip_activities(tripObj);
+    savedActivities = [];
+    for (var i = 0; i < actArray.length; i++){
+      var actObj = actArray[i].activityObj;
+      savedActivities.push(new ActivityObj(actObj.place_id, actArray[i].activityName, actObj.lat, actObj.lng, actObj.category));
+    }
   }
 }
 // on page load - fill saved activities, if they're there
