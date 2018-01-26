@@ -3,7 +3,7 @@ TravelBuddy is an app which acts as a personal assistant for someone going on a 
 
 ## Deployed
 
-Hosting URL: https://groupprojects-b75a1.firebaseapp.com/main.html
+Hosting URL: https://travelbuddy-8ad21.firebaseapp.com/
 
 ## Built With
 
@@ -23,13 +23,6 @@ Other:
 * Bootstrap
 * Google Fonts
 * Font Awesome
-
-### Prerequisites
-
-* [Firebase](https://firebase.google.com/)
-* * your own Firebase Project with Google Sign In turned on
-* * an assets/javascript/firebase_init.js file with your Firebase configuration and initialization
-* * your own deployment into your Firebase Project
 
 ### Completed Features
 
