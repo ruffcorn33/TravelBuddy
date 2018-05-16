@@ -1,38 +1,12 @@
-body {
-  font-family: 'PT Sans', sans-serif;
-  background-color: #F0F0F0;
-}
-
-
-/* NAVBAR */
+ /* NAVBAR */
 .navbar, .navbar-brand, .nav-link {
   color: white;
-  font-size: 20px;
-}
-
-.navbar {
-  width: 100%;
-  margin-top: none;
 }
 
 .buddy {
   font-family: 'Raleway', sans-serif;
-  font-size: 28px;
+  font-size: 24px;
   color:#65A8FF
-}
-
-
-.nav-link:hover {
-  background: rgba(0,0,0,0);
-  color: white;
-  box-shadow: inset 0 0 0 3px white;
-}
-
-.nav-link:hover
-{
-        -webkit-transform: scale(1.1);
-        -ms-transform: scale(1.1);
-        transform: scale(1.1);
 }
 
 .my-nav{
@@ -57,6 +31,7 @@ body {
 .text {
   font-size: 20px;
 }
+
 .icons {
   height: 150px;
   width: 150px;
@@ -88,7 +63,7 @@ hr {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 750px;
+  height: 780px;
   width:100%;
   margin-top: -65px;
   border-bottom: 2px solid black;
@@ -102,38 +77,27 @@ hr {
 
 .from-row {
   color: black;
+  width: 400px;
 }
 
 .text-white {
-  text-shadow: 2px 1px black;
   font-size: 20px;
 
 }
 
-
 /* MAP */
-.holder{
-  height: 100%;
-  width: 100%;
-  background-color:;
-  margin-bottom: 0px;
-}
-
 #map {
-  height: 1000px;
+  height: 300px;
   width: 100%;
   margin-top: 50px;
-  margin-bottom: 20px;
-  margin-left: 60px;
-  margin-right: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
-
 
 #contentRow {
   height: 100%;
   margin-bottom: 0px;
 }
-
 
 /* WEATHER */
 #weatherRow{
@@ -144,20 +108,12 @@ hr {
   margin-left: 0px;
 }
 
-
 #weatherDisplay {
   background-color: #202020;
   height: 180px;
   text-align: center;
+  margin-top: 30px;
   width: 100%;
-
-}
-
-.weather {
-  color: white;
-  text-shadow: 2px 1px black;
-  font-size: 20px;
-  margin-top: 10px;
 }
 
 /*Categories*/
@@ -170,47 +126,18 @@ hr {
   border: 1px solid gray;
 }
 
-/* .header1 {
-  background-color: #4498ff;
-}
-
-.header2 {
-  background-color: #fbff44;
-}
-.header3 {
-  background-color: #b9bab6;
-}
-
-.header4 {
-  background-color: #f9aa0c;
-}
-
-.header5 {
-  background-color: #a174fc;
-}
-
-.header6 {
-  background-color: #5bc160;
-}
-
-.header7 {
-  background-color: #000;
-} */
-
-
 #activityContainer {
   height: 100%;
   width: 100%;
   margin-top: 50px;
-  margin-bottom: 20px;
-  margin-right: 40px;
+  margin-bottom: 10px;
+  margin-left: 8px;
 }
 
 a, a:link {
   color: black;
   text-shadow: 1px 1px rgb(205, 218, 247);
   text-decoration: none;
-
 }
 
 .card:hover {
@@ -222,24 +149,12 @@ a, a:link {
   width: 320px;
 }
 
-
-
-/* Carousel Index */
-.my-carousel {
-  margin-top: -70px;
-  margin-bottom: 45px;
+.class {
+  margin-right: 300px;
 }
 
 .carousel-inner, .carousel-item, .img {
   height: 750px;
-}
-
-.form-row {
-  position: relative;
-  color: black;
-  font-size: 22px;
-  margin-bottom: 30px;
-  float: center;
 }
 
 .carousel-caption {
@@ -264,25 +179,17 @@ a, a:link {
 }
 
 h1 {
-  font-size: 60px;
   text-shadow: 3px 3px black;
+  margin-top: -100px;
+  font-size: 45px;
 }
 
 h2 {
   text-shadow: 3px 3px black;
+  margin-top: -30px;
 }
-
-#appDescription{
-  position: absolute;
-  top: 107%;
-  right: 10%;
-  left: 10%;
-  text-align: center;
-}
-
 
 /*FOOTER*/
-
 html, body {
   height: 100%;
   margin: 0;
@@ -311,8 +218,6 @@ html, body {
   color: #65A8FF;
 }
 
-
-
 .bottom_ul {
   list-style-type:none;
   float:right;
@@ -335,7 +240,6 @@ html, body {
   color:#FFF;
   font-size:12px;
 }
-
 
 /* The Modal (background) */
 .modal {
@@ -376,52 +280,283 @@ html, body {
   cursor: pointer;
 }
 
-/*Media Queries
-@media (min-width:576px) and (max-width: 768px) {
-  Main Page
-
-.change-trip {
-  margin-top: ;
-}
-
-#weatherDisplay{
-  margin-top:;
-}
-
-
-#map {
-  height: 100px;
-}
-
-.card {
-  margin-left: 100px;
-}
-
-
-Index Page
 .img-fluid {
-  height: 600px;
-  margin-bottom: 0px;
+    height: 400px;
 }
 
-.form-row {
-  width: 720px;
- } 
-
-.where {
-  margin-left: 0px;
+.form-group {
+  left: -10%;
+  width: 280px;
 }
 
+#addTrip {
+  margin-bottom: 20px;
+  margin-left: -30px;
+}
 
-.carousel-caption {
-  position: absolute;
-  z-index: 1;
-  display:table;
-  width:100%;
-  height:100%;
-  top: 90%;
-  font-size: 16px;
+.destination {
+  font-size: 18px;
+}
+
+.bottom {
+      margin-bottom: 80px;
+}
+#trip {
+  margin-left: 80px;
+}
+
+#radio {
+    margin-left: 120px;
+    margin-bottom: 30px;
+  }
+
+/* MEDIA QUERIES */
+/*-------------------------------*/
+@media (min-width: 576px) {
+  .check {
+    margin-left: -15px;
+  }
+
+  #radio {
+    margin-left: 200px;
+  }
+
+  .form-check-label {
+    margin-left: 10px;
+  }
+
+  #trip {
+    width: 350px;
+    margin-left: 140px;
+  }
+
+  #inputDestination {
+    margin-left: 30px;
+    width: 390px;
+  }
+
+  #inputFromDate {
+    width: 350px;
+    margin-left: 30px;
+  }
+  
+  #inputToDate {
+    width: 350px;
+    margin-left: 30px;
+  }
+
+  .fa {
+    padding-right: 110px;
+  }
+
+  .input-group-append {
+    padding-right: 120px;
+  }
+
+  label {
+    margin-left: 30px;
+  }
+
+  #addTrip {
+    margin-left: 80px;
+    width: 100px;
+    margin-top: 20px;
+  }
+
+  #map {
+    width:600px;
+    margin-left: 25px;
+  }
+
+  #accordion {
+    margin-left: 100px;
+  } 
+
+  #trip-name {
+    margin-left: 80px;
+  }
+
+  .tripLocation {
+    margin-left: 110px;
+  }
+
+  .minneapolis {
+    height: 830px;
+  }
+
+  .form-group {
+    margin-left: 70px;
+  }
+
+  #destination {
+    margin-left: 40px;
+  }
+
+}
+
+/* ------------------------- */
+@media (min-width: 768px) {
+  #radio {
+    margin-left: -5px;
+  }
+
+  #activityContainer {
+    margin-left: 100px;
+  }
+
+  #map {
+    height:300px;
+    width: 100%;
+    margin-left: 30px;
+  }
+
+  .mb-4 {
+    margin-left: -200px;
+  }
+
+  #inputDestination {
+    width: 500px;
+  }
+
+  #inputFromDate {
+    width: 500px;
+  }
+  
+  #inputToDate {
+    width: 500px;
+  }
+
+  .form-group {
+    margin-left: 90px;
   }
 }
-@include media-breakpoint-up(md) { ... }
-@include media-breakpoint-up(lg) { ... }*/
+/* -------------------------------*/
+@media (min-width: 992px) {
+
+  #inputDestination {
+    width: 400px;
+  }
+
+  #inputFromDate {
+    width: 400px;
+  }
+  
+  #inputToDate {
+    width: 400px;  
+  }
+
+  #trip {
+    margin-left: 320px;
+  }
+
+  .change-trip {
+    margin-top: 400px;
+  }
+
+  .minneapolis {
+    height: 900px;
+  }
+
+  #addTrip {
+    margin-left: 220px;
+  }
+
+  #activityContainer {
+    margin-left: -50px;
+  }
+
+  .mb-4 {
+    margin-left: 40px;
+  }
+
+  #map {
+    height: 600px;
+    margin-top: 100px;
+  }
+
+  .form-group {
+    margin-left: 350px;
+  }
+
+  .form-group {
+    margin-left: 240px;
+  }
+}
+
+/* -------------------------------*/
+@media (min-width: 1200px) {
+  #trip {
+    margin-left: 300px;
+
+  }
+
+  #addTrip {
+    margin-left: 360px;
+  }
+
+  #map {
+    margin-left: 30px;
+    margin-top: 100px;
+  }
+
+  #accordion {
+    margin-left: 140px;
+  }
+
+  #addTrip {
+    margin-left: 140px;
+    margin-bottom: 30px;
+  }
+  h1 {
+    font-size: 50px;
+  }
+
+  .form-group {
+    margin-left: 150px;
+  }
+
+  #inputDestination {
+    width: 700px;
+  }
+
+  #inputFromDate {
+    width: 700px;
+  }
+  #inputToDate {
+    width: 700px;
+  }
+
+  .fa {
+    padding-right: 370px;
+  }
+
+  .input-group-append {
+    padding-right: 380px;
+  }
+
+  #trip-name {
+    width: 500px;
+    margin-left: 0px;
+  }
+
+  #saveTrip {
+    margin-top: 20px;
+  }
+  .minneapolis {
+    height: 1000px;
+  }
+}
+@media (min-width: 1400px) { 
+  .form-group {
+    margin-left: 300px;
+  }
+
+  #addTrip {
+    margin-left: 280px;
+    margin-bottom: 30px;
+  }
+  #accordion {
+    margin-left: 200px;
+  }
+}
+
