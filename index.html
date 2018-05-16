@@ -26,36 +26,24 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway" rel="stylesheet">
   </head>
   <body>
-
-  <div class="content">
-    <!--NAVBAR-->
+<div class="content">
+      <!--NAVBAR-->
       <nav class="my-nav navbar navbar-expand-lg">
-        <a class="buddy navbar-brand ml-5">TravelBuddy</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <a class="buddy navbar-brand">TravelBuddy</a>
+        <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
-       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto ml-2">
             <li class="nav-item active">
-              <a class="nav-link shift" style="text-shadow: 1px 1px black;" href="index.html">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" style="text-shadow: 1px 1px black;" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" style="text-shadow: 1px 1px black;"  href="contact.html">Contact</a>
             </li>
             <!-- replace this list item with the commented code below after saved trip functionality is added-->
-            <li id="guest-trips" class="nav-item d-block">
+            <li class="nav-item">
               <a class="nav-link" style="text-shadow: 1px 1px black;"  href="main.html">My Trips</a>
-            </li>
-            <li id="user-trips" class="nav-item dropdown d-none" display="none">
-              <a class="nav-link dropdown-toggle" href="main.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                My Trips
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <ul id="tripList">
-                  <!-- dynamically append links to saved trips here -->
-
-                </ul>
-              </div>
             </li>
           </ul>
           <!-- righthand nav buttons -->
@@ -71,8 +59,6 @@
           </ul>  <!-- end righthand nav buttons -->
         </div>
       </nav>  <!-- end navbar -->
-
-
 <!--......................................................................................................................-->
 
   <!--Carousel-->
@@ -120,30 +106,26 @@
   </div>  <!-- end of #carouselExampleControls -->
   <!-- Welcome and trip input -->
   <div class="content-inside">
-    <div class="container where">
-      <form>
-        <div class="form-row">
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-4">
-            <label for="inputDestination" class="text-white">Where you are going...</label>
+    <div class="where">
+      <form> 
+          <div class="form-group col-12 col-lg-6">
+            <label for="inputDestination" id="destination">Where you are going...</label>
             <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
           </div>
-          <div class="form-group col-md-3">
-            <label for="inputFromDate" class="text-white">Arrival</label>
+          <div class="form-group col-12 col-lg-6">
+            <label for="inputFromDate" class="arrival destination">Arrival</label>
             <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
           </div>
-          <div class="form-group col-md-3">
-            <label for="inputToDate" class="text-white">Returning (optional)</label>
+          <div class="form-group col-12">
+            <label for="inputToDate" class="returning destination">Returning (optional)</label>
             <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY">
           </div>
-          <div class="col-md-1">
-            <label for="button" class="text-white">Click</label>
-            <button id="addTrip" type="submit" class="btn btn-primary float-right">Go!</button>
+          <div class="col-12 bottom">          
+            <button id="addTrip" type="submit" class="letsGo btn btn-primary">Go!</button>
           </div>
         </div>  <!-- end of .form-row -->
       </form>
     </div>  <!-- end of .container -->
-  </div> <!-- end of .content-inside -->
 </div><!--end of col-->
 <!--end of row-->
 
@@ -153,24 +135,19 @@
   <div class="row">
     <footer class="col-md-12 footer">
       <div class="container text-center">
-        <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
-        <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
-        <p class="text-center">&copy;2018 Team A/C</p>
+        <p class="text-center mt-5">&copy;2018 Team A/C</p>
       </div>
     </footer>
   </div>
-
   </div> <!-- end of .content -->
 
     <!-- The Verification Modal -->
     <div id="verificationModal" class="modal">
-
       <!-- Modal content -->
       <div class="modal-content">
         <!-- <span class="close">OK</span> -->
         <div id="verifyContent"></div>
       </div>
-
     </div>
 
     <!-- JavaScript -->

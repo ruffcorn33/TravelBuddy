@@ -32,8 +32,8 @@
 
     <!--NAVBAR-->
       <nav class="my-nav navbar navbar-expand-lg">
-        <a class="buddy navbar-brand ml-5">TravelBuddy</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="buddy navbar-brand">TravelBuddy</a>
+        <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -79,9 +79,9 @@
       <div class="content-inside minneapolis">
         <form class="container">
           <div id="titleRow" class="row mx-1">
-            <div class="col-md-3"></div>
-            <div id="titleBox" class="col-md-6 pb-3 change-trip text-center">
-              <label class="p-2 text-white">My Trip Name:</label><span>
+            <div class="col-md-3 col-lg-2"></div>
+            <div id="titleBox" class="col-md-12 col-lg-8 pb-3 change-trip">
+              <label class="pl-3 text-white">My Trip Name:</label><span>
             <div class="input-group mb-3">
               <input id="trip-name" type="text" class="form-control" placeholder="Enter a name for your trip" aria-label="Trip name" aria-describedby="basic-addon2">
             <div class="input-group-append">
@@ -93,26 +93,24 @@
         </div>
         <div class="form-row">
           <div class="col-md-2"></div>
-          <div class="form-group col-md-4">
+          <div id="trip" class="form-group col-md-12 col-lg-12 col-xl-12">
             <label for="inputDestination white" class="text-white">Change Trip Location..</label>
             <input type="text" class="form-control" id="inputDestination" placeholder="Enter an address">
           </div>
-          <div class="form-group col-md-2">
+          <div id="trip" class="form-group trip col-md-12 col-xl-12">
             <label for="inputFromDate" class="text-white">Arrival</label>
             <input class="form-control" id="inputFromDate" placeholder="MM/DD/YYYY">
           </div>
-            <div class="form-group col-md-2">
+            <div id="trip" class="form-group trip col-md-12">
               <label for="inputToDate" class="text-white">Returning</label>
               <input class="form-control" id="inputToDate" placeholder="MM/DD/YYYY">
             </div>
-            <div class="col-md-1 text-center">
-              <label for="button" class="text-white">Click</label>
-              <button id="addTrip" type="submit" class="btn btn-primary float-right" update="true">Go!</button>
+            <div class="col-md-12 text-center">
+              <button id="addTrip" type="submit" class="goNow btn btn-primary" update="true">Go!</button>
             </div>
           </div>  <!-- end of .form-row -->
         </form> <!--end of .container -->
       </div>  <!--end of .content-inside minneapolis -->
-    <!--end of content-->
 
       <!-- weather -->
       <div id="weatherRow" class="row">
@@ -130,13 +128,13 @@
         <div id="radio" class="col-md-4">
           <div class="form-check mt-5">
             <h4>View</h4>
-            <input id="my-markers" class="form-check-input" type="radio" name="exampleRadios" value="option1">
+            <input id="my-markers" class="check form-check-input" type="radio" name="exampleRadios" value="option1">
             <label class="form-check-label" for="exampleRadios1">
             My Markers
             </label>
           </div>
           <div class="form-check">
-            <input id="all-markers" class="form-check-input" type="radio" name="exampleRadios" value="option2" checked>
+            <input id="all-markers" class="check form-check-input" type="radio" name="exampleRadios" value="option2" checked>
             <label class="form-check-label" for="exampleRadios2">
             All Markers
             </label>
@@ -146,10 +144,10 @@
 
       <div id="contentRow" class="row m-1">
         <!-- Map -->
-        <div id="map" class="col-md-7 border border-dark rounded p-4"></div>
+        <div id="map" class="col-md-11 col-lg-6 border border-dark rounded p-4"></div>
 
         <!--Categories -->
-        <div id="activityContainer" class="col-md-3">
+        <div id="activityContainer" class="col-md-12 col-lg-6">
 
           <h4 class="mb-4 text-center">Choose a category to search</h4>
 
@@ -280,18 +278,14 @@
 
 <!--.....................................................................................................................-->
     <!--FOOTER-->
-    <div class="row">
-      <div class="col-md-12">
-        <footer class="footer mt-5">
+      <div class="row">
+        <footer class="col-md-12 footer mt-5">
           <div class="container text-center">
-           <a href="#" target="_blank"><i class="fa fa-facebook-square" style="font-size:40px;"></i></a>
-            <a href="#" target="_blank"><i class="fa fa-twitter-square" style="font-size: 40px;"></i></a>
-            <p class="text-center">&copy;2018 Team A/C</p>
+            <p class="text-center mt-5">&copy;2018 Team A/C</p>
           </div>
         </footer>
       </div>
-    </div>
-  </div><!-- end .content -->
+    </div> <!-- end content -->
 
     <!-- JavaScript -->
     <script src="assets/javascript/firebase_init.js"></script>
